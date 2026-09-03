@@ -1,0 +1,25 @@
+{
+  "id": "reliable-code-change-operationalization-v1",
+  "activation": {
+    "required_all": ["# Reliable Code Change"]
+  },
+  "revision": {
+    "document_file": "proposed-rewrite.md"
+  },
+  "checks": [
+    {"id": "activation_boundary", "kind": "contains_all", "values": ["do not activate", "explanation-only"], "hard": true},
+    {"id": "operating_contract", "kind": "contains_all", "values": ["## Operating contract", "hard boundaries"], "hard": true},
+    {"id": "authority_and_preservation", "kind": "contains_all", "values": ["authoritative source of truth", "preserve pre-existing edits"], "hard": true},
+    {"id": "falsifiable_precheck", "kind": "contains", "value": "smallest falsifiable check", "hard": true},
+    {"id": "edge_matrix", "kind": "contains_all", "values": ["idempotency", "authorization", "rollback", "scale limits"], "hard": true},
+    {"id": "risk_bounded_expansion", "kind": "contains_all", "values": ["Expand only when", "could change the edit or its safety"], "hard": true},
+    {"id": "verification_ladder", "kind": "contains_all", "values": ["## Verification ladder", "fails before the fix and passes after"], "hard": true},
+    {"id": "honest_unrun_status", "kind": "contains_all", "values": ["never convert", "not run", "passed"], "hard": true},
+    {"id": "completion_gate", "kind": "contains_all", "values": ["## Completion gate", "Finish only when all are true"], "hard": true},
+    {"id": "compression", "kind": "max_tokens", "value": 700, "hard": false, "weight": 0.5}
+  ],
+  "objective": {
+    "structural_weight": 0.2,
+    "behavioral_weight": 0.8
+  }
+}

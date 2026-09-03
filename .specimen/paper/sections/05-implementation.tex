@@ -1,0 +1,41 @@
+The public entry point is a stdlib-only command line (\texttt{prompt-opt
+scan} / \texttt{prompt-opt plan}), installed as a console script from
+\texttt{pyproject.toml}; \texttt{python -m prompt\_optimization ...} is
+equivalent. The only third-party runtime dependency is NumPy.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}p{5.6cm}@{}}
+\toprule
+\textbf{Command} & \textbf{Flags} & \textbf{When to use} \\
+\midrule
+\verb|prompt-opt scan <paths...>| & \verb|--d-model| (must match attractor dim), \verb|--target|, \verb|--seed|, \verb|--samples|, \verb|--limit|, \verb|--json| &
+per-candidate metric vector; the \texttt{synAlign} column is the synthetic alignment signal \\
+\verb|prompt-opt plan <paths...>| & scan flags \textbf{plus} \verb|--gate KEY=BOUND| (repeatable), \verb|--gate-op max|min|, \verb|--json| &
+hard-gate veto, then RD frontier + Pareto + next experiment \\
+\midrule
+\multicolumn{3}{@{}p{\textwidth}@{}}{\footnotesize Directories are walked
+recursively; binaries, hidden files, and derived dirs (\texttt{.git},
+\texttt{.venv}, \texttt{\_\_pycache\_\_}, \texttt{node\_modules}) are skipped.
+``Tokens'' is a tokenizer-free estimate (word/punctuation count), explicitly not
+a real tokenizer.}\\
+\bottomrule
+\end{tabular}
+\caption{The \texttt{prompt-opt} surface.}
+\label{tab:cli}
+\end{table}
+
+Two implementation details matter for the evaluation section. First, the
+\emph{hard-gate} wiring was found buggy during preparation of this preprint (the
+parser stored \texttt{--gate} under \texttt{args.gate}, but planning read
+\texttt{args.gates}, so gates were silently never applied); the fix is in the
+tree and covered by regression tests. Second, the human-readable scan table is
+still \emph{sorted by \texttt{synAlign}} (cosine similarity), most-aligned first
+-- an explicit remainder of the exact ranking role the project's own thesis says
+should be demoted; the selection layer does not use it, but the display does.
+
+The Python API re-exports the public surface at the top level
+(\texttt{from prompt\_optimization import evaluate, pareto\_frontier,
+shapley\_values, ContextCache, ...}), so all downstream code paths (metrics,
+attribution, context) are importable without reaching into subpackages.

@@ -1,0 +1,126 @@
+{
+  "selected": "---\nname: architectural-reasoning\ndescription: Evidence-first architectural reasoning for consequential software decisions, with calibrated effort, explicit ownership, stable contracts, justified boundaries, falsifiable migration, and behavior-preserving edits. Use for subsystem boundaries, ownership, dependencies, platform design, modernization, and formal architecture work; do not use for routine isolated changes.\nmetadata:\n  version: \"1.3.1\"\n  based_on: \"architectural-reasoning 1.3.0\"\n---\n\n# Architectural Reasoning\n\nDesign from actual system forces, not a favored pattern. Produce clear ownership,\ncontracts, justified boundaries, explicit tradeoffs, and an incremental path from current\nreality.\n\n## Calibrate effort\n\n- **Quick decision (default):** inspect targeted evidence, apply one primary lens and one meaningful challenge, then return a compact recommendation.\n- **Focused design:** for one subsystem, boundary, or critical flow, map its owner, state, contract, dependencies, risks, and migration.\n- **Full architecture:** reserve for an explicitly requested audit, formal design, or change spanning foundational subsystems.\n- **Re-audit:** distrust prior findings; re-verify each against current code; classify resolved, regressed, still open, or new; check whether a fix introduced another problem.\n\nRequested depth and output format override these defaults.\n\n### Quick-decision budget\n\nFor a straightforward Quick decision, stop as soon as the recommendation is supported. By default:\n\n- start with directly named files and the immediate call path; inspect further only when a missing fact could change the recommendation or expose a material risk;\n- use one governing lens and one challenge lens only when each can change the decision;\n- return roughly 15\u201320 lines or at most 300 words when that is sufficient to communicate the decision;\n- use **Recommendation**, **Evidence**, **Tradeoffs**, and **Next step**;\n- do not add a full risk register, ownership inventory, all-lens survey, or migration plan unless the evidence reveals a consequential risk that changes the recommendation.\n\nIf the evidence is insufficient, state the smallest missing fact and stop. If a consequential risk requires more evidence or explanation, include only that material detail and explain why the Quick-decision budget was exceeded. Do not spend the budget on speculative completeness. Do not enumerate every lens,\nnarrate internal reasoning, or produce a formal artifact unless the request or the evidence\nrequires it.\n\nStop when the decision is supported. Gather only evidence that could change the\nrecommendation. Do not rewrite working code merely to fit a philosophy.\n\n## Work from reality\n\nInspect relevant code, configuration, tests, deployment artifacts, and documentation. Cite\nconcrete files and symbols for material findings. Run an available test, build, benchmark,\nor minimal reproduction before reporting a material claim.\n\nKeep these views distinct:\n\n- **Current:** observed behavior, components, state, dependencies, and constraints.\n- **Target:** desired ownership, contracts, boundaries, invariants, and qualities.\n- **Migration:** dependency-aware changes that preserve valuable behavior.\n\nDirectory names and diagrams are hypotheses until flows and dependencies confirm them. Report\nconflicts between requested direction and repository evidence. Architecture analysis alone\ndoes not authorize implementation or edits.\n\n## Select lenses and preserve invariants\n\nFor a consequential choice, select lenses from the governing force observed in the\nevidence; use one to generate the design and another to challenge it; surface the tension\nonly when it changes the recommendation.\n\n| Lens | Use when the governing force is |\n|---|---|\n| Information hiding / ownership | responsibility, state authority, independent change, local reasoning |\n| End-to-end responsibility | validation, durability, policy, retries, or workflow placement |\n| Sociotechnical alignment | team boundaries, team communication, cognitive load, review bottlenecks |\n| Evolutionary architecture | long life, migration, reversibility, architectural decay |\n| Security by construction | trust, authority, mediation, least privilege, threat model, attack surface |\n| Empirical performance | latency, throughput, locality, resource cost |\n| Fault containment / recovery | partial failure, trustworthy recovery, blast radius |\n| Distributed tradeoffs | replication, partitions, coordination, consistency |\n| Specification / invariant-first | high-consequence state, concurrency, or correctness constraints |\n\n### Boundaries and authority\n\nGive each important responsibility and mutable state set one authoritative owner. Make\nreaders, writers, lifetime, synchronization, persistence, reconciliation, and\nnon-responsibilities explicit where relevant. Distinguish ownership, contract, build,\nruntime, protection, and deployment boundaries. Add runtime boundaries only when isolation,\nsecurity, fault containment, deployment, scaling, or runtime variability justifies their\ncost.\n\n### Contracts and cost\n\nExpose minimum stable domain semantics, not private representation. Specify lifetime,\nconcurrency, errors, authorization, compatibility, failure, and observability only as\napplicable. Introduce abstraction for a concrete consumer, invariant, volatile dependency,\nrequired substitution, or useful test seam. Optimize sensitive paths with:\n\n`baseline -> benchmark -> profile -> bottleneck -> change -> benchmark -> regression test`\n\nA theoretically faster mechanism is not evidence of a faster system.\n\n## Make the decision falsifiable\n\nFor a consequential recommendation, capture only what matters:\n\n- requirements and repository evidence;\n- relevant lenses and the governing tension;\n- viable alternatives, including the status quo;\n- the decision, sacrificed qualities, and failure modes;\n- migration and reversal conditions;\n- tests or measurements that could disprove the choice.\n\nMark unresolved choices **OPEN DESIGN DECISION** and state what evidence would resolve them.\nFor re-audits, report each prior finding as **resolved**, **regressed**, **still open**, or\n**new**, and inspect whether the fix introduced another failure.\n\n## Route the output\n\nUse the requested artifact. Otherwise default to a short decision brief with:\n\n- **Recommendation** - the proposed decision and scope;\n- **Evidence** - concrete inspected facts and verification;\n- **Tradeoffs** - alternatives, sacrificed qualities, and failure modes;\n- **Next step** - the smallest reversible action and its validation.\n\nUse the requested format when one is named:\n\n- **PR comment:** finding/consequence, exact code evidence, smallest correction, verification.\n- **ADR:** `Status`, `Context`, `Forces`, `Options`, `Decision`, `Consequences`, `Validation and reversal`.\n- **RFC/system design:** goals/non-goals, current system, forces, proposal, ownership/contracts, cross-cutting behavior, alternatives, migration, validation, open decisions.\n- **Audit:** `Severity | Status | Evidence | Impact | Recommendation`, followed only by maps and migration detail supporting the priorities.\n- **Subsystem specification:** responsibility/non-responsibility, authoritative state, contract, dependencies, lifecycle, failure/security/performance, validation, migration.\n\nAdapt emphasis to the reader's need: decision-makers need outcome, risk, cost, and\nsequence; architects need alternatives and invariants; implementers need interfaces,\naffected code, migration, and tests; reviewers need evidence and regression risk. Do not\nannounce the audience profile or pad the artifact.\n\n## Migrate and degrade gracefully\n\nPrefer the smallest change that establishes a useful owner, source of truth, or stable\ncontract. Characterize behavior first; move one authoritative responsibility at a time;\navoid a second source of truth; give every adapter a removal condition.\n\nRead supporting references only when the request needs their depth:\n\n- `references/architectural-philosophies.md` for academic grounding or disputed assumptions;\n- `references/output-artifacts.md` for a formal artifact;\n- `references/repository-architecture-audit.md` for a repository-wide audit;\n- `references/subsystem-specification.md` for an implementation-ready subsystem design.\n\nIf a reference is unavailable, continue with the inline guidance and state the limitation\nonly when it materially changes confidence. Preserve mandatory behavior under held-out\nevaluation before reducing or restructuring this skill; the separate instruction-\noptimization system owns measurement and search.\n\nThe goal is a coherent system whose architecture reflects its actual forces and can change\nas those forces change. Ground every material claim in inspected evidence, and never blur\ncurrent behavior with target design.",
+  "selected_id": "proposal_7253d9e8cc",
+  "selected_score": {
+    "utility": 1.0,
+    "tokens": 1158,
+    "hard_invariants_passed": true,
+    "checks": {
+      "Quick-decision budget": true,
+      "300 words": true,
+      "OPEN DESIGN DECISION": true,
+      "resolved": true,
+      "regressed": true,
+      "still open": true,
+      "new": true
+    }
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "candidate_id": "proposal_7253d9e8cc",
+      "mode": "local_edit",
+      "accepted": true,
+      "score": {
+        "utility": 1.0,
+        "tokens": 1158,
+        "hard_invariants_passed": true,
+        "checks": {
+          "Quick-decision budget": true,
+          "300 words": true,
+          "OPEN DESIGN DECISION": true,
+          "resolved": true,
+          "regressed": true,
+          "still open": true,
+          "new": true
+        }
+      },
+      "feedback": {
+        "utility": 0.7142857142857143,
+        "tokens": 1003,
+        "hard_invariants_passed": false,
+        "checks": {
+          "Quick-decision budget": false,
+          "300 words": false,
+          "OPEN DESIGN DECISION": true,
+          "resolved": true,
+          "regressed": true,
+          "still open": true,
+          "new": true
+        },
+        "proposal_mode": "local_edit"
+      }
+    },
+    {
+      "turn": 2,
+      "candidate_id": "proposal_26ed294400",
+      "mode": "section_rewrite",
+      "accepted": false,
+      "score": {
+        "utility": 1.0,
+        "tokens": 1158,
+        "hard_invariants_passed": true,
+        "checks": {
+          "Quick-decision budget": true,
+          "300 words": true,
+          "OPEN DESIGN DECISION": true,
+          "resolved": true,
+          "regressed": true,
+          "still open": true,
+          "new": true
+        }
+      },
+      "feedback": {
+        "utility": 1.0,
+        "tokens": 1158,
+        "hard_invariants_passed": true,
+        "checks": {
+          "Quick-decision budget": true,
+          "300 words": true,
+          "OPEN DESIGN DECISION": true,
+          "resolved": true,
+          "regressed": true,
+          "still open": true,
+          "new": true
+        },
+        "proposal_mode": "section_rewrite"
+      }
+    },
+    {
+      "turn": 3,
+      "candidate_id": "proposal_a031086871",
+      "mode": "complete_rewrite",
+      "accepted": false,
+      "score": {
+        "utility": 1.0,
+        "tokens": 1158,
+        "hard_invariants_passed": true,
+        "checks": {
+          "Quick-decision budget": true,
+          "300 words": true,
+          "OPEN DESIGN DECISION": true,
+          "resolved": true,
+          "regressed": true,
+          "still open": true,
+          "new": true
+        }
+      },
+      "feedback": {
+        "utility": 1.0,
+        "tokens": 1158,
+        "hard_invariants_passed": true,
+        "checks": {
+          "Quick-decision budget": true,
+          "300 words": true,
+          "OPEN DESIGN DECISION": true,
+          "resolved": true,
+          "regressed": true,
+          "still open": true,
+          "new": true
+        },
+        "proposal_mode": "complete_rewrite"
+      }
+    }
+  ],
+  "stop_reason": "patience_exhausted"
+}

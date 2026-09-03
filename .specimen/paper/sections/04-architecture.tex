@@ -1,0 +1,64 @@
+The shipped decomposition (from the package layout and modules, not re-derived):
+
+\begin{itemize}[leftmargin=*]
+  \item \texttt{prompt\_optimization.metrics} -- attractor simulation and
+  evaluation (\texttt{basin.py}), uncertainty (\texttt{uncertainty.py}:
+  bootstrap interval, conformal radius, 1-Wasserstein, robust summary), and
+  selection (\texttt{optimize.py}: Pareto, rate-distortion, metamorphic
+  consistency, hard gates, next-experiment).
+  \item \texttt{prompt\_optimization.attribution} -- \texttt{shapley.py},
+  \texttt{interaction.py}, \texttt{direction.py}.
+  \item \texttt{prompt\_optimization.context} -- \texttt{attention.py},
+  \texttt{sequence.py}, \texttt{cache.py} (order-aware token path).
+  \item \texttt{prompt\_optimization.cli.py} -- the \texttt{prompt-opt} surface.
+\end{itemize}
+
+Figure~\ref{fig:pipeline} shows the intended control flow. The single most
+important architectural fact -- and the paper's central evaluation finding -- is
+the vertical boundary inside the figure: everything above it is \emph{built and
+tested on synthetic data}; everything below it is \emph{described in prose only}.
+The scaffold can \emph{propose}; nothing in the shipped code is a seam at which a
+real held-out model evaluation could \emph{dispose}.
+
+\begin{figure}[ht]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners=2pt, align=center, minimum height=8mm, inner sep=4pt},
+  arr/.style={-{Stealth[length=2.5mm]}, thick},
+  font=\small
+]
+\node[box] (orient) {Orient\\\footnotesize(targets, candidates)};
+\node[box, right=2em of orient] (score) {Score\\\footnotesize\texttt{prompt-opt scan}};
+\node[box, right=2em of score] (attr) {Attribute\\\footnotesize Shapley / inter. / delete / proj.};
+\node[box, right=2em of attr] (sel) {Select\\\footnotesize RD frontier + Pareto\\\footnotesize + \textbf{hard gates}};
+\node[box, right=2em of sel] (synv) {Synthetic verify\\\footnotesize varied seed / samples};
+\draw[arr] (orient) -- (score);
+\draw[arr] (score) -- (attr);
+\draw[arr] (attr) -- (sel);
+\draw[arr] (sel) -- (synv);
+
+\node[box, draw=blue!60!black, right=2em of synv] (real) {REAL held-out\\\footnotesize evaluator\\\footnotesize \textcolor{red}{\emph{described, not built}}};
+\node[box, right=2em of real] (claim) {Claim};
+\draw[arr] (synv) -- (real);
+\draw[arr] (real) -- (claim);
+
+\node[below=1.6em of orient, font=\small\bfseries, align=center] (lbl1) {Synthetic: proposes};
+\node[below=1.6em of real, font=\small\bfseries, text=blue!60!black, align=center] (lbl2) {Real: disposes};
+\draw[dashed] ([yshift=0.6em]lbl1.north west) -- ([yshift=-0.2em]lbl2.north west);
+\draw[dashed] ([yshift=0.6em]lbl1.east) -- ([yshift=-0.2em]lbl2.west);
+\end{tikzpicture}}
+\caption{The intended pipeline. The dashed vertical boundary separates the
+synthetic scaffold (built and tested) from the real held-out evaluator (prose
+only in the current codebase).}
+\label{fig:pipeline}
+\end{figure}
+
+The pipeline underneath the CLI is deliberately deterministic and reproducible:
+the same seed and sample count reproduce the same metric vector, and a
+KV-cache guarantees bit-identical results between cached and from-scratch
+context passes (verified by test). Nothing in the architecture pretends that the
+synthetic attractor is a stand-in for a production model; the disclaimers in the
+CLI output, the README, and the companion skill all say so in the same words:
+\emph{synthetic scaffold: candidates only; real held-out evaluation disposes
+before any claim}.

@@ -1,0 +1,80 @@
+The toolkit's vocabulary, quoted from its source where possible.
+
+A prompt candidate is reduced to a \emph{state} in a synthetic embedding space.
+Formally the scaffold defines:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Attractor} -- a named point $\mathbf{a}_k \in \mathbb{R}^D$
+  representing a target behavioral disposition. The shipped set is
+  \texttt{VERIFY\_PRIOR}, \texttt{CREATIVE}, \texttt{CAUTIOUS},
+  \texttt{AUTHORITATIVE}, \texttt{TRUSTING}, with default dimension $D=32$.
+  \item \textbf{Prompt} -- a dataclass of text, a token count, and an
+  embedding bias; optional scalar \texttt{nonlinearity} modulates resonance.
+  \item \textbf{Final state}. The candidate's latent landing point is
+  \begin{equation}
+    \mathbf{s} = \mathbf{b} + \mathbf{r}\,\bigl(1+\nu\log(1+\lVert\mathbf{r}\rVert)\bigr)
+    \cdot \frac{1}{1+0.15\max(\text{tokens}-2,0)},
+  \end{equation}
+  where $\mathbf{b}$ is the baseline (here $\mathbf{0}$) and $\nu$ is the
+  nonlinearity. Longer prompts are scaled down (an efficiency factor), which is
+  the source of the density intuition.
+  \item \textbf{Basin probability}. Cosine distance from $\mathbf{s}$ to each
+  attractor center, then a max-subtracted softmax at temperature $T=10$:
+  \begin{equation}
+    p_k(\mathbf{s}) = \frac{\exp(-d_{\cos}(\mathbf{s},\mathbf{a}_k)/T)}
+    {\sum_j \exp(-d_{\cos}(\mathbf{s},\mathbf{a}_j)/T)}.
+  \end{equation}
+  Together with the attractor center $\mathbf{a}_0$ (the \emph{target}), these
+  yield the per-candidate metric vector, all from a single deterministic run:
+  \texttt{target\_activation} $=p_0(\mathbf{s})$;
+  \texttt{reliability} $=\mathrm{mean}_i\, p_0(\mathbf{s}+\varepsilon_i)$ for
+  $\varepsilon_i\sim\mathcal{N}(0,0.15)$;
+  \texttt{distortion} $=1-\texttt{reliability}$ (a deliberately-synthetic proxy,
+  openly the toy case the project's own notes criticize);
+  \texttt{off\_target} $=\max_{k\ne0}p_k(\mathbf{s})$;
+  \texttt{variance\_penalty} $=\mathrm{std}_i\,p_0(\mathbf{s}+\varepsilon_i)$;
+  \texttt{distribution\_shift} $=W_1(p_0(\text{noisy}),p_0(\text{noisy baseline}))$;
+  \texttt{instruction\_density} $=\texttt{target\_activation}\cdot
+  \texttt{reliability}/\max(\text{tokens},1)$;
+  and the scalar \texttt{score} $=p_0\cdot\texttt{reliability}
+  -w_{\text{off}}\,\texttt{off\_target}-w_{\text{var}}\,\texttt{variance\_penalty}$.
+  Finally \texttt{synAlign} is the cosine of $\mathbf{s}$ onto the target center:
+  it is the \emph{synthetic alignment signal}, an ordering heuristic for the
+  machinery, and is labeled as such rather than as evidence.
+\end{itemize}
+
+The \emph{selection layer} refuses to reify any single scalar. It computes an
+empirical distortion-rate curve (best distortion at or below each token budget),
+the Pareto-non-dominated subset over
+$\langle\texttt{target\_activation},\texttt{reliability}\rangle$ maximized and
+$\langle\texttt{tokens},\texttt{off\_target},\texttt{variance\_penalty}\rangle$
+minimized, and a next-experiment recommendation by uncertainty-weighted gain.
+Two of its objects matter most for the paper's thesis:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Hard gates}. A mapping of metric keys to bounds. A candidate
+  that violates any key is \emph{excluded unconditionally}; score cannot rescue
+  it. This is the operational form of ``some constraints are
+  $\le\delta_{\text{critical}}$, not tradeable objectives.''
+  \item \textbf{Rate-distortion frontier}. An \emph{empirical} lower envelope
+  over measured tokens, not Shannon's theoretical bound (the distinction is
+  drawn explicitly against \citet{nagle2024promptrates} in
+  Section~\ref{sec:rel}).
+\end{itemize}
+
+The \emph{attribution layer} provides component-level estimands over any supplied
+value function $v$: cooperative-game Shapley values (exact permutation
+enumeration when the coalitions are small, reproducible Monte-Carlo otherwise),
+the second-order inclusion-exclusion interaction term
+$v(\{i,j\})-v(\{i\})-v(\{j\})+v(\emptyset)$, a paired deletion estimand, and a
+directional projection of an observed state change onto a declared target
+direction. Critically, these estimators are \emph{value-function agnostic}: their
+conclusions are only as valid as the $v$ supplied. Shapley over the synthetic
+cosine score is not Shapley over held-out architectural behavior.
+
+The \emph{context layer} is an order-aware variant of the same idea: a token
+sequence is position-encoded, passed through multi-head scaled-dot-product
+\emph{causal} self-attention, pooled to a normalized contextual vector, and
+evaluated with the same attractor metrics; a KV-cache memoizes the per-token
+projections so repeated evaluations are bit-identical to a from-scratch pass but
+cheaper.

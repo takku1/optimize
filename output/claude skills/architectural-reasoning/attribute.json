@@ -1,0 +1,18 @@
+{
+  "path": "Z:/archetect/skills/architectural-reasoning/SKILL.md",
+  "backend": "synthetic",
+  "synthetic": true,
+  "unit": "paragraph",
+  "components": [
+    {"index": 7, "shapley": -0.004718, "preview": "- Give each important responsibility and mutable state set one authoritative owner; make readers, writers, lifetime, synchronization, persistence, reconciliation, and non-responsibilities explicit where relevant."},
+    {"index": 8, "shapley": -0.005262, "preview": "Capture requirements/evidence, alternatives including the status quo, decision and sacrificed qualities, failure modes, migration/reversal conditions, and validation tests that could disprove the choice."},
+    {"index": 5, "shapley": -0.005268, "preview": "Directory names and diagrams are hypotheses until flows and dependencies confirm them. Do not rewrite working code merely to fit a philosophy."},
+    {"index": 3, "shapley": -0.005289, "preview": "## Work from reality\n\nInspect relevant code, configuration, tests, deployment artifacts, and documentation. Cite concrete files and symbols for material findings. Run an available test, build, benchmark, or minimal reproduction before reporting a material claim."},
+    {"index": 0, "shapley": -0.005601, "preview": "---\nname: architectural-reasoning\ndescription: Evidence-first architectural reasoning for consequential software decisions, with calibrated effort, explicit ownership, stable contracts, justified boundaries, falsifiable migration, and behavior-preserving edits."},
+    {"index": 4, "shapley": -0.006828, "preview": "Keep these views distinct:\n\n- **Current:** observed behavior, components, state, dependencies, and constraints.\n- **Target:** desired ownership, contracts, boundaries, invariants, and qualities."},
+    {"index": 9, "shapley": -0.006834, "preview": "Route to the requested PR comment, ADR, RFC, audit, or subsystem specification. Otherwise use `Recommendation`, `Evidence`, `Tradeoffs`, and `Next step`."},
+    {"index": 1, "shapley": -0.007152, "preview": "Design from actual system forces, not a favored pattern. Produce clear ownership, contracts, justified boundaries, explicit tradeoffs, and an incremental path from current reality."},
+    {"index": 6, "shapley": -0.007472, "preview": "For a consequential choice, select lenses from the governing force observed in the evidence; use one to generate the design and another to challenge it; surface the tension only when it changes the recommendation."},
+    {"index": 2, "shapley": -0.007833, "preview": "- **Quick decision (default):** inspect targeted evidence, apply one primary lens and one meaningful challenge, then return a compact recommendation."}
+  ]
+}

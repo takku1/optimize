@@ -1,0 +1,34 @@
+{
+  "v1_3_0:04-output-routing": {
+    "adr_vocab_count": 4,
+    "output_routing_deterministic_proxy": true,
+    "word_count": 1073
+  },
+  "v1_3_0:05-reference-unavailable": {
+    "word_count": 888
+  },
+  "v1_3_1:01-stop-when-supported": {
+    "calibrated_effort_deterministic": false,
+    "mentions_escalation_phrase": false,
+    "word_count": 499
+  },
+  "v1_3_1:02-reaudit-catches-regression": {
+    "reaudit_reclassifies_deterministic_proxy": true,
+    "status_label_count": 2,
+    "word_count": 563
+  },
+  "v1_3_1:03a-lens-wording-security": {
+    "word_count": 1095
+  },
+  "v1_3_1:03b-lens-wording-sociotechnical": {
+    "word_count": 762
+  },
+  "v1_3_1:04-output-routing": {
+    "adr_vocab_count": 6,
+    "output_routing_deterministic_proxy": true,
+    "word_count": 1138
+  },
+  "v1_3_1:05-reference-unavailable": {
+    "word_count": 891
+  }
+}

@@ -1,0 +1,92 @@
+\label{sec:eval}
+
+This section is written to the discipline of \emph{evidence-status}: it reports
+what evidence exists, classified by what each piece \emph{licenses}, and it ends
+with an explicit claim boundary. The reminder that opens it is the discipline's
+reflexive principle applied to this paper: a preprint arguing that engineering
+claims should be evidence-gated must itself be evidence-gated, or it is doing
+exactly the thing it warns about. The sections above are machinery; the claims
+below are what the reader may actually rely on.
+
+\subsection{Step 0: first-party evidence produced for this preprint}
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Test suite, re-run} on 2026-08-28: \texttt{46 passed}
+  (5 test modules). Exercised through the package's public interface, including
+  determinism, normalization, metric bounds, zero-token handling, Pareto /
+  rate-distortion invariants, hard-gate wiring, JSON emission purity, attention
+  masking, and KV-cache bit-identity.
+  \item \textbf{CLI usage transcripts} on 2026-08-28, preserved on disk
+  (\texttt{output/specimen test 2/}): \texttt{scan} and \texttt{plan} runs with
+  three gate regimes against the \texttt{specimen} skill repository (Section 6).
+\end{enumerate}
+
+\subsection{Step 1--2: evidence inventory and classification}
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}p{4.0cm}>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}p{5.4cm}@{}}
+\toprule
+\textbf{Evidence} & \textbf{Status} & \textbf{What it licenses} \\
+\midrule
+Pre-registered protocol & none & --- \\
+Dated results log / case study & none & --- \\
+Executed behavior (test suite) & 46/46 pass, 2026-08-28 & the exercised invariants behaved this way; NOT general correctness \\
+Executed behavior (CLI runs) & gate regimes behaved as specified, dated & ordering/gating logic runs and respects hard gates; NOT ``these prompts are better'' \\
+Static structure (lint/type checks) & none declared & --- \\
+Empirical measurement (real model) & none & --- \\
+Attribution outputs & subroutines covered by 3 tests & the estimators compute their defined quantities; NOT causal findings about prompts \\
+Model/LLM judgment & none collected & --- \\
+Human decision & one external adversarial skill review (2026) + this preprint & an accountable person accepted the design stance; NOT that the stance is validated \\
+\bottomrule
+\end{tabular}
+\caption{Evidence classification for \texttt{prompt-optimization} (2026-08-28).}
+\label{tab:evidence}
+\end{table}
+
+A single row must not be written up as if it answered a question from a
+different row. The test suite licenses \emph{``the exercised cases behaved this
+way''} and nothing about whether the toolkit improves any real prompt. The CLI
+transcripts license \emph{``the selection logic ran and respected its gates''}
+and nothing about the \texttt{specimen} repository being optimized.
+
+\subsection{Failures of record (reported, not papered over)}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Stale/mislabeled citation in the project's own notes.}
+  \texttt{research-landscape.md} (under \texttt{docs/current/}) cites APE as
+  arXiv:2210.03493; the
+  live arXiv API identifies that ID as \emph{Automatic Chain of Thought
+  Prompting}, and APE is 2211.01910 (Section 2).
+  \item \textbf{Hard-gate wiring bug (fixed).} Planning read
+  \texttt{args.gates} while parsing stored \texttt{args.gate}, so
+  \texttt{plan --gate ...} silently did nothing. Found while preparing this
+  preprint's worked example; fixed; two regression tests added.
+  \item \textbf{JSON pollution (fixed).} The strict-gate JSON path printed a
+  human line to stdout before the JSON document, corrupting machine output. Fixed
+  and covered by the same regression tests.
+  \item \textbf{Missing top-level export (fixed).} \texttt{apply\_hard\_gates}
+  was importable from the \texttt{metrics} subpackage but not re-exported at the
+  package root, breaking a test import.
+\end{itemize}
+
+These are reported \emph{because} a fix list is the deliverable of an honest
+evaluation status section: the first item is a documentation defect still in the
+tree; the other three are defects already corrected, kept as findings of record.
+
+\subsection{Claim boundary}
+
+\emph{The mechanisms above are individually grounded in a passing test suite and
+in the project's own design notes. They do not establish that
+\texttt{prompt-optimization} improves any outcome on any real language model, nor
+that any candidate ranking it produces reflects behavioral equivalence under
+held-out evaluation. That is an open, and not yet even designed, empirical
+question --- and, as the pipeline architecture itself insists, claimed performance
+requires a real held-out evaluator to dispose of synthetic proposals before the
+claim exists.}
+
+The absence this section documents is not a defect in the writeup; per the
+skill's own philosophy it is the finding: the toolkit's value today is as a
+deterministic harness for developing ordering and selection logic, and its next
+milestone is a real evaluation seam, not more math.

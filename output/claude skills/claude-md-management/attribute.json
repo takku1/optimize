@@ -1,0 +1,58 @@
+{
+  "path": "C:/Users/dcarn/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-md-management/skills/claude-md-improver/SKILL.md",
+  "backend": "synthetic",
+  "synthetic": true,
+  "unit": "line",
+  "components": [
+    {
+      "index": 7,
+      "shapley": -0.004708,
+      "preview": "+ ```bash\n+ npm install\n+ npm run dev  # Start development server on port 3000\n+"
+    },
+    {
+      "index": 3,
+      "shapley": -0.005303,
+      "preview": "### Phase 3: Quality Report Output\n**ALWAYS output the quality report BEFORE mak"
+    },
+    {
+      "index": 5,
+      "shapley": -0.00533,
+      "preview": "```\n### Phase 4: Targeted Updates\nAfter outputting the quality report, ask user "
+    },
+    {
+      "index": 8,
+      "shapley": -0.005489,
+      "preview": "3. **Outdated architecture**: File structure that's changed\n4. **Missing environ"
+    },
+    {
+      "index": 0,
+      "shapley": -0.005688,
+      "preview": "---\nname: claude-md-improver\ndescription: Audit and improve CLAUDE.md files in r"
+    },
+    {
+      "index": 9,
+      "shapley": -0.006827,
+      "preview": "- Concise and human-readable\n- Actionable commands that can be copy-pasted\n- Pro"
+    },
+    {
+      "index": 4,
+      "shapley": -0.006928,
+      "preview": "|-----------|-------|-------|\n| Commands/workflows | X/20 | ... |\n| Architecture"
+    },
+    {
+      "index": 1,
+      "shapley": -0.007327,
+      "preview": "**File Types & Locations:**\n| Type | Location | Purpose |\n|------|----------|---"
+    },
+    {
+      "index": 6,
+      "shapley": -0.007506,
+      "preview": "   - One-off fixes unlikely to recur\n   - Verbose explanations when a one-liner "
+    },
+    {
+      "index": 2,
+      "shapley": -0.007919,
+      "preview": "|-----------|--------|-------|\n| Commands/workflows documented | High | Are buil"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+This section is a \emph{real transcript} -- the tool was actually run on
+2026-08-28 against an independent target repository, the \texttt{specimen}
+Claude Code skill (\texttt{Z:\textbackslash Specimen}), with the raw output files
+preserved on disk under \texttt{output/specimen test 2/} in this project. It is
+not a hand-traced walkthrough; the commands below are the ones that produced the
+cited artifact files.
+
+\textbf{Context.} \texttt{specimen} is an evidence-gated preprint skill: given a
+project, it produces a paper that never claims more than the project's evidence
+supports. Its repository contains seven candidate files (a \texttt{SKILL.md}, a
+README, four \texttt{references/*.md} discipline documents, and one helper
+script \texttt{scripts/arxiv\_lookup.py}). The question put to the scaffold was
+the natural one: \emph{of these candidate formulations, which does the pipeline
+favor under the default \texttt{VERIFY\_PRIOR} attractor, and is any selection
+approximation to a behavioral preference?}
+
+\begin{verbatim}
+# 1. score every candidate file
+prompt-opt scan --json Z:\Specimen
+# 2. select over all candidates (permissive gate)
+prompt-opt plan --gate distortion=0.8010 Z:\Specimen
+# 3. select with a hard gate that only the cheapest point clears
+prompt-opt plan --gate distortion=0.80065 Z:\Specimen
+# 4. select with a strict hard gate every candidate fails
+prompt-opt plan --gate distortion=0.7700 Z:\Specimen
+\end{verbatim}
+
+\textbf{Transcript highlights} (abridged; full artifact files
+\texttt{scan.json}, \texttt{plan*.txt/json} are in \texttt{output/specimen test
+2/}):
+
+\begin{itemize}[leftmargin=*]
+  \item The scan reported near-uniform metrics: the nontrivial spread was in
+  \texttt{synAlign} (0.128 for README down to $-0.048$ for
+  \texttt{latex-scaffold.md}); \texttt{target\_activation} sat in
+  $[0.199,0.202]$, \texttt{reliability} in $[0.199,0.199]$, and therefore
+  \texttt{distortion} in $[0.8006,0.8007]$ for every candidate. The frontier --
+  best distortion at each token budget -- collapsed to a single repeated point:
+  \texttt{README.md} at 303 tokens, distortion 0.8006, at \emph{every} budget.
+  \item The Pareto-non-dominated set was \texttt{README.md} (303 tok, act 0.202),
+  the \texttt{section-template.md} in \texttt{references/} (774 tok), and
+  \texttt{scripts/arxiv\_lookup.py} (903 tok). The recommended next experiment
+  was \texttt{README.md} (highest uncertainty-weighted gain, here tiny).
+  \item With a hard gate at \texttt{distortion=0.80065}, exactly one candidate
+  survives --- \texttt{README.md}; the other six are reported as \texttt{blocked}.
+  \item With a hard gate at \texttt{distortion=0.77}, \emph{no} candidate
+  survives, and the tool prints exactly the honest negative result:
+  \texttt{"no candidate passes the hard gates ...; no supported improvement
+  is claimed."}
+\end{itemize}
+
+\textbf{How to read this.} The transcript demonstrates that the machinery works
+as specified: it scans, it gates (hard), it builds a frontier, and --- the most
+specimen-native behavior --- it is willing to \emph{lose} loudly rather than
+force a winner. It equally demonstrates that, at this attractor layout and
+dimension, the scaffold has almost no discrimination: a narrow rounding margin
+decides which single candidate survives a meaningful gate, and the frontier is a
+constant. That is a property of the \emph{synthetic scaffold}, not of the
+\texttt{specimen} skill; under no reading are these numbers evidence that
+\texttt{README.md} ``causes more verify-prior behavior.'' They are evidence that
+the ordering/selection logic runs and respects its gates.

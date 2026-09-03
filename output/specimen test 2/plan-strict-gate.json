@@ -1,0 +1,102 @@
+{
+  "synthetic": true,
+  "note": "synthetic scaffold: candidates only \u2014 real held-out evaluation disposes before any claim",
+  "gates": {
+    "distortion": 0.77
+  },
+  "gate_op": "max",
+  "blocked": [
+    {
+      "path": "Z:/Specimen/README.md",
+      "tokens": 303,
+      "words": 176,
+      "predicted_activation": 0.2024,
+      "similarity": 0.1279,
+      "reliability": 0.1994,
+      "distortion": 0.8006,
+      "off_target": 0.2029,
+      "expected_gain": 0.0403,
+      "uncertainty": 0.0028,
+      "score": -0.0619
+    },
+    {
+      "path": "Z:/Specimen/SKILL.md",
+      "tokens": 1032,
+      "words": 735,
+      "predicted_activation": 0.2001,
+      "similarity": 0.0045,
+      "reliability": 0.1993,
+      "distortion": 0.8007,
+      "off_target": 0.2026,
+      "expected_gain": 0.0399,
+      "uncertainty": 0.0028,
+      "score": -0.0622
+    },
+    {
+      "path": "Z:/Specimen/references/evidence-status-discipline.md",
+      "tokens": 1387,
+      "words": 1042,
+      "predicted_activation": 0.1992,
+      "similarity": -0.0455,
+      "reliability": 0.1993,
+      "distortion": 0.8007,
+      "off_target": 0.2033,
+      "expected_gain": 0.0397,
+      "uncertainty": 0.0028,
+      "score": -0.0628
+    },
+    {
+      "path": "Z:/Specimen/references/latex-scaffold.md",
+      "tokens": 1449,
+      "words": 755,
+      "predicted_activation": 0.1991,
+      "similarity": -0.0477,
+      "reliability": 0.1993,
+      "distortion": 0.8007,
+      "off_target": 0.2034,
+      "expected_gain": 0.0397,
+      "uncertainty": 0.0028,
+      "score": -0.0628
+    },
+    {
+      "path": "Z:/Specimen/references/literature-scan.md",
+      "tokens": 1123,
+      "words": 655,
+      "predicted_activation": 0.1996,
+      "similarity": -0.025,
+      "reliability": 0.1993,
+      "distortion": 0.8007,
+      "off_target": 0.2031,
+      "expected_gain": 0.0398,
+      "uncertainty": 0.0028,
+      "score": -0.0626
+    },
+    {
+      "path": "Z:/Specimen/references/section-template.md",
+      "tokens": 774,
+      "words": 522,
+      "predicted_activation": 0.1999,
+      "similarity": -0.0088,
+      "reliability": 0.1993,
+      "distortion": 0.8007,
+      "off_target": 0.2023,
+      "expected_gain": 0.0398,
+      "uncertainty": 0.0028,
+      "score": -0.0621
+    },
+    {
+      "path": "Z:/Specimen/scripts/arxiv_lookup.py",
+      "tokens": 903,
+      "words": 289,
+      "predicted_activation": 0.2001,
+      "similarity": 0.0051,
+      "reliability": 0.1993,
+      "distortion": 0.8007,
+      "off_target": 0.2024,
+      "expected_gain": 0.0399,
+      "uncertainty": 0.0028,
+      "score": -0.0622
+    }
+  ],
+  "supported_improvement": false
+}

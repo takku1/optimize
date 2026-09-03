@@ -1,0 +1,58 @@
+{
+  "path": "C:/Users/dcarn/.claude/plugins/marketplaces/claude-plugins-official/plugins/project-artifact/skills/project-artifact/SKILL.md",
+  "backend": "synthetic",
+  "synthetic": true,
+  "unit": "line",
+  "components": [
+    {
+      "index": 7,
+      "shapley": -0.004841,
+      "preview": "owner to share it, or work from the project's underlying source (repo/PRs/design"
+    },
+    {
+      "index": 8,
+      "shapley": -0.005338,
+      "preview": "  (when the body is the one-line fallback, the summary count reads \"none pending"
+    },
+    {
+      "index": 3,
+      "shapley": -0.005364,
+      "preview": "5. **Publish with the Artifact tool.** Call `Artifact` with `file_path` = the HT"
+    },
+    {
+      "index": 5,
+      "shapley": -0.005365,
+      "preview": "\"Refresh the artifact\", \"update the status page\", and a repeat `/project-artifac"
+    },
+    {
+      "index": 0,
+      "shapley": -0.005611,
+      "preview": "---\nname: project-artifact\ndescription: Generate and publish a project status ar"
+    },
+    {
+      "index": 4,
+      "shapley": -0.006884,
+      "preview": "Headless note: the Artifact tool is not available in non-interactive (`claude -p"
+    },
+    {
+      "index": 9,
+      "shapley": -0.006932,
+      "preview": "  *not* a license to diagram the workstream dependencies: the ordering (and the "
+    },
+    {
+      "index": 1,
+      "shapley": -0.007218,
+      "preview": "   directory read \u2014 a shell listing of the data dir can be blocked in restricted"
+    },
+    {
+      "index": 6,
+      "shapley": -0.00752,
+      "preview": "  the full detail.\n## Freshness and trust\n- Put the **as-of timestamp** (UTC) in"
+    },
+    {
+      "index": 2,
+      "shapley": -0.007812,
+      "preview": "   rigorous one tends to want \u2014 none of them mandatory.\n3. **Generate the HTML**"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "accepted": false,
+  "utility": 1.0,
+  "tokens": 627,
+  "hard_invariants_passed": true,
+  "checks": {
+    "activation_boundary": true,
+    "hard_operating_contract": true,
+    "authoritative_source": true,
+    "working_tree_preservation": true,
+    "falsifiable_precheck": true,
+    "explicit_edge_matrix": true,
+    "risk_bounded_expansion": true,
+    "verification_ladder": true,
+    "honest_unrun_status": true,
+    "completion_gate": true
+  },
+  "evidence_tier": "structural_proxy",
+  "behavioral_validation_required": true
+}

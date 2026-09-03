@@ -1,0 +1,818 @@
+{
+  "selected": "---\nname: reliable-code-change\ndescription: Make requested code changes safely and completely using repository evidence, focused edits, explicit edge-case analysis, and proportionate verification. Use when implementation or refactoring is requested; do not activate for explanation-only, review-only, or status requests.\nmetadata:\n  version: \"1.0.0\"\n---\n\n# Reliable Code Change\n\nImplement the requested behavior with the smallest complete change supported by repository evidence. Preserve unrelated behavior and the user's existing work.\n\n## Operating contract\n\n1. Restate the observable outcome and constraints internally. Treat named files, formats, compatibility requirements, and \u201cdo not change\u201d instructions as hard boundaries.\n2. Inspect the narrowest evidence that can locate the behavior: the owning implementation, direct callers or consumers, relevant tests, configuration, and public contract. Expand only when an unresolved fact could change the edit or its safety.\n3. Change the authoritative source of truth. Update dependent code, tests, types, schemas, documentation, or migration artifacts only when required for a complete result.\n4. Verify the changed behavior and the nearest regression surface. Do not claim completion while an in-scope check fails.\n\n## Before editing\n\n- Check repository instructions and the working tree. Preserve pre-existing edits; do not overwrite, revert, reformat, or \u201cclean up\u201d unrelated work.\n- Trace inputs, state changes, outputs, errors, and externally visible contracts across the immediate call path.\n- Identify the current test or reproduction that demonstrates the behavior. If none exists, define the smallest falsifiable check before changing code.\n- Prefer established project patterns when they satisfy the requirement. Add an abstraction only for a concrete invariant, consumer, volatile dependency, or useful test seam.\n\n## Make the change\n\n- Keep the diff focused, but include every layer necessary for correctness. Small does not mean partial.\n- Maintain one authoritative owner for mutable state and policy. Avoid duplicate logic, parallel configuration, and shadow sources of truth.\n- Preserve compatibility unless the user authorizes a breaking change. When a contract must change, update its producers, consumers, validation, and migration path together.\n- Do not broaden scope merely because nearby code could be improved. Record a separate concern only when it materially affects the requested outcome.\n\n## Required edge-case pass\n\nEvaluate only applicable boundaries, and record the relevant ones in tests or verification:\n\n- empty, missing, malformed, minimum, maximum, and duplicate inputs;\n- error propagation, retries, partial failure, cancellation, and cleanup;\n- ordering, concurrency, idempotency, and repeated execution;\n- authorization, trust boundaries, secret handling, and unsafe input;\n- persistence, schema compatibility, rollback, and stale state;\n- platform, dependency, and version compatibility;\n- resource, latency, or scale limits on sensitive paths.\n\nDo not add speculative machinery for an edge case with no plausible path or consequence. If a material case cannot be resolved from available evidence, identify the exact missing fact and stop before making a risky assumption.\n\n## Verification ladder\n\nUse the cheapest check that can falsify the change, then expand in proportion to risk:\n\n1. targeted test or minimal reproduction for the requested behavior;\n2. adjacent regression tests for touched contracts and callers;\n3. type check, lint, build, integration test, or benchmark when the changed surface requires it.\n\nFor a bug fix, add or identify a check that fails before the fix and passes after it. For performance work, measure the same workload before and after. If a check cannot run, state why and provide the strongest available substitute; never convert \u201cnot run\u201d into \u201cpassed.\u201d\n\n## Completion gate\n\nFinish only when all are true:\n\n- the requested observable behavior is implemented;\n- applicable edge cases and compatibility constraints are handled;\n- focused verification passes, or each unresolved failure is reported;\n- no unrelated user work was changed;\n- the final response names the outcome, material files, verification performed, and any remaining risk.\n\nLead the final response with the outcome. Keep it proportional to the change.\n",
+  "selected_id": "proposal_6d4878048f",
+  "selected_score": {
+    "utility": 1.0,
+    "tokens": 627,
+    "information_density": 0.001594896331738437,
+    "hard_invariants_passed": true,
+    "checks": {
+      "activation_boundary": true,
+      "operating_contract": true,
+      "authority_and_preservation": true,
+      "falsifiable_precheck": true,
+      "edge_matrix": true,
+      "risk_bounded_expansion": true,
+      "verification_ladder": true,
+      "honest_unrun_status": true,
+      "completion_gate": true,
+      "compression": true
+    },
+    "check_evidence": {
+      "activation_boundary": {
+        "present": {
+          "do not activate": true,
+          "explanation-only": true
+        }
+      },
+      "operating_contract": {
+        "present": {
+          "## Operating contract": true,
+          "hard boundaries": true
+        }
+      },
+      "authority_and_preservation": {
+        "present": {
+          "authoritative source of truth": true,
+          "preserve pre-existing edits": true
+        }
+      },
+      "falsifiable_precheck": {
+        "present": {
+          "smallest falsifiable check": true
+        }
+      },
+      "edge_matrix": {
+        "present": {
+          "idempotency": true,
+          "authorization": true,
+          "rollback": true,
+          "scale limits": true
+        }
+      },
+      "risk_bounded_expansion": {
+        "present": {
+          "Expand only when": true,
+          "could change the edit or its safety": true
+        }
+      },
+      "verification_ladder": {
+        "present": {
+          "## Verification ladder": true,
+          "fails before the fix and passes after": true
+        }
+      },
+      "honest_unrun_status": {
+        "present": {
+          "never convert": true,
+          "not run": true,
+          "passed": true
+        }
+      },
+      "completion_gate": {
+        "present": {
+          "## Completion gate": true,
+          "Finish only when all are true": true
+        }
+      },
+      "compression": {
+        "token_count": 627,
+        "limit": 700
+      }
+    },
+    "optimization_spec_id": "reliable-code-change-operationalization-v1",
+    "evidence_tier": "structural_proxy",
+    "behavioral_validation_required": true
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "candidate_id": "proposal_6d4878048f",
+      "mode": "local_edit",
+      "transformation": {
+        "family": "compression",
+        "operator": "deduplicate_or_reduce",
+        "token_delta": -114,
+        "changed_lines": 120,
+        "semantic_claim": "unverified"
+      },
+      "accepted": true,
+      "score": {
+        "utility": 1.0,
+        "tokens": 627,
+        "information_density": 0.001594896331738437,
+        "hard_invariants_passed": true,
+        "checks": {
+          "activation_boundary": true,
+          "operating_contract": true,
+          "authority_and_preservation": true,
+          "falsifiable_precheck": true,
+          "edge_matrix": true,
+          "risk_bounded_expansion": true,
+          "verification_ladder": true,
+          "honest_unrun_status": true,
+          "completion_gate": true,
+          "compression": true
+        },
+        "check_evidence": {
+          "activation_boundary": {
+            "present": {
+              "do not activate": true,
+              "explanation-only": true
+            }
+          },
+          "operating_contract": {
+            "present": {
+              "## Operating contract": true,
+              "hard boundaries": true
+            }
+          },
+          "authority_and_preservation": {
+            "present": {
+              "authoritative source of truth": true,
+              "preserve pre-existing edits": true
+            }
+          },
+          "falsifiable_precheck": {
+            "present": {
+              "smallest falsifiable check": true
+            }
+          },
+          "edge_matrix": {
+            "present": {
+              "idempotency": true,
+              "authorization": true,
+              "rollback": true,
+              "scale limits": true
+            }
+          },
+          "risk_bounded_expansion": {
+            "present": {
+              "Expand only when": true,
+              "could change the edit or its safety": true
+            }
+          },
+          "verification_ladder": {
+            "present": {
+              "## Verification ladder": true,
+              "fails before the fix and passes after": true
+            }
+          },
+          "honest_unrun_status": {
+            "present": {
+              "never convert": true,
+              "not run": true,
+              "passed": true
+            }
+          },
+          "completion_gate": {
+            "present": {
+              "## Completion gate": true,
+              "Finish only when all are true": true
+            }
+          },
+          "compression": {
+            "token_count": 627,
+            "limit": 700
+          }
+        },
+        "optimization_spec_id": "reliable-code-change-operationalization-v1",
+        "evidence_tier": "structural_proxy",
+        "behavioral_validation_required": true
+      },
+      "feedback": {
+        "utility": 0.0,
+        "tokens": 741,
+        "information_density": 0.0,
+        "hard_invariants_passed": false,
+        "checks": {
+          "activation_boundary": false,
+          "operating_contract": false,
+          "authority_and_preservation": false,
+          "falsifiable_precheck": false,
+          "edge_matrix": false,
+          "risk_bounded_expansion": false,
+          "verification_ladder": false,
+          "honest_unrun_status": false,
+          "completion_gate": false,
+          "compression": false
+        },
+        "check_evidence": {
+          "activation_boundary": {
+            "present": {
+              "do not activate": false,
+              "explanation-only": false
+            }
+          },
+          "operating_contract": {
+            "present": {
+              "## Operating contract": false,
+              "hard boundaries": false
+            }
+          },
+          "authority_and_preservation": {
+            "present": {
+              "authoritative source of truth": false,
+              "preserve pre-existing edits": false
+            }
+          },
+          "falsifiable_precheck": {
+            "present": {
+              "smallest falsifiable check": false
+            }
+          },
+          "edge_matrix": {
+            "present": {
+              "idempotency": false,
+              "authorization": false,
+              "rollback": false,
+              "scale limits": false
+            }
+          },
+          "risk_bounded_expansion": {
+            "present": {
+              "Expand only when": false,
+              "could change the edit or its safety": false
+            }
+          },
+          "verification_ladder": {
+            "present": {
+              "## Verification ladder": false,
+              "fails before the fix and passes after": false
+            }
+          },
+          "honest_unrun_status": {
+            "present": {
+              "never convert": false,
+              "not run": false,
+              "passed": false
+            }
+          },
+          "completion_gate": {
+            "present": {
+              "## Completion gate": false,
+              "Finish only when all are true": false
+            }
+          },
+          "compression": {
+            "token_count": 741,
+            "limit": 700
+          }
+        },
+        "optimization_spec_id": "reliable-code-change-operationalization-v1",
+        "evidence_tier": "structural_proxy",
+        "behavioral_validation_required": true,
+        "proposal_mode": "local_edit",
+        "lexical_replacements": {},
+        "operationalizations": {}
+      }
+    },
+    {
+      "turn": 2,
+      "candidate_id": "proposal_f61a550382",
+      "mode": "lexical",
+      "transformation": {
+        "family": "identity",
+        "operator": "no_change",
+        "token_delta": 0,
+        "changed_lines": 0,
+        "semantic_claim": "unverified"
+      },
+      "accepted": false,
+      "score": {
+        "utility": 1.0,
+        "tokens": 627,
+        "information_density": 0.001594896331738437,
+        "hard_invariants_passed": true,
+        "checks": {
+          "activation_boundary": true,
+          "operating_contract": true,
+          "authority_and_preservation": true,
+          "falsifiable_precheck": true,
+          "edge_matrix": true,
+          "risk_bounded_expansion": true,
+          "verification_ladder": true,
+          "honest_unrun_status": true,
+          "completion_gate": true,
+          "compression": true
+        },
+        "check_evidence": {
+          "activation_boundary": {
+            "present": {
+              "do not activate": true,
+              "explanation-only": true
+            }
+          },
+          "operating_contract": {
+            "present": {
+              "## Operating contract": true,
+              "hard boundaries": true
+            }
+          },
+          "authority_and_preservation": {
+            "present": {
+              "authoritative source of truth": true,
+              "preserve pre-existing edits": true
+            }
+          },
+          "falsifiable_precheck": {
+            "present": {
+              "smallest falsifiable check": true
+            }
+          },
+          "edge_matrix": {
+            "present": {
+              "idempotency": true,
+              "authorization": true,
+              "rollback": true,
+              "scale limits": true
+            }
+          },
+          "risk_bounded_expansion": {
+            "present": {
+              "Expand only when": true,
+              "could change the edit or its safety": true
+            }
+          },
+          "verification_ladder": {
+            "present": {
+              "## Verification ladder": true,
+              "fails before the fix and passes after": true
+            }
+          },
+          "honest_unrun_status": {
+            "present": {
+              "never convert": true,
+              "not run": true,
+              "passed": true
+            }
+          },
+          "completion_gate": {
+            "present": {
+              "## Completion gate": true,
+              "Finish only when all are true": true
+            }
+          },
+          "compression": {
+            "token_count": 627,
+            "limit": 700
+          }
+        },
+        "optimization_spec_id": "reliable-code-change-operationalization-v1",
+        "evidence_tier": "structural_proxy",
+        "behavioral_validation_required": true
+      },
+      "feedback": {
+        "utility": 1.0,
+        "tokens": 627,
+        "information_density": 0.001594896331738437,
+        "hard_invariants_passed": true,
+        "checks": {
+          "activation_boundary": true,
+          "operating_contract": true,
+          "authority_and_preservation": true,
+          "falsifiable_precheck": true,
+          "edge_matrix": true,
+          "risk_bounded_expansion": true,
+          "verification_ladder": true,
+          "honest_unrun_status": true,
+          "completion_gate": true,
+          "compression": true
+        },
+        "check_evidence": {
+          "activation_boundary": {
+            "present": {
+              "do not activate": true,
+              "explanation-only": true
+            }
+          },
+          "operating_contract": {
+            "present": {
+              "## Operating contract": true,
+              "hard boundaries": true
+            }
+          },
+          "authority_and_preservation": {
+            "present": {
+              "authoritative source of truth": true,
+              "preserve pre-existing edits": true
+            }
+          },
+          "falsifiable_precheck": {
+            "present": {
+              "smallest falsifiable check": true
+            }
+          },
+          "edge_matrix": {
+            "present": {
+              "idempotency": true,
+              "authorization": true,
+              "rollback": true,
+              "scale limits": true
+            }
+          },
+          "risk_bounded_expansion": {
+            "present": {
+              "Expand only when": true,
+              "could change the edit or its safety": true
+            }
+          },
+          "verification_ladder": {
+            "present": {
+              "## Verification ladder": true,
+              "fails before the fix and passes after": true
+            }
+          },
+          "honest_unrun_status": {
+            "present": {
+              "never convert": true,
+              "not run": true,
+              "passed": true
+            }
+          },
+          "completion_gate": {
+            "present": {
+              "## Completion gate": true,
+              "Finish only when all are true": true
+            }
+          },
+          "compression": {
+            "token_count": 627,
+            "limit": 700
+          }
+        },
+        "optimization_spec_id": "reliable-code-change-operationalization-v1",
+        "evidence_tier": "structural_proxy",
+        "behavioral_validation_required": true,
+        "proposal_mode": "lexical",
+        "lexical_replacements": {},
+        "operationalizations": {}
+      }
+    },
+    {
+      "turn": 3,
+      "candidate_id": "proposal_d7490298f7",
+      "mode": "semantic_operationalization",
+      "transformation": {
+        "family": "identity",
+        "operator": "no_change",
+        "token_delta": 0,
+        "changed_lines": 0,
+        "semantic_claim": "unverified"
+      },
+      "accepted": false,
+      "score": {
+        "utility": 1.0,
+        "tokens": 627,
+        "information_density": 0.001594896331738437,
+        "hard_invariants_passed": true,
+        "checks": {
+          "activation_boundary": true,
+          "operating_contract": true,
+          "authority_and_preservation": true,
+          "falsifiable_precheck": true,
+          "edge_matrix": true,
+          "risk_bounded_expansion": true,
+          "verification_ladder": true,
+          "honest_unrun_status": true,
+          "completion_gate": true,
+          "compression": true
+        },
+        "check_evidence": {
+          "activation_boundary": {
+            "present": {
+              "do not activate": true,
+              "explanation-only": true
+            }
+          },
+          "operating_contract": {
+            "present": {
+              "## Operating contract": true,
+              "hard boundaries": true
+            }
+          },
+          "authority_and_preservation": {
+            "present": {
+              "authoritative source of truth": true,
+              "preserve pre-existing edits": true
+            }
+          },
+          "falsifiable_precheck": {
+            "present": {
+              "smallest falsifiable check": true
+            }
+          },
+          "edge_matrix": {
+            "present": {
+              "idempotency": true,
+              "authorization": true,
+              "rollback": true,
+              "scale limits": true
+            }
+          },
+          "risk_bounded_expansion": {
+            "present": {
+              "Expand only when": true,
+              "could change the edit or its safety": true
+            }
+          },
+          "verification_ladder": {
+            "present": {
+              "## Verification ladder": true,
+              "fails before the fix and passes after": true
+            }
+          },
+          "honest_unrun_status": {
+            "present": {
+              "never convert": true,
+              "not run": true,
+              "passed": true
+            }
+          },
+          "completion_gate": {
+            "present": {
+              "## Completion gate": true,
+              "Finish only when all are true": true
+            }
+          },
+          "compression": {
+            "token_count": 627,
+            "limit": 700
+          }
+        },
+        "optimization_spec_id": "reliable-code-change-operationalization-v1",
+        "evidence_tier": "structural_proxy",
+        "behavioral_validation_required": true
+      },
+      "feedback": {
+        "utility": 1.0,
+        "tokens": 627,
+        "information_density": 0.001594896331738437,
+        "hard_invariants_passed": true,
+        "checks": {
+          "activation_boundary": true,
+          "operating_contract": true,
+          "authority_and_preservation": true,
+          "falsifiable_precheck": true,
+          "edge_matrix": true,
+          "risk_bounded_expansion": true,
+          "verification_ladder": true,
+          "honest_unrun_status": true,
+          "completion_gate": true,
+          "compression": true
+        },
+        "check_evidence": {
+          "activation_boundary": {
+            "present": {
+              "do not activate": true,
+              "explanation-only": true
+            }
+          },
+          "operating_contract": {
+            "present": {
+              "## Operating contract": true,
+              "hard boundaries": true
+            }
+          },
+          "authority_and_preservation": {
+            "present": {
+              "authoritative source of truth": true,
+              "preserve pre-existing edits": true
+            }
+          },
+          "falsifiable_precheck": {
+            "present": {
+              "smallest falsifiable check": true
+            }
+          },
+          "edge_matrix": {
+            "present": {
+              "idempotency": true,
+              "authorization": true,
+              "rollback": true,
+              "scale limits": true
+            }
+          },
+          "risk_bounded_expansion": {
+            "present": {
+              "Expand only when": true,
+              "could change the edit or its safety": true
+            }
+          },
+          "verification_ladder": {
+            "present": {
+              "## Verification ladder": true,
+              "fails before the fix and passes after": true
+            }
+          },
+          "honest_unrun_status": {
+            "present": {
+              "never convert": true,
+              "not run": true,
+              "passed": true
+            }
+          },
+          "completion_gate": {
+            "present": {
+              "## Completion gate": true,
+              "Finish only when all are true": true
+            }
+          },
+          "compression": {
+            "token_count": 627,
+            "limit": 700
+          }
+        },
+        "optimization_spec_id": "reliable-code-change-operationalization-v1",
+        "evidence_tier": "structural_proxy",
+        "behavioral_validation_required": true,
+        "proposal_mode": "semantic_operationalization",
+        "lexical_replacements": {},
+        "operationalizations": {}
+      }
+    },
+    {
+      "turn": 4,
+      "candidate_id": "proposal_ff7c66f46a",
+      "mode": "section_rewrite",
+      "transformation": {
+        "family": "identity",
+        "operator": "no_change",
+        "token_delta": 0,
+        "changed_lines": 0,
+        "semantic_claim": "unverified"
+      },
+      "accepted": false,
+      "score": {
+        "utility": 1.0,
+        "tokens": 627,
+        "information_density": 0.001594896331738437,
+        "hard_invariants_passed": true,
+        "checks": {
+          "activation_boundary": true,
+          "operating_contract": true,
+          "authority_and_preservation": true,
+          "falsifiable_precheck": true,
+          "edge_matrix": true,
+          "risk_bounded_expansion": true,
+          "verification_ladder": true,
+          "honest_unrun_status": true,
+          "completion_gate": true,
+          "compression": true
+        },
+        "check_evidence": {
+          "activation_boundary": {
+            "present": {
+              "do not activate": true,
+              "explanation-only": true
+            }
+          },
+          "operating_contract": {
+            "present": {
+              "## Operating contract": true,
+              "hard boundaries": true
+            }
+          },
+          "authority_and_preservation": {
+            "present": {
+              "authoritative source of truth": true,
+              "preserve pre-existing edits": true
+            }
+          },
+          "falsifiable_precheck": {
+            "present": {
+              "smallest falsifiable check": true
+            }
+          },
+          "edge_matrix": {
+            "present": {
+              "idempotency": true,
+              "authorization": true,
+              "rollback": true,
+              "scale limits": true
+            }
+          },
+          "risk_bounded_expansion": {
+            "present": {
+              "Expand only when": true,
+              "could change the edit or its safety": true
+            }
+          },
+          "verification_ladder": {
+            "present": {
+              "## Verification ladder": true,
+              "fails before the fix and passes after": true
+            }
+          },
+          "honest_unrun_status": {
+            "present": {
+              "never convert": true,
+              "not run": true,
+              "passed": true
+            }
+          },
+          "completion_gate": {
+            "present": {
+              "## Completion gate": true,
+              "Finish only when all are true": true
+            }
+          },
+          "compression": {
+            "token_count": 627,
+            "limit": 700
+          }
+        },
+        "optimization_spec_id": "reliable-code-change-operationalization-v1",
+        "evidence_tier": "structural_proxy",
+        "behavioral_validation_required": true
+      },
+      "feedback": {
+        "utility": 1.0,
+        "tokens": 627,
+        "information_density": 0.001594896331738437,
+        "hard_invariants_passed": true,
+        "checks": {
+          "activation_boundary": true,
+          "operating_contract": true,
+          "authority_and_preservation": true,
+          "falsifiable_precheck": true,
+          "edge_matrix": true,
+          "risk_bounded_expansion": true,
+          "verification_ladder": true,
+          "honest_unrun_status": true,
+          "completion_gate": true,
+          "compression": true
+        },
+        "check_evidence": {
+          "activation_boundary": {
+            "present": {
+              "do not activate": true,
+              "explanation-only": true
+            }
+          },
+          "operating_contract": {
+            "present": {
+              "## Operating contract": true,
+              "hard boundaries": true
+            }
+          },
+          "authority_and_preservation": {
+            "present": {
+              "authoritative source of truth": true,
+              "preserve pre-existing edits": true
+            }
+          },
+          "falsifiable_precheck": {
+            "present": {
+              "smallest falsifiable check": true
+            }
+          },
+          "edge_matrix": {
+            "present": {
+              "idempotency": true,
+              "authorization": true,
+              "rollback": true,
+              "scale limits": true
+            }
+          },
+          "risk_bounded_expansion": {
+            "present": {
+              "Expand only when": true,
+              "could change the edit or its safety": true
+            }
+          },
+          "verification_ladder": {
+            "present": {
+              "## Verification ladder": true,
+              "fails before the fix and passes after": true
+            }
+          },
+          "honest_unrun_status": {
+            "present": {
+              "never convert": true,
+              "not run": true,
+              "passed": true
+            }
+          },
+          "completion_gate": {
+            "present": {
+              "## Completion gate": true,
+              "Finish only when all are true": true
+            }
+          },
+          "compression": {
+            "token_count": 627,
+            "limit": 700
+          }
+        },
+        "optimization_spec_id": "reliable-code-change-operationalization-v1",
+        "evidence_tier": "structural_proxy",
+        "behavioral_validation_required": true,
+        "proposal_mode": "section_rewrite",
+        "lexical_replacements": {},
+        "operationalizations": {}
+      }
+    }
+  ],
+  "stop_reason": "patience_exhausted"
+}

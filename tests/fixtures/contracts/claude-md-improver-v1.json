@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "claude-md-improver-v1",
+  "outcome": "Audit repository memory files and propose targeted, evidence-backed improvements without mutating files before approval.",
+  "activation": [
+    "User asks to check, audit, update, improve, or fix CLAUDE.md files",
+    "User mentions CLAUDE.md maintenance or project memory optimization"
+  ],
+  "exclusions": [
+    "Do not edit CLAUDE.md files when the user only requests an audit"
+  ],
+  "inputs_and_preconditions": [
+    "Repository or project tree is readable",
+    "Read, Glob, Grep, Bash, and Edit capabilities may be available"
+  ],
+  "hard_invariants": [
+    {"id": "discover-scope", "description": "Find project, local, global, package, and nested CLAUDE.md variants relevant to the repository.", "min_pass_rate": 1.0},
+    {"id": "report-before-write", "description": "Emit the quality report before making any file mutation.", "min_pass_rate": 1.0},
+    {"id": "approval-gate", "description": "Obtain user confirmation before applying updates.", "min_pass_rate": 1.0},
+    {"id": "targeted-diff", "description": "Show targeted additions or diffs and preserve existing structure.", "min_pass_rate": 1.0}
+  ],
+  "decision_points": [
+    "Choose relevant CLAUDE.md locations",
+    "Classify issues as stale, missing, broken, or undocumented",
+    "Ask for approval before applying proposed edits"
+  ],
+  "state": ["Existing CLAUDE.md content is authoritative input", "Edits are applied only after approval"],
+  "side_effects": ["Read repository files", "Edit CLAUDE.md files only after explicit approval"],
+  "outputs": ["Quality report", "File-by-file findings", "Targeted diff proposals", "Updated files after approval"],
+  "validation": ["Documented commands and paths are checked against the repository", "Applied changes preserve existing structure"],
+  "failure_recovery": ["Report unreadable or missing files as gaps", "Do not invent commands or apply partial edits silently"],
+  "quality_heuristics": ["Concise", "Actionable", "Project-specific", "Non-obvious gotchas over generic advice"],
+  "examples_and_calibration": ["Quality score rubric", "Diff format", "Good and bad CLAUDE.md sections"]
+}

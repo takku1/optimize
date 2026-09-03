@@ -1,0 +1,4 @@
+# single deployable: order-taking and fulfillment scale and deploy together
+service: orders
+replicas: 4
+cpu_request: 500m

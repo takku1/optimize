@@ -1,0 +1,33 @@
+{
+  "benchmark_version": "skillbench-0.1",
+  "capability_contract_hash": "architectural-reasoning-v1",
+  "created_at": "2026-08-29T06:15:41.683278+00:00",
+  "evaluation_id": "d28129ed4ea512ab9aa93420c83c9d6bf27c6db54a6a3c35b8b7259d079219c1",
+  "evaluator_name": "blinded-judge-plus-deterministic-checks",
+  "metric_results": {
+    "invariants": {
+      "calibrated-effort": true,
+      "grounded-evidence": true,
+      "lens-grounded-in-force": true,
+      "no-gratuitous-rewrite": true,
+      "reaudit-reclassifies": true
+    },
+    "omega": {
+      "calibration": 0.9,
+      "correctness": 0.95,
+      "invariant_adherence": 1.0,
+      "task_success": 1.0
+    },
+    "utility": 0.9675
+  },
+  "model_name": "general-purpose-agent",
+  "provenance": {
+    "opaque_id": "run_77416c64",
+    "split": "fitness"
+  },
+  "raw_output_hash": "",
+  "rollout_id": "rollout_01",
+  "scenario_id": "02-reaudit-catches-regression",
+  "skill_hash": "8753430b632a9d52cbf1d534b7e8a409ecda4b7b0ff3317754a95c60e5124f17",
+  "trainability": "TRAINABLE"
+}

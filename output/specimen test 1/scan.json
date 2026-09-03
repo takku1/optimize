@@ -1,0 +1,89 @@
+﻿{
+  "target": null,
+  "files": [
+    {
+      "path": "Z:/Specimen/README.md",
+      "tokens": 303,
+      "words": 176,
+      "predicted_activation": 0.233,
+      "reliability": 0.2275,
+      "distortion": 0.7725,
+      "off_target": 0.2101,
+      "expected_gain": 0.053,
+      "uncertainty": 0.0214,
+      "score": -0.0585
+    },
+    {
+      "path": "Z:/Specimen/SKILL.md",
+      "tokens": 1032,
+      "words": 735,
+      "predicted_activation": 0.2325,
+      "reliability": 0.227,
+      "distortion": 0.773,
+      "off_target": 0.2102,
+      "expected_gain": 0.0528,
+      "uncertainty": 0.0213,
+      "score": -0.0587
+    },
+    {
+      "path": "Z:/Specimen/references/evidence-status-discipline.md",
+      "tokens": 1387,
+      "words": 1042,
+      "predicted_activation": 0.2325,
+      "reliability": 0.227,
+      "distortion": 0.773,
+      "off_target": 0.2102,
+      "expected_gain": 0.0528,
+      "uncertainty": 0.0213,
+      "score": -0.0588
+    },
+    {
+      "path": "Z:/Specimen/references/latex-scaffold.md",
+      "tokens": 1449,
+      "words": 755,
+      "predicted_activation": 0.2325,
+      "reliability": 0.227,
+      "distortion": 0.773,
+      "off_target": 0.2102,
+      "expected_gain": 0.0528,
+      "uncertainty": 0.0213,
+      "score": -0.0588
+    },
+    {
+      "path": "Z:/Specimen/references/literature-scan.md",
+      "tokens": 1123,
+      "words": 655,
+      "predicted_activation": 0.2325,
+      "reliability": 0.227,
+      "distortion": 0.773,
+      "off_target": 0.2102,
+      "expected_gain": 0.0528,
+      "uncertainty": 0.0213,
+      "score": -0.0587
+    },
+    {
+      "path": "Z:/Specimen/references/section-template.md",
+      "tokens": 774,
+      "words": 522,
+      "predicted_activation": 0.2325,
+      "reliability": 0.227,
+      "distortion": 0.773,
+      "off_target": 0.2102,
+      "expected_gain": 0.0528,
+      "uncertainty": 0.0213,
+      "score": -0.0587
+    },
+    {
+      "path": "Z:/Specimen/scripts/arxiv_lookup.py",
+      "tokens": 903,
+      "words": 289,
+      "predicted_activation": 0.2325,
+      "reliability": 0.227,
+      "distortion": 0.773,
+      "off_target": 0.2102,
+      "expected_gain": 0.0528,
+      "uncertainty": 0.0213,
+      "score": -0.0587
+    }
+  ]
+}

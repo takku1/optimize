@@ -1,0 +1,20 @@
+{
+  "actual_effect": {
+    "tokens_delta": -14.0,
+    "utility_delta": 0.0
+  },
+  "child_hash": "c6cc0b06bc0e39cbd8305126ea9817d8b58d9dd69dd100eeacabf0998be00f0e",
+  "created_at": "2026-08-29T06:31:52.870966+00:00",
+  "mutation_description": "Replaced the Re-audit bullet's 'distrust prior findings; re-verify each against current code; classify resolved, regressed, still open, or new; check whether a fix introduced another problem' with the generic 'review the prior audit findings and the associated diff'.",
+  "mutation_family": "defect_injection",
+  "mutation_id": "9c6f4d1dfdabc488c4a9ab5204a146509e1bb9135963fec8cae465d72cb14fa0",
+  "optimizer_version": "negative-control-2026-08-29",
+  "parent_hash": "8753430b632a9d52cbf1d534b7e8a409ecda4b7b0ff3317754a95c60e5124f17",
+  "predicted_effect": {},
+  "provenance": {
+    "evidence_class": "BENCHMARK_VALIDATION",
+    "finding": "NULL RESULT: benchmark did not detect this defect on scenario 02 (reaudit-reclassifies still scored true, utility unchanged to 4 sig figs). See REPORT.md -- likely means this invariant is not yet skill-attributable on this scenario, not that the defect had no real effect.",
+    "report": "output/claude skills/architectural-reasoning/negative-control-2026-08-29/REPORT.md"
+  },
+  "rationale": ""
+}

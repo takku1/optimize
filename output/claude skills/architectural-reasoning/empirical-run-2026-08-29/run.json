@@ -1,0 +1,99 @@
+{
+  "id": "empirical-run-2026-08-29",
+  "metadata": {
+    "purpose": "First empirical fitness evaluation of architectural-reasoning v1.2.4 vs current (v1.3.0). Replaces the one-off deterministic_checks.py/assemble_results.py/seed_graph.py scripts with the declarative run pipeline."
+  },
+  "paths": {
+    "transcripts_dir": "transcripts",
+    "deterministic_checks": "deterministic_checks.json",
+    "blind_map": "judging/blind_map.json",
+    "raw_scores": "judging/raw_scores.json",
+    "final_results": "final_results.json",
+    "contract": "../../../../tests/fixtures/contracts/architectural-reasoning-v1.json",
+    "graph_dir": "../../evolution-graph"
+  },
+  "stages": {
+    "checks": {
+      "versions": ["v1_2_4", "v1_3_0"],
+      "scenarios": [
+        "01-stop-when-supported",
+        "02-reaudit-catches-regression",
+        "03a-lens-wording-security",
+        "03b-lens-wording-sociotechnical"
+      ],
+      "transcript_pattern": "{version}/{scenario}/rollout_01.md",
+      "units": {
+        "01-stop-when-supported": [
+          {"field": "word_count", "op": "word_count"},
+          {"field": "mentions_escalation_phrase", "op": "mentions_any",
+           "phrases": ["focused design", "full architecture"]},
+          {"field": "calibrated_effort_deterministic", "op": "derived",
+           "expr": "word_count <= 400 and not mentions_escalation_phrase"}
+        ],
+        "02-reaudit-catches-regression": [
+          {"field": "word_count", "op": "word_count"},
+          {"field": "status_label_count", "op": "count_labels",
+           "words": ["resolved", "regressed", "still open", "new"]},
+          {"field": "reaudit_reclassifies_deterministic_proxy", "op": "derived",
+           "expr": "status_label_count >= 2"}
+        ],
+        "*": [
+          {"field": "word_count", "op": "word_count"}
+        ]
+      }
+    },
+    "assemble": {
+      "all_invariant_ids": [
+        "grounded-evidence", "calibrated-effort", "reaudit-reclassifies",
+        "lens-grounded-in-force", "no-gratuitous-rewrite"
+      ],
+      "tested_invariants": {
+        "01-stop-when-supported": ["calibrated-effort", "grounded-evidence"],
+        "02-reaudit-catches-regression": ["reaudit-reclassifies", "grounded-evidence"],
+        "03a-lens-wording-security": ["lens-grounded-in-force"],
+        "03b-lens-wording-sociotechnical": ["lens-grounded-in-force"]
+      },
+      "deterministic_overrides": {
+        "calibrated-effort": "calibrated_effort_deterministic",
+        "reaudit-reclassifies": "reaudit_reclassifies_deterministic_proxy"
+      },
+      "scenarios": [
+        "01-stop-when-supported",
+        "02-reaudit-catches-regression",
+        "03a-lens-wording-security",
+        "03b-lens-wording-sociotechnical"
+      ],
+      "capability_family": "reasoning",
+      "baseline": {"version": "v1_2_4", "id": "architectural-reasoning-v1_2_4", "skill_tokens": 1651},
+      "candidate": {"version": "v1_3_0", "id": "architectural-reasoning-v1_3_0", "skill_tokens": 844},
+      "compare": {"noninferiority_margin": 0.05, "seed": 2026829, "bootstrap_resamples": 2000}
+    },
+    "seed": {
+      "graph_dir_hint": "planned for ../evolution-graph",
+      "contract_hash": "architectural-reasoning-v1",
+      "benchmark_version": "skillbench-0.1",
+      "baseline": "baseline",
+      "candidate": "candidate",
+      "versions": {
+        "baseline": {
+          "skill": "Z:/archetect/skills/architectural-reasoning/archive/v1.2.4/SKILL.md",
+          "tokens": 1651,
+          "generation": 0,
+          "generator": "human"
+        },
+        "candidate": {
+          "skill": "Z:/archetect/skills/architectural-reasoning/SKILL.md",
+          "tokens": 844,
+          "generation": 1,
+          "generator": "human"
+        }
+      },
+      "mutation": {
+        "family": "human_reauthoring",
+        "description": "v1.2.4 -> v1.3.0: separated optimization machinery into a dedicated skill, made effort calibration explicit/operational, tightened evidence requirements, compressed lens table wording.",
+        "optimizer_version": "empirical-run-2026-08-29",
+        "report": "REPORT.md"
+      }
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "scenarios": [
+    {
+      "id": "01-stop-when-supported",
+      "request": "Our POST /webhooks/register endpoint stores incoming webhook URLs in a webhooks table and calls them through a shared http_client wrapper with a fixed 5s timeout, same as every other outbound call in this service. A teammate wants to add a per-webhook custom timeout (1-30s, configurable at registration). Is that a reasonable change, and how should the timeout get threaded through the existing call path?",
+      "expected_invariants": ["calibrated-effort", "grounded-evidence"],
+      "tags": [
+        "activation:positive", "difficulty:easy", "evidence:complete", "novelty:familiar",
+        "user_intent:explicit", "context:short", "tool_requirements:none",
+        "failure_mode:overreach", "constraint_pressure:compatible"
+      ],
+      "preconditions": [],
+      "expected_outcome": "A compact Quick-decision-mode recommendation (roughly 15-20 lines): reads only the Webhook model, dispatch.py, and http_client.py; invokes at most one lens if genuinely load-bearing (e.g. Evolutionary architecture, since the change must preserve the current 5s default); does not enumerate all nine lenses or escalate to Focused/Full mode.",
+      "metadata": {
+        "hypothesis": "Quick decision mode (the SKILL.md default) actually stops early on a small, low-ambiguity change instead of over-mapping the system.",
+        "files": [
+          {
+            "path": "webhook_service/models.py",
+            "content": "class Webhook(Base):\n    __tablename__ = \"webhooks\"\n    id = Column(Integer, primary_key=True)\n    url = Column(String, nullable=False)\n    secret = Column(String, nullable=False)\n    created_at = Column(DateTime, default=utcnow)\n    # no timeout field yet\n"
+          },
+          {
+            "path": "webhook_service/dispatch.py",
+            "content": "from shared.http_client import http_client, DEFAULT_TIMEOUT\n\ndef dispatch(webhook_id, payload):\n    hook = db.query(Webhook).get(webhook_id)\n    return http_client.post(hook.url, json=payload, timeout=DEFAULT_TIMEOUT)\n"
+          },
+          {
+            "path": "shared/http_client.py",
+            "content": "import httpx\n\nDEFAULT_TIMEOUT = 5\nhttp_client = httpx.Client()\n# used identically by every outbound caller in this service\n"
+          }
+        ],
+        "fail_if": "reads or asks to read files outside the webhook dispatch path; escalates to Focused design or Full architecture mode unprompted; invokes lenses that don't govern here (e.g. Distributed tradeoffs, Security by construction, Fault containment) just to be thorough; or produces an artifact longer than roughly 15-20 lines.",
+        "source": "Z:\\archetect\\skills\\architectural-reasoning\\evals\\01-stop-when-supported.json",
+        "success_band": {
+          "max_words": 300,
+          "forbidden_phrases": ["focused design", "full architecture"],
+          "_rationale": "300 words is a deliberately generous reading of 'roughly 15-20 lines' (~15-20 words/line); pre-registered here, in the fixture, before any transcript exists for this scenario -- not chosen after seeing a result. The empirical run of 2026-08-29 found BOTH skill versions exceeded even the looser 400-word runner-script threshold used at the time (583 and 473 words), so this band is expected to still fail both until the skill itself changes, not evidence the band is miscalibrated toward one version."
+        }
+      }
+    },
+    {
+      "id": "02-reaudit-catches-regression",
+      "request": "Here's a finding from our last architecture audit, and the diff that was merged to address it. Re-audit: is it actually fixed?\n\nPrior finding (2026-08-01): Severity: High. Evidence: billing/subscriptions.py:88, cancel_subscription(). cancel_subscription() calls stripe_client.refund(charge_id) synchronously while holding the subscriptions row's SELECT ... FOR UPDATE lock, so a slow or hung call to Stripe holds a DB lock open for the duration of an external network call. Recommendation: move the refund call outside the transaction.",
+      "expected_invariants": ["reaudit-reclassifies", "grounded-evidence"],
+      "tags": [
+        "activation:positive", "difficulty:hard", "evidence:complete", "novelty:compositional",
+        "user_intent:explicit", "context:long", "tool_requirements:none",
+        "failure_mode:omission", "constraint_pressure:compatible"
+      ],
+      "preconditions": ["a prior finding to re-verify", "a diff/change that was merged against it"],
+      "expected_outcome": "Re-verifies the original finding against current code (confirms the lock issue is resolved), then inspects the actual new code path and surfaces at least one concrete new issue grounded in the given files (stripe_client.refund has no idempotency key, and worker.py retries cancel_subscription on any exception -> possible duplicate refund on retry). Classifies findings by status (resolved/regressed/still open/new) rather than one blanket verdict.",
+      "metadata": {
+        "hypothesis": "Given a prior finding and a fix that resolves it but introduces a new problem, Re-audit mode classifies status correctly instead of just confirming the original fix.",
+        "files": [
+          {
+            "path": "billing/subscriptions.py",
+            "content": "def cancel_subscription(sub_id):\n    with db.transaction():\n        sub = db.query(Subscription).filter_by(id=sub_id).with_for_update().one()\n        sub.status = \"canceled\"\n        db.commit()\n    # refund moved outside the transaction, per the prior audit's recommendation\n    stripe_client.refund(sub.charge_id)\n    return sub\n"
+          },
+          {
+            "path": "billing/worker.py",
+            "content": "# queue consumer: retries the handler on any exception, no dedup/idempotency key\ndef handle_cancel_message(msg):\n    try:\n        cancel_subscription(msg.sub_id)\n    except Exception:\n        requeue(msg)  # will call cancel_subscription again, including stripe_client.refund\n"
+          }
+        ],
+        "fail_if": "reports the original finding as still open (misses that the lock issue is resolved); rubber-stamps the diff as complete with no new finding; or raises a new finding not actually grounded in the given files.",
+        "source": "Z:\\archetect\\skills\\architectural-reasoning\\evals\\02-reaudit-catches-regression.json",
+        "success_band": {
+          "required_any_phrases": ["resolved", "regressed", "still open", "new"],
+          "_rationale": "A weak, deterministic proxy for 'classifies by status' -- requires at least one of the four named status words to appear; does not by itself confirm the classification is correct (that needs the semantic judge), only that the response engages the classification vocabulary at all rather than issuing an unstructured blanket verdict."
+        }
+      }
+    },
+    {
+      "id": "03a-lens-wording-security",
+      "request": "We're adding an internal admin endpoint that lets support staff impersonate a user account for debugging. What's the attack surface here, and how do we keep the threat model tight?",
+      "expected_invariants": ["lens-grounded-in-force"],
+      "tags": [
+        "activation:positive", "difficulty:moderate", "evidence:partial", "novelty:familiar",
+        "user_intent:implicit", "context:short", "tool_requirements:none",
+        "failure_mode:omission", "constraint_pressure:compatible"
+      ],
+      "preconditions": [],
+      "expected_outcome": "Selects Security by construction as a governing lens and reasons in its terms: who can invoke impersonation, mediation/authorization, least privilege and scoping, audit logging, session expiry, confused-deputy risk. The lens name need not appear verbatim; the content should visibly be that lens.",
+      "metadata": {
+        "hypothesis": "v1.2.4 added 'threat model, attack surface' wording to the Security by construction lens row (replacing trust/authority/mediation/least privilege) on the unverified theory that this is the idiom a real request is more likely to use. This is the first real test of that theory.",
+        "fail_if": "the response never engages trust/authority/mediation framing for the impersonation feature -- e.g. treats this purely as an implementation question without addressing who can do what to whom and why that's safe.",
+        "source": "Z:\\archetect\\skills\\architectural-reasoning\\evals\\03-lens-wording-retrieval.json (case 3a-security)"
+      }
+    },
+    {
+      "id": "03b-lens-wording-sociotechnical",
+      "request": "Platform team owns the notifications service. Two other teams keep needing small changes to how notification templates render for their features, and every change means a PR review plus a deploy cycle owned by Platform. This is generating a lot of cross-team back-and-forth, and Platform says the review queue is becoming a bottleneck. What's the right way to reduce this without asking Platform to grow the team?",
+      "expected_invariants": ["lens-grounded-in-force"],
+      "tags": [
+        "activation:positive", "difficulty:moderate", "evidence:partial", "novelty:familiar",
+        "user_intent:implicit", "context:short", "tool_requirements:none",
+        "failure_mode:omission", "constraint_pressure:compatible"
+      ],
+      "preconditions": [],
+      "expected_outcome": "Selects Sociotechnical alignment as a governing lens and reasons about team-ownership boundaries and coordination load: whether the module boundary should shift to match the team boundary (self-service template mechanism, plugin point, or split ownership) rather than treating this as a pure templating-engine question.",
+      "metadata": {
+        "hypothesis": "v1.2.4 added 'team boundaries, cognitive load' wording to the Sociotechnical alignment lens row (replacing team communication/technical dependencies) on the unverified theory that this is the idiom a real request is more likely to use.",
+        "fail_if": "the response addresses only the technical templating mechanism (e.g. 'use a schema-driven template engine') without ever engaging the team-ownership / review-bottleneck framing that's the actual governing force here.",
+        "source": "Z:\\archetect\\skills\\architectural-reasoning\\evals\\03-lens-wording-retrieval.json (case 3b-sociotechnical)"
+      }
+    },
+    {
+      "id": "04-output-routing",
+      "request": "We're splitting fulfillment out of the monolithic orders service into its own service so it can scale and deploy independently of order-taking. Write this up as an ADR.",
+      "expected_invariants": ["output-routing-respected", "grounded-evidence"],
+      "tags": [
+        "activation:positive", "difficulty:moderate", "evidence:partial", "novelty:familiar",
+        "user_intent:explicit", "context:short", "tool_requirements:none",
+        "failure_mode:wrong_format", "constraint_pressure:compatible"
+      ],
+      "preconditions": [],
+      "expected_outcome": "The response is shaped as an ADR (a status/context/forces/options/decision/consequences record, or a materially equivalent decision-record shape -- exact headings may vary), grounded in the given files, not the skill's default Recommendation/Evidence/Tradeoffs/Next-step brief and not an unrequested full architecture audit.",
+      "metadata": {
+        "hypothesis": "v1.3.1 explicitly names the ADR's field shape (Status/Context/Forces/Options/Decision/Consequences/Validation and reversal) in its output-routing table; v1.3.0 only says 'route to the requested ADR' without specifying the shape. This tests whether that explicit routing table actually changes output shape.",
+        "files": [
+          {
+            "path": "orders_service/service.py",
+            "content": "class OrderService:\n    def place_order(self, cart):\n        order = self._create_order(cart)\n        self._reserve_inventory(order)\n        self._charge_payment(order)\n        self._fulfill(order)  # packs, labels, and schedules carrier pickup -- same process, same deploy\n        return order\n\n    def _fulfill(self, order):\n        pick_list = self._generate_pick_list(order)\n        self._request_carrier_pickup(order, pick_list)\n"
+          },
+          {
+            "path": "orders_service/deploy.yaml",
+            "content": "# single deployable: order-taking and fulfillment scale and deploy together\nservice: orders\nreplicas: 4\ncpu_request: 500m\n"
+          }
+        ],
+        "fail_if": "produces the generic Recommendation/Evidence/Tradeoffs/Next-step brief instead of an ADR-shaped artifact, produces a full unrequested architecture audit or repository-wide review, or states a finding not grounded in the two given files.",
+        "source": "written for this proposal-test run per PROPOSAL.md's evaluation plan, item 1 (04-output-routing.json)",
+        "success_band": {
+          "required_any_phrases": ["context", "decision", "consequences", "forces", "options", "status"],
+          "min_distinct_matches": 3,
+          "_rationale": "A weak, deterministic proxy for 'ADR-shaped' -- requires at least 3 of the 6 named ADR section words to appear (case-insensitive, as headings or prose), pre-registered before any transcript exists. Does not by itself confirm the shape is correct (that needs the semantic judge), only that the response engages ADR vocabulary rather than emitting the default four-part brief verbatim."
+        }
+      }
+    },
+    {
+      "id": "05-reference-unavailable",
+      "request": "There's disagreement on the team about whether to restructure this service around ports-and-adapters (hexagonal architecture) or keep the current layered structure. Ground a recommendation in the relevant architectural philosophy.",
+      "expected_invariants": ["graceful-reference-degradation", "grounded-evidence"],
+      "tags": [
+        "activation:positive", "difficulty:moderate", "evidence:partial", "novelty:familiar",
+        "user_intent:explicit", "context:short", "tool_requirements:none",
+        "failure_mode:fabrication", "constraint_pressure:compatible"
+      ],
+      "preconditions": ["the skill's optional `references/architectural-philosophies.md` reference is not present in the execution environment"],
+      "expected_outcome": "The response reasons from the inline contract/skill guidance and the given file, states a recommendation, and -- if it notices the named reference is unavailable at all -- says so only insofar as it affects confidence, without stalling, refusing, or inventing specific content it attributes to that reference.",
+      "metadata": {
+        "hypothesis": "v1.3.1 states explicitly: 'If a reference is unavailable, continue with the inline guidance and state the limitation only when it materially changes confidence.' v1.3.0 has no equivalent sentence. This tests whether that explicit instruction changes behavior when the reference genuinely isn't there (neither version's subject agent has access to the real skill directory's references/ folder in this pipeline's execution method).",
+        "files": [
+          {
+            "path": "billing_service/service.py",
+            "content": "class BillingService:\n    def charge(self, invoice):\n        conn = db.connect()\n        row = conn.execute(\"SELECT * FROM invoices WHERE id=?\", invoice.id).fetchone()\n        result = stripe_client.charge(row[\"amount\"], row[\"customer_id\"])\n        conn.execute(\"UPDATE invoices SET status=? WHERE id=?\", (\"charged\", invoice.id))\n        return result\n"
+          }
+        ],
+        "fail_if": "the response refuses or stalls because a reference file couldn't be read, or quotes/attributes specific named content (a philosophy's tenets, a named framework) to `references/architectural-philosophies.md` without having actually read it in this session.",
+        "source": "written for this proposal-test run per PROPOSAL.md's evaluation plan, item 2 (05-reference-unavailable.json)"
+      }
+    }
+  ]
+}

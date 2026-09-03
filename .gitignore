@@ -1,0 +1,32 @@
+# Python bytecode and test/tool caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments and packaging output
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+# Local benchmark and scratch data
+.benchmarks/
+.codex-test-temp/
+.test-tmp*/
+
+# Local tool state/caches (machine-local, regenerable, not project evidence)
+.claude-flow/
+.deepeval/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Keep output/: it contains the repository's preserved empirical evidence.

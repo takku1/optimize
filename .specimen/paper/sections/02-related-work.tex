@@ -1,0 +1,93 @@
+Related work is organized by mechanism, not chronology. For each cluster we
+state what the cited work \emph{establishes} and what it does \emph{not}, and we
+flag the one correction to the project's own notes that surfaced during the
+literature scan for this preprint.
+\label{sec:rel}
+
+\paragraph{Discrete prompt search (generate-and-search).} \citet{zhou2023ape}
+introduced LLM-generated candidate prompts scored on task accuracy
+\emph{(automatic prompt engineering)}; \citet{yang2023opro} framed the optimizer
+itself as an LLM that proposes candidates from a scored history, and reported the
+now-celebrated case where a short phrase (``take a deep breath'')
+beat longer instructions. Later scale-limits work \citep{zhang2024reoprolim} shows
+the optimizer's size and human-written meta-instructions strongly condition these
+results --- a direct warning against letting a scaffold rank without stating its
+evaluator. \citet{shin2020autoprompt} searched trigger tokens via gradients;
+\citet{fernando2023promptbreeder} evolved prompts; \citet{guo2023evoprompt}
+reused evolutionary operators; \citet{pryzant2023protegi} treated natural-language
+critiques as ``gradients'' with beam search; \citet{khattab2023dspy} compiled
+declarative LM programs; \citet{yuksekgonul2024textgrad} propagated textual
+gradients through computation graphs; and \citet{latentprompt2025} searched a
+continuous latent space and decoded candidates. What this cluster establishes:
+discrete or latent prompt candidates can be searched and scored programmatically.
+What it does \emph{not}: it does not establish \emph{which wording does the most
+behavioral work per token}, and much of it scores on the same model that proposes,
+leaving an evaluator-leakage risk that \citet{zhang2024reoprolim} makes concrete.
+
+\paragraph{Compression and information-theoretic bounds.}
+\citet{jiang2023llmlingua} estimate token importance to compress existing prompts
+for inference cost; the strongest precedent for this project's distortion-rate
+posture is \citet{nagle2024promptrates} (``Fundamental Limits of Prompt
+Compression''), which derives the distortion-rate function for black-box prompt
+compression as a linear program. That paper establishes a \emph{theoretical}
+bound; this toolkit's \texttt{rate\_distortion\_frontier} is an \emph{empirical}
+lower envelope, a strictly weaker object. \citet{tishby2000ib} provides the
+Information Bottleneck complement (compress input while preserving relevant
+information), and \citet{xie2021icl} supplies the theoretical intuition for why
+specific wording narrows the effective output distribution. None of these
+operations turns a synthetic simulator into evidence about a real model.
+
+\paragraph{Model selection and uncertainty.}
+\citet{akinwande2023pacbayes} show that a language-model prior plus a discrete
+prompt yields PAC-Bayes generalization bounds usable for model selection --
+relevant because selection-confidence needs a penalty for optimizing on the
+selection set only. \citet{sabbatella2023bayesprompt} formulate discrete prompt
+tuning as combinatorial Bayesian optimization over a continuous surrogate;
+\citet{zhou2026bayespo} treat prompts as posterior samples with a language-model
+prior (a 2026 result this project cites as \emph{research option}, not evidence).
+\citet{angelopoulos2021conformal} give the split-conformal toolkit that the
+project's \texttt{conformal\_radius} mirrors in code. These works establish
+techniques for honest uncertainty; this project ships the \emph{machinery}, not
+the calibrated real-world numbers.
+
+\paragraph{Mechanism: why short words matter.}
+\citet{kornblith2019similarity} show that representation-similarity measures such
+as CKA do not track task-relevant behavioral similarity --- the paper this
+project's ``similarity $\neq$ behavior'' stance leans on. Steering work
+\citep{turner2023activation,li2023iti,zou2023repe,panickssery2023caa,meng2022rome}
+operates by causal intervention on activations, \emph{not} prompt wording; this
+project borrows only the measurement instinct (project a candidate's effect onto
+a declared direction) and does not claim access to any production model's
+activations. \citet{bartoszcze2025repe} provide the recent survey.
+
+\paragraph{Evaluation robustness.}
+\citet{wallace2024instructionhierarchy} show that the priority among
+system/developer/user text is itself learned behavior; \citet{li2023promptinj}
+show instruction-following degrades under conflicting embedded text (so
+``off-target'' should include unauthorized or unsafe behavior, not only semantic
+competitors); \citet{wu2023counterfactual} show that apparent reasoning can rely
+on default-condition shortcuts, motivating held-out and counterfactual
+evaluation rather than more examples from the same template.
+
+\paragraph{Novelty claim (scoped and checkable).}
+To our knowledge, no other shipped, reproducible scaffold combines (a) scoring
+discrete prompt candidates against \emph{named behavioral attractors}, (b)
+empirical distortion-rate \emph{plus} Pareto selection, (c) \emph{mandatory} hard
+gates that veto candidates regardless of score, and (d) cooperative-game
+attribution (Shapley, interaction, deletion, directional) under one
+evidence-gated pipeline whose explicit rule is that embedding-based orderings
+must be reconfirmed on real held-out evaluation before use. We assert this
+narrowly for the specific combination as implemented in this repository -- not
+for the research space generally, and not as any claim of intrinsic novelty for
+any single component.
+
+\begin{quote}
+\textbf{Correction of record.} The project's own research notes
+(\texttt{research-landscape.md} under \texttt{docs/current/}) cite APE as
+arXiv:2210.03493. A
+live arXiv API check for this preprint shows \texttt{2210.03493} is instead
+\textit{Automatic Chain of Thought Prompting in Large Language Models}
+\citep{zhuosheng2022autocot}; the correct APE identifier is arXiv:2211.01910
+\citep{zhou2023ape}. The present paper cites the corrected ID; the note file
+should be updated.
+\end{quote}

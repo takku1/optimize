@@ -1,0 +1,14 @@
+﻿target attractor: VERIFY_PRIOR
+file                                             tok synAlign    act    rel    score
+--------------------------------------------------------------------------------------
+Z:/Specimen/README.md                            303    0.128  0.202  0.199   -0.062
+Z:/Specimen/scripts/arxiv_lookup.py              903    0.005  0.200  0.199   -0.062
+Z:/Specimen/SKILL.md                            1032    0.004  0.200  0.199   -0.062
+Z:/Specimen/references/section-template.md       774   -0.009  0.200  0.199   -0.062
+Z:/Specimen/references/literature-scan.md       1123   -0.025  0.200  0.199   -0.063
+Z:/Specimen/references/evidence-status-discipline.md  1387   -0.045  0.199  0.199   -0.063
+Z:/Specimen/references/latex-scaffold.md        1449   -0.048  0.199  0.199   -0.063
+
+synAlign = synthetic alignment signal (cosine to the hand-defined target).
+Synthetic ordering only; it is NOT evidence of behavioral equivalence.
+A real held-out evaluator must dispose before any performance claim.

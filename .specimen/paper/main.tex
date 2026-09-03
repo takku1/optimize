@@ -1,0 +1,66 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage{natbib}
+\usepackage{microtype}
+\emergencystretch=2.5em
+
+\title{Evidence-Gated Prompt Optimization on a Synthetic Attractor Scaffold:\\
+A Preprint of the \texttt{prompt-optimization} Toolkit}
+% TODO(author): replace the placeholder author block with real names/affiliations.
+\author{Author Name$^1$ \and Collaborator Name$^2$\\
+\small $^1$Affiliation, $^2$Affiliation\\
+\small \texttt{placeholder@example.org} % TODO(author): remove fake email
+}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+How much of ``this prompt is better'' can a prompt-optimization pipeline actually
+claim? \emph{prompt-optimization} is a reproducible Python scaffold for studying
+prompt rate-distortion, behavioral attribution, and candidate selection. Its
+pipeline scores discrete prompt candidates against a set of named behavioral
+\emph{attractors} in a synthetic embedding model, attributes score differences to
+prompt components, and selects candidates via an empirical distortion-rate
+frontier, Pareto non-dominance, and \emph{mandatory hard gates} that no score may
+override. This preprint documents that mechanism and architecture, gives one real
+worked example (scoring the candidate files of an independent skill repository),
+and -- the load-bearing part -- reports an explicit \emph{Evaluation Status}: the
+toolkit validates \emph{implementation invariants only}. Its numbers are synthetic
+attractor outputs, not measurements of any LLM. No real held-out model evaluation
+exists yet; no pre-registered protocol exists yet; and the pipeline currently has
+no architectural seam at which a real evaluator could \emph{dispose} of synthetic
+proposals. We state these gaps as findings, in the spirit that characterizes this
+line of research: behavioral performance must dominate embedding similarity, and
+an absence of evidence is itself a reportable result.
+\end{abstract}
+
+\input{sections/01-intro}
+\input{sections/02-related-work}
+\input{sections/03-model}
+\input{sections/04-architecture}
+\input{sections/05-implementation}
+\input{sections/06-worked-example}
+\input{sections/07-evaluation-status}
+\input{sections/08-limitations}
+\input{sections/09-future-work}
+\input{sections/10-conclusion}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\end{document}

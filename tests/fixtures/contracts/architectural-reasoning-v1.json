@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "id": "architectural-reasoning-v1",
+  "outcome": "The user receives an architectural recommendation (or audit/ADR/RFC/subsystem-spec artifact, if that's what they asked for) that is grounded in the actual system's evidence, scoped to the effort the request actually needs, and reasoned through the lens matching the real governing force in the evidence -- not a generic or over-elaborated answer.",
+  "activation": [
+    "a consequential software design/architecture decision",
+    "a request to audit, re-audit, or review an existing system's architecture",
+    "a request for an ADR, RFC, PR comment, or subsystem specification"
+  ],
+  "exclusions": [
+    "trivial, purely mechanical edits with no ownership/boundary/contract implications",
+    "requests that are really about wording/prompt optimization of this skill itself -- routed to the separate instruction-optimization skill, which owns measurement and search"
+  ],
+  "inputs_and_preconditions": [
+    "access to the relevant code, configuration, tests, deployment artifacts, or documentation for the system under discussion",
+    "for re-audit mode: the prior finding(s) and the diff/change being re-evaluated"
+  ],
+  "hard_invariants": [
+    {
+      "id": "grounded-evidence",
+      "description": "Material findings and recommendations cite concrete files/symbols from the given evidence; the response does not invent a finding that isn't grounded in what was actually provided.",
+      "min_pass_rate": 1.0
+    },
+    {
+      "id": "calibrated-effort",
+      "description": "The effort tier (quick decision / focused design / full architecture / re-audit) matches what the request actually needs -- a small, low-ambiguity change gets a compact recommendation, not an unprompted escalation to a formal audit or an exhaustive lens sweep.",
+      "min_pass_rate": 0.9
+    },
+    {
+      "id": "reaudit-reclassifies",
+      "description": "In re-audit mode, each prior finding is re-verified against current evidence (not trusted from the prior summary) and classified by status (resolved / regressed / still open / new); the response does not issue one blanket verdict or rubber-stamp the diff as complete.",
+      "min_pass_rate": 1.0
+    },
+    {
+      "id": "lens-grounded-in-force",
+      "description": "The lens selected (or the reasoning applied) matches the actual governing force visible in the evidence -- e.g. a trust/authority/impersonation question is reasoned about in security-by-construction terms, a team-ownership bottleneck in sociotechnical-alignment terms -- rather than a generic answer that ignores the framing the evidence actually supports.",
+      "min_pass_rate": 0.9
+    },
+    {
+      "id": "no-gratuitous-rewrite",
+      "description": "Working code is not rewritten merely to fit an architectural philosophy when the request didn't call for that change.",
+      "min_pass_rate": 1.0
+    },
+    {
+      "id": "output-routing-respected",
+      "description": "When a specific artifact is requested (PR comment / ADR / RFC / audit / subsystem specification), the response uses that artifact's shape rather than defaulting to the generic Recommendation/Evidence/Tradeoffs/Next-step brief or an unrequested full audit.",
+      "min_pass_rate": 0.9
+    },
+    {
+      "id": "graceful-reference-degradation",
+      "description": "When an optional supporting reference is unavailable, the response continues from inline contract guidance rather than stalling, refusing, or fabricating content it attributes to a reference it did not actually read.",
+      "min_pass_rate": 1.0
+    }
+  ],
+  "decision_points": [
+    "which effort tier applies: quick decision (default) / focused design / full architecture / re-audit",
+    "which lens(es) are actually governing given the evidence, vs. merely available in the table",
+    "whether a finding is resolved / regressed / still open / new (re-audit mode only)",
+    "whether a design choice should be marked OPEN DESIGN DECISION rather than resolved"
+  ],
+  "state": [
+    "no persistent state owned by this skill -- each invocation reasons from the evidence given in that request"
+  ],
+  "side_effects": [
+    "read-only by default: inspects code/config/tests/docs, may run an available test/build/benchmark/minimal reproduction to validate a material claim",
+    "does not write or modify source files as part of giving a recommendation"
+  ],
+  "outputs": [
+    "the requested artifact (PR comment / ADR / RFC / audit / subsystem specification) if one was requested",
+    "otherwise: Recommendation / Evidence / Tradeoffs / Next step"
+  ],
+  "validation": [
+    "material claims are checked against an actually-run test, build, benchmark, or minimal reproduction when available, not asserted from inspection alone",
+    "unresolved choices are marked OPEN DESIGN DECISION with the evidence that would resolve them"
+  ],
+  "failure_recovery": [
+    "when evidence is incomplete, ambiguous, or conflicting, the response should say so rather than filling the gap with an invented finding",
+    "directory names and diagrams are treated as hypotheses until flows/dependencies actually confirm them"
+  ],
+  "quality_heuristics": [
+    "one primary lens plus one meaningful challenge, not every lens mechanically",
+    "characterize current behavior before proposing a target and a migration path",
+    "move one authoritative responsibility at a time; avoid introducing a second source of truth",
+    "give every adapter/shim a removal condition"
+  ],
+  "examples_and_calibration": [
+    "Quick decision: small, self-contained parameter-threading change with no ownership ambiguity -- reads only the directly relevant files, applies at most one lens, returns a compact recommendation",
+    "Re-audit: given a prior finding and a merged fix, re-verifies the fix resolved the original issue AND checks whether the fix introduced a new one, rather than only confirming the original finding"
+  ],
+  "metadata": {
+    "source": "Z:\\archetect\\skills\\architectural-reasoning\\SKILL.md (v1.3.0, based_on v1.2.4)",
+    "capability_family": "reasoning"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "mapping": {
+    "v1_2_4:01-stop-when-supported:rollout_01": "run_8f96fafa",
+    "v1_2_4:02-reaudit-catches-regression:rollout_01": "run_faa02a08",
+    "v1_2_4:03a-lens-wording-security:rollout_01": "run_fc97414c",
+    "v1_2_4:03b-lens-wording-sociotechnical:rollout_01": "run_4e597ec0",
+    "v1_3_0:01-stop-when-supported:rollout_01": "run_deb9d8b7",
+    "v1_3_0:02-reaudit-catches-regression:rollout_01": "run_77416c64",
+    "v1_3_0:03a-lens-wording-security:rollout_01": "run_5e765f18",
+    "v1_3_0:03b-lens-wording-sociotechnical:rollout_01": "run_4069eccc"
+  },
+  "prefix": "run",
+  "seed": 2026829
+}

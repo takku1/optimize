@@ -1,0 +1,23 @@
+{
+  "accepted": true,
+  "utility": 1.0,
+  "tokens": 1183,
+  "hard_invariants_passed": true,
+  "checks": {
+    "quick_decision_contract": true,
+    "hard_word_cap": true,
+    "exact_output_shape": true,
+    "required_section_order": true,
+    "bounded_section_content": true,
+    "pre_send_verification": true,
+    "explicit_stop_rule": true,
+    "unsafe_compaction_escape": true,
+    "requested_format_override": true,
+    "reaudit_status_contract": true,
+    "open_decision_contract": true
+  },
+  "evidence_tier": "structural_proxy",
+  "behavioral_validation_required": true,
+  "validated_claim": "instruction_contract_present",
+  "unsupported_claim": "target_model_obeys_contract"
+}

@@ -1,0 +1,19 @@
+synthetic scaffold: candidates only — real held-out evaluation disposes before any claim
+gates (max): {'distortion': 0.801}
+
+rate-distortion frontier (best distortion at each token budget):
+  tokens=303    distortion=0.801  <- Z:/Specimen/README.md
+  tokens=774    distortion=0.801  <- Z:/Specimen/README.md
+  tokens=903    distortion=0.801  <- Z:/Specimen/README.md
+  tokens=1032   distortion=0.801  <- Z:/Specimen/README.md
+  tokens=1123   distortion=0.801  <- Z:/Specimen/README.md
+  tokens=1387   distortion=0.801  <- Z:/Specimen/README.md
+  tokens=1449   distortion=0.801  <- Z:/Specimen/README.md
+
+Pareto-non-dominated candidates (3):
+  Z:/Specimen/README.md                            act=0.202 rel=0.199 tok=303
+  Z:/Specimen/references/section-template.md       act=0.200 rel=0.199 tok=774
+  Z:/Specimen/scripts/arxiv_lookup.py              act=0.200 rel=0.199 tok=903
+
+recommended next experiment:
+  Z:/Specimen/README.md  (gain x uncertainty = 0.000)

@@ -1,0 +1,1 @@
+no candidate passes the hard gates {'distortion': 0.77} (operator max); no supported improvement is claimed.

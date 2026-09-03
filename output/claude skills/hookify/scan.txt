@@ -1,0 +1,11 @@
+target attractor: VERIFY_PRIOR
+file                                             tok synAlign    act    rel    score
+--------------------------------------------------------------------------------------
+C:/Users/dcarn/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/skills/writing-rules/SKILL.md*  1500   -0.067  0.199  0.199   -0.063
+
+* truncated to --max-tokens; score reflects only the first part of the file.
+
+ranked by score (not synAlign); synAlign is a diagnostic column only —
+embedding similarity is not behavioral performance.
+Synthetic ordering only; it is NOT evidence of behavioral equivalence.
+A real held-out evaluator must dispose before any performance claim.

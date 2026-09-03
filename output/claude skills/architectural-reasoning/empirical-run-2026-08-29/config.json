@@ -1,0 +1,45 @@
+{
+  "run_id": "empirical-run-2026-08-29",
+  "purpose": "First empirical development/fitness evaluation of architectural-reasoning v1.2.4 vs current (v1.3.0). Pipeline validation, not D_test / final certification.",
+  "split": "fitness",
+  "frozen_at": "2026-08-29T00:00:00Z (session-local timestamp; see individual artifact file mtimes for actual wall-clock order)",
+  "experimental_unit": "skill_version x scenario x rollout",
+  "rollouts_per_unit": 1,
+  "versions": {
+    "v1_2_4": {
+      "source_path": "Z:\\archetect\\skills\\architectural-reasoning\\archive\\v1.2.4\\SKILL.md",
+      "role": "baseline"
+    },
+    "v1_3_0": {
+      "source_path": "Z:\\archetect\\skills\\architectural-reasoning\\SKILL.md",
+      "role": "candidate"
+    }
+  },
+  "scenario_suite": "Z:\\prompt-optimization\\tests\\fixtures\\scenarios\\architectural-reasoning-v1.json",
+  "contract": "Z:\\prompt-optimization\\tests\\fixtures\\contracts\\architectural-reasoning-v1.json",
+  "capability_contract": "Z:\\prompt-optimization\\tests\\fixtures\\capability\\architectural-reasoning-v1.json",
+  "scenarios_used": [
+    "01-stop-when-supported",
+    "02-reaudit-catches-regression",
+    "03a-lens-wording-security",
+    "03b-lens-wording-sociotechnical"
+  ],
+  "execution_method": {
+    "description": "Each (version, scenario) subject transcript is produced by spawning an independent Claude agent (via Claude Code's Agent tool, subagent_type general-purpose) with the skill's full text supplied as inline operating instructions, plus the scenario's request. Scenario input files (when present) are written to a real directory that the subject agent can inspect with Read/Glob/Grep -- files are NOT pasted inline, so file-scope discipline (reading only what's relevant) is a genuine, unforced choice by the subject agent.",
+    "fidelity_note": "This is a real, non-simulated model execution -- the model genuinely processes the given instructions and produces content none of this pipeline predicts or writes by hand. It is NOT identical to the native ~/.claude/skills/ auto-trigger mechanism: the skill is provided as inline instructions rather than through the skill-loading system, and the subagent's tool environment may not exactly match a typical interactive session's.",
+    "model_identity": "whatever model the Agent tool's general-purpose subagent type resolves to at spawn time; recorded per-transcript in transcripts/<version>/<scenario>/rollout_01.meta.json",
+    "sampling_parameters": "not independently controllable through the Agent tool interface used here; this is a recorded limitation, not an omission"
+  },
+  "judging_method": {
+    "description": "Absolute (non-pairwise) blinded scoring: each transcript is assigned an opaque id (evaluators.calibration.generate_blind_ids, seeded) before judging. A fresh judge agent (no memory of this conversation, spawned separately per transcript) scores exactly one transcript against a rubric derived from the IntentContract (Phi) hard invariants relevant to that scenario and the CapabilityContract (Gamma) required/forbidden behaviors -- never told which skill version produced it.",
+    "rubric_dimensions": ["task_success", "correctness", "invariant_adherence", "calibration"],
+    "blinding": "version identity is never present in any judge prompt; the blind_map.json revealing version<->opaque-id is written before judging and not read again until after all 8 judgments are recorded",
+    "pairwise_order_randomization": "not used -- absolute scoring was chosen instead of pairwise preference judging for this pass; requirement is conditional on pairwise judging being used"
+  },
+  "deterministic_checks": {
+    "response_word_count": "len(transcript.split())",
+    "mentions_escalation_phrase": "case-insensitive presence of 'focused design' or 'full architecture' as a named mode -- checked for scenario 01 only (expected: absent)",
+    "mentions_status_labels": "case-insensitive presence of >=2 of {resolved, regressed, still open, new} -- checked for scenario 02 only (expected: present), as a weak deterministic proxy cross-checked against the judge's invariant_adherence score, not a replacement for it"
+  },
+  "commitment": "No skill file is modified during or between execution and judging. Aggregate results are not inspected until all 8 subject transcripts and all 8 judgments are recorded."
+}

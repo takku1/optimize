@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "missing_transcripts": []
+  },
+  "results": {
+    "v1_2_4:01-stop-when-supported": {
+      "calibrated_effort_deterministic": false,
+      "mentions_escalation_phrase": false,
+      "transcript": "v1_2_4/01-stop-when-supported/rollout_01.md",
+      "word_count": 583
+    },
+    "v1_2_4:02-reaudit-catches-regression": {
+      "reaudit_reclassifies_deterministic_proxy": true,
+      "status_label_count": 2,
+      "transcript": "v1_2_4/02-reaudit-catches-regression/rollout_01.md",
+      "word_count": 649
+    },
+    "v1_2_4:03a-lens-wording-security": {
+      "transcript": "v1_2_4/03a-lens-wording-security/rollout_01.md",
+      "word_count": 1034
+    },
+    "v1_2_4:03b-lens-wording-sociotechnical": {
+      "transcript": "v1_2_4/03b-lens-wording-sociotechnical/rollout_01.md",
+      "word_count": 693
+    },
+    "v1_3_0:01-stop-when-supported": {
+      "calibrated_effort_deterministic": false,
+      "mentions_escalation_phrase": false,
+      "transcript": "v1_3_0/01-stop-when-supported/rollout_01.md",
+      "word_count": 473
+    },
+    "v1_3_0:02-reaudit-catches-regression": {
+      "reaudit_reclassifies_deterministic_proxy": true,
+      "status_label_count": 2,
+      "transcript": "v1_3_0/02-reaudit-catches-regression/rollout_01.md",
+      "word_count": 564
+    },
+    "v1_3_0:03a-lens-wording-security": {
+      "transcript": "v1_3_0/03a-lens-wording-security/rollout_01.md",
+      "word_count": 767
+    },
+    "v1_3_0:03b-lens-wording-sociotechnical": {
+      "transcript": "v1_3_0/03b-lens-wording-sociotechnical/rollout_01.md",
+      "word_count": 686
+    }
+  }
+}

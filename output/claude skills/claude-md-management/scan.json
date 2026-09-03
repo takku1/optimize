@@ -1,0 +1,22 @@
+{
+  "target": null,
+  "backend": "synthetic",
+  "synthetic": true,
+  "files": [
+    {
+      "path": "C:/Users/dcarn/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-md-management/skills/claude-md-improver/SKILL.md",
+      "tokens": 1500,
+      "words": 869,
+      "predicted_activation": 0.199,
+      "similarity": -0.0555,
+      "reliability": 0.1993,
+      "distortion": 0.8007,
+      "off_target": 0.2037,
+      "expected_gain": 0.0397,
+      "uncertainty": 0.0028,
+      "score": -0.063,
+      "truncated": true,
+      "original_tokens": 1585
+    }
+  ]
+}

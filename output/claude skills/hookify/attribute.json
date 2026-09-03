@@ -1,0 +1,58 @@
+{
+  "path": "C:/Users/dcarn/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/skills/writing-rules/SKILL.md",
+  "backend": "synthetic",
+  "synthetic": true,
+  "unit": "line",
+  "components": [
+    {
+      "index": 7,
+      "shapley": -0.004903,
+      "preview": "### Common Pitfalls\n**Too broad:**\n```yaml\npattern: log    # Matches \"log\", \"log"
+    },
+    {
+      "index": 5,
+      "shapley": -0.005269,
+      "preview": "pattern: .*\n---\nBefore stopping, verify:\n- [ ] Tests were run\n- [ ] Build succee"
+    },
+    {
+      "index": 3,
+      "shapley": -0.005337,
+      "preview": "\u26a0\ufe0f **Console.log detected!**\nYou're adding console.log to production code.\n**Why"
+    },
+    {
+      "index": 8,
+      "shapley": -0.005395,
+      "preview": "### Creating a Rule\n1. Identify unwanted behavior\n2. Determine which tool is inv"
+    },
+    {
+      "index": 0,
+      "shapley": -0.005631,
+      "preview": "---\nname: writing-hookify-rules\ndescription: This skill should be used when the "
+    },
+    {
+      "index": 9,
+      "shapley": -0.006951,
+      "preview": "```\n**Rule with conditions:**\n```markdown\n---\nname: my-rule\nenabled: true\nevent:"
+    },
+    {
+      "index": 4,
+      "shapley": -0.006976,
+      "preview": "event: file\npattern: console\\.log\\(|eval\\(|innerHTML\\s*=\n---\nPotentially problem"
+    },
+    {
+      "index": 1,
+      "shapley": -0.007238,
+      "preview": "**event** (required): Which hook event to trigger on\n- `bash`: Bash tool command"
+    },
+    {
+      "index": 6,
+      "shapley": -0.007614,
+      "preview": "- `rm` matches \"rm\"\n- `console.log` matches \"console.log\"\n**Special characters n"
+    },
+    {
+      "index": 2,
+      "shapley": -0.007884,
+      "preview": "    pattern: \\.env$\n  - field: new_text\n    operator: contains\n    pattern: API_"
+    }
+  ]
+}

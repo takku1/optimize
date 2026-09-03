@@ -1,0 +1,59 @@
+{
+  "accepted": false,
+  "utility": 0.9,
+  "tokens": 674,
+  "information_density": 0.0013353115727002967,
+  "hard_invariants_passed": false,
+  "checks": {
+    "bounded_shape": true,
+    "hard_word_cap": true,
+    "presend_check": true,
+    "stop_and_escape": true,
+    "reaudit_contract": true,
+    "open_decision_contract": false
+  },
+  "check_evidence": {
+    "bounded_shape": {
+      "present": {
+        "exactly four sections": true,
+        "at most two bullets": true,
+        "one claim per bullet": true
+      }
+    },
+    "hard_word_cap": {
+      "pattern": "(?:at or below|no more than|maximum of)\\s+300 words",
+      "matched": true
+    },
+    "presend_check": {
+      "present": {
+        "Before sending": true,
+        "word budget": true,
+        "delete repetition": true
+      }
+    },
+    "stop_and_escape": {
+      "present": {
+        "single smallest missing fact": true,
+        "and stop": true,
+        "compact contract unsafe": true,
+        "requested format or depth overrides": true
+      }
+    },
+    "reaudit_contract": {
+      "present": {
+        "resolved": true,
+        "regressed": true,
+        "still open": true,
+        "new": true
+      }
+    },
+    "open_decision_contract": {
+      "present": {
+        "OPEN DESIGN DECISION": false
+      }
+    }
+  },
+  "optimization_spec_id": "architectural-reasoning-compactness-v1.3.2",
+  "evidence_tier": "structural_proxy",
+  "behavioral_validation_required": true
+}

@@ -1,0 +1,78 @@
+﻿{
+  "rate_distortion_frontier": [
+    {
+      "tokens": 303,
+      "distortion": 0.7725,
+      "prompt": "Z:/Specimen/README.md"
+    },
+    {
+      "tokens": 774,
+      "distortion": 0.7725,
+      "prompt": "Z:/Specimen/README.md"
+    },
+    {
+      "tokens": 903,
+      "distortion": 0.7725,
+      "prompt": "Z:/Specimen/README.md"
+    },
+    {
+      "tokens": 1032,
+      "distortion": 0.7725,
+      "prompt": "Z:/Specimen/README.md"
+    },
+    {
+      "tokens": 1123,
+      "distortion": 0.7725,
+      "prompt": "Z:/Specimen/README.md"
+    },
+    {
+      "tokens": 1387,
+      "distortion": 0.7725,
+      "prompt": "Z:/Specimen/README.md"
+    },
+    {
+      "tokens": 1449,
+      "distortion": 0.7725,
+      "prompt": "Z:/Specimen/README.md"
+    }
+  ],
+  "pareto_candidates": [
+    {
+      "path": "Z:/Specimen/README.md",
+      "tokens": 303,
+      "words": 176,
+      "predicted_activation": 0.233,
+      "reliability": 0.2275,
+      "distortion": 0.7725,
+      "off_target": 0.2101,
+      "expected_gain": 0.053,
+      "uncertainty": 0.0214,
+      "score": -0.0585
+    },
+    {
+      "path": "Z:/Specimen/references/section-template.md",
+      "tokens": 774,
+      "words": 522,
+      "predicted_activation": 0.2325,
+      "reliability": 0.227,
+      "distortion": 0.773,
+      "off_target": 0.2102,
+      "expected_gain": 0.0528,
+      "uncertainty": 0.0213,
+      "score": -0.0587
+    }
+  ],
+  "next_experiment": {
+    "path": "Z:/Specimen/README.md",
+    "tokens": 303,
+    "words": 176,
+    "predicted_activation": 0.233,
+    "reliability": 0.2275,
+    "distortion": 0.7725,
+    "off_target": 0.2101,
+    "expected_gain": 0.053,
+    "uncertainty": 0.0214,
+    "score": -0.0585
+  },
+  "cache_misses": 0
+}

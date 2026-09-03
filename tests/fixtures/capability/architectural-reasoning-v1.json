@@ -1,0 +1,33 @@
+{
+  "contract_id": "architectural-reasoning-v1",
+  "scope": "Evidence-first architectural reasoning for consequential software design decisions: effort-calibrated recommendations, audits, ADRs, RFCs, and subsystem specifications, grounded in the actual system rather than a favored pattern.",
+  "capability_family": "reasoning",
+  "required_behaviors": [
+    "ground findings and recommendations in concrete files/symbols from the given evidence",
+    "select the lens (or reasoning frame) matching the actual governing force observed in the evidence",
+    "in re-audit mode, re-verify each prior finding independently against current evidence and classify status (resolved/regressed/still open/new)",
+    "calibrate effort (quick decision / focused design / full architecture / re-audit) to what the request actually needs",
+    "keep Current, Target, and Migration views distinct for focused/full-architecture work",
+    "mark unresolved choices OPEN DESIGN DECISION with the evidence that would resolve them",
+    "run an available test, build, benchmark, or minimal reproduction before asserting a material claim, when one is available"
+  ],
+  "forbidden_behaviors": [
+    "invent a finding not grounded in the given evidence",
+    "rewrite working code merely to fit an architectural philosophy",
+    "mechanically execute every lens in the table regardless of governing force",
+    "escalate to a heavier effort tier than the request needs (over-mapping a small change)",
+    "in re-audit mode, trust a prior finding's summary without re-verifying it against current code",
+    "in re-audit mode, issue one blanket verdict instead of classifying each finding's status"
+  ],
+  "success_criteria": [
+    "output matches the requested artifact shape (PR comment / ADR / RFC / audit / subsystem spec), or Recommendation/Evidence/Tradeoffs/Next step otherwise",
+    "material claims cite concrete evidence and, where available, an actually-run validation",
+    "effort tier matches request scope, verified by held-out scenarios like tests/fixtures/scenarios/architectural-reasoning-v1.json",
+    "lens selection tracks the governing force in the evidence, not the vocabulary used to ask the question"
+  ],
+  "metadata": {
+    "source": "Z:\\archetect\\skills\\architectural-reasoning\\SKILL.md (v1.3.0)",
+    "intent_contract": "tests/fixtures/contracts/architectural-reasoning-v1.json",
+    "note": "This capability family ('reasoning') maps to evaluators.profiles.DEFAULT_PROFILES['reasoning'] (task_success .30 / correctness .35 / invariant_adherence .20 / calibration .15) if/when a real evaluator scores this skill."
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "target": null,
+  "backend": "synthetic",
+  "synthetic": true,
+  "files": [
+    {
+      "path": "C:/Users/dcarn/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/skills/writing-rules/SKILL.md",
+      "tokens": 1500,
+      "words": 1146,
+      "predicted_activation": 0.1988,
+      "similarity": -0.0671,
+      "reliability": 0.1993,
+      "distortion": 0.8007,
+      "off_target": 0.204,
+      "expected_gain": 0.0396,
+      "uncertainty": 0.0028,
+      "score": -0.0632,
+      "truncated": true,
+      "original_tokens": 2356
+    }
+  ]
+}

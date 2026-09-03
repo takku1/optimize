@@ -1,0 +1,84 @@
+{
+  "accepted": false,
+  "utility": 1.0,
+  "tokens": 627,
+  "information_density": 0.001594896331738437,
+  "hard_invariants_passed": true,
+  "checks": {
+    "activation_boundary": true,
+    "operating_contract": true,
+    "authority_and_preservation": true,
+    "falsifiable_precheck": true,
+    "edge_matrix": true,
+    "risk_bounded_expansion": true,
+    "verification_ladder": true,
+    "honest_unrun_status": true,
+    "completion_gate": true,
+    "compression": true
+  },
+  "check_evidence": {
+    "activation_boundary": {
+      "present": {
+        "do not activate": true,
+        "explanation-only": true
+      }
+    },
+    "operating_contract": {
+      "present": {
+        "## Operating contract": true,
+        "hard boundaries": true
+      }
+    },
+    "authority_and_preservation": {
+      "present": {
+        "authoritative source of truth": true,
+        "preserve pre-existing edits": true
+      }
+    },
+    "falsifiable_precheck": {
+      "present": {
+        "smallest falsifiable check": true
+      }
+    },
+    "edge_matrix": {
+      "present": {
+        "idempotency": true,
+        "authorization": true,
+        "rollback": true,
+        "scale limits": true
+      }
+    },
+    "risk_bounded_expansion": {
+      "present": {
+        "Expand only when": true,
+        "could change the edit or its safety": true
+      }
+    },
+    "verification_ladder": {
+      "present": {
+        "## Verification ladder": true,
+        "fails before the fix and passes after": true
+      }
+    },
+    "honest_unrun_status": {
+      "present": {
+        "never convert": true,
+        "not run": true,
+        "passed": true
+      }
+    },
+    "completion_gate": {
+      "present": {
+        "## Completion gate": true,
+        "Finish only when all are true": true
+      }
+    },
+    "compression": {
+      "token_count": 627,
+      "limit": 700
+    }
+  },
+  "optimization_spec_id": "reliable-code-change-operationalization-v1",
+  "evidence_tier": "structural_proxy",
+  "behavioral_validation_required": true
+}

@@ -1,0 +1,13 @@
+attribution: C:/Users/dcarn/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/skills/writing-rules/SKILL.md  (unit=line, backend=synthetic, components=10)
+Shapley values are the evaluator's score, averaged over marginal contribution across component coalitions; NOT a causal claim about the underlying model unless the backend is real (synthetic=True).
+--------------------------------------------------------------------------------------
+[  7]  -0.0049  ### Common Pitfalls / **Too broad:** / ```yaml / pattern: log    #
+[  5]  -0.0053  pattern: .* / --- / Before stopping, verify: / - [ ] Tests were ru
+[  3]  -0.0053  ⚠️ **Console.log detected!** / You're adding console.log to pr
+[  8]  -0.0054  ### Creating a Rule / 1. Identify unwanted behavior / 2. Determi
+[  0]  -0.0056  --- / name: writing-hookify-rules / description: This skill shou
+[  9]  -0.0070  ``` / **Rule with conditions:** / ```markdown / --- / name: my-rule / 
+[  4]  -0.0070  event: file / pattern: console\.log\(|eval\(|innerHTML\s*= / ---
+[  1]  -0.0072  **event** (required): Which hook event to trigger on / - `bash
+[  6]  -0.0076  - `rm` matches "rm" / - `console.log` matches "console.log" / **
+[  2]  -0.0079      pattern: \.env$ /   - field: new_text /     operator: contai

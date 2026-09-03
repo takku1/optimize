@@ -1,0 +1,42 @@
+\paragraph{The synthetic evaluator is a stagehand, not a measure.}
+\texttt{basin\_probabilities} is a softmax over cosine distances from
+content-derived embeddings to five hand-placed centers at $D=32$;
+\texttt{distortion = 1 - reliability} is, by the project's own admission in
+\texttt{docs/current/research-landscape.md}, a toy proxy until a
+task-specific behavioral distortion is defined. No threshold in this paper
+(including the \texttt{0.80065} gate in the worked example) is calibrated
+against anything.
+
+\paragraph{Discrimination collapse.} In the worked example every candidate's
+\texttt{distortion} landed in $[0.8006,0.8007]$: the metric space is
+effectively flat at the tested dimension/layout, the rate-distortion frontier is
+a constant, and gate membership is decided by rounding. A scaffold that cannot
+separate candidates cannot be trusted to rank candidates; this is a concrete
+threat to the validity of \emph{any} ordering the current scaffold emits and
+should be on the front page of any future real test.
+
+\paragraph{Embedding similarity still holds an ordering role.}
+The human-readable scan table is sorted by \texttt{synAlign} (cosine), the
+exact ``most-aligned first'' posture the project's thesis argues against
+(Section 5). The selection layer ignores it, but a naive reader of the scaffold
+output can still be misled into reading the display's first row as the
+``answer.''
+
+\paragraph{No real-evaluator seam.}
+There is no interface, protocol, or CLI flag through which a real held-out
+model evaluation can be supplied; the ``real held-out evaluation disposes''
+language exists only in README/CLI prose (Section 4, Figure~\ref{fig:pipeline}).
+A skill (the companion \texttt{specimen-prompt-eval}) that tells an agent to run
+step ``verify (real)'' currently has no concrete command to give.
+
+\paragraph{Attribution is value-function-agnostic but under-plumbed.}
+The estimators are correct for their definitions, but nothing ships an example
+value function, and no CLI path exists; an agent cannot currently exercise
+attribution without reading package source.
+
+\paragraph{Other scope boundaries.}
+Tokenizer-free token estimates; a Windows-tested, single-numpy-dependency
+environment; no lint/type-check step committed; no pre-registration (risk of
+post-hoc fitting to attractor placement); the worked example was run before the
+gate bug was fixed, so its permissive-gate numbers are the fixed behavior
+re-verified on 2026-08-28.

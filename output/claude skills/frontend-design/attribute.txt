@@ -1,0 +1,13 @@
+attribution: C:/Users/dcarn/.claude/plugins/marketplaces/claude-plugins-official/plugins/frontend-design/skills/frontend-design/SKILL.md  (unit=line, backend=synthetic, components=10)
+Shapley values are the evaluator's score, averaged over marginal contribution across component coalitions; NOT a causal claim about the underlying model unless the backend is real (synthetic=True).
+--------------------------------------------------------------------------------------
+[  7]  -0.0048  Try to do a lot of this planning and iteration in your think
+[  8]  -0.0053  ## More on writing in design / Words appear in a design for on
+[  3]  -0.0053  ## Design principles / For web designs, the hero is a thesis. 
+[  5]  -0.0054  Consider written content carefully. Often a design brief may
+[  0]  -0.0056  --- / name: frontend-design / description: Guidance for distinct
+[  9]  -0.0069  Use active voice as default. A control should say exactly wh
+[  4]  -0.0069  Structure is information. Structural devices, numbering, eye
+[  1]  -0.0071  license: Complete terms in LICENSE.txt / --- / # Frontend Design
+[  6]  -0.0076  Work in two passes. First, brainstorm a short design plan ba
+[  2]  -0.0079  Approach this as the design lead at a small studio known for

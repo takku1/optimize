@@ -1,0 +1,64 @@
+{
+  "accepted": true,
+  "utility": 0.18181818181818182,
+  "tokens": 1003,
+  "information_density": 0.00018127435874195597,
+  "hard_invariants_passed": false,
+  "checks": {
+    "bounded_shape": false,
+    "hard_word_cap": false,
+    "presend_check": false,
+    "stop_and_escape": false,
+    "reaudit_contract": true,
+    "open_decision_contract": true,
+    "revision_fixed_point": false
+  },
+  "check_evidence": {
+    "bounded_shape": {
+      "present": {
+        "exactly four sections": false,
+        "at most two bullets": false,
+        "one claim per bullet": false
+      }
+    },
+    "hard_word_cap": {
+      "pattern": "(?:at or below|no more than|maximum of)\\s+300 words",
+      "matched": false
+    },
+    "presend_check": {
+      "present": {
+        "Before sending": false,
+        "word budget": false,
+        "delete repetition": false
+      }
+    },
+    "stop_and_escape": {
+      "present": {
+        "single smallest missing fact": false,
+        "and stop": false,
+        "compact contract unsafe": false,
+        "requested format or depth overrides": false
+      }
+    },
+    "reaudit_contract": {
+      "present": {
+        "resolved": true,
+        "regressed": true,
+        "still open": true,
+        "new": true
+      }
+    },
+    "open_decision_contract": {
+      "present": {
+        "OPEN DESIGN DECISION": true
+      }
+    },
+    "revision_fixed_point": {
+      "passed": false,
+      "reason": "applying the declared revision again must not change the candidate"
+    }
+  },
+  "optimization_spec_id": "architectural-reasoning-compactness-v1.3.2",
+  "evidence_tier": "structural_proxy",
+  "behavioral_validation_required": true
+}

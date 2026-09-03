@@ -1,0 +1,33 @@
+{
+  "benchmark_version": "skillbench-0.1",
+  "capability_contract_hash": "architectural-reasoning-v1",
+  "created_at": "2026-08-29T06:15:41.683278+00:00",
+  "evaluation_id": "d07c6b4b46a5e78078b878461a187f8d1e93cef009160ef7ccd6bd3427898b2a",
+  "evaluator_name": "blinded-judge-plus-deterministic-checks",
+  "metric_results": {
+    "invariants": {
+      "calibrated-effort": true,
+      "grounded-evidence": true,
+      "lens-grounded-in-force": true,
+      "no-gratuitous-rewrite": true,
+      "reaudit-reclassifies": true
+    },
+    "omega": {
+      "calibration": 0.85,
+      "correctness": 0.95,
+      "invariant_adherence": 1.0,
+      "task_success": 1.0
+    },
+    "utility": 0.96
+  },
+  "model_name": "general-purpose-agent",
+  "provenance": {
+    "opaque_id": "run_fc97414c",
+    "split": "fitness"
+  },
+  "raw_output_hash": "",
+  "rollout_id": "rollout_01",
+  "scenario_id": "03a-lens-wording-security",
+  "skill_hash": "8a2753bb1941b60f75b1338c725f281d850e333d9bd73b5257b73f5da079564e",
+  "trainability": "TRAINABLE"
+}

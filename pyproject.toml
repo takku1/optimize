@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "prompt-optimization"
+version = "0.1.0"
+description = "Behavior-constrained evaluation and optimization tools for prompts and agent skills"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.24", "scipy>=1.11"]
+license = {file = "LICENSE"}
+authors = [{name = "Prompt Optimization Research"}]
+keywords = ["prompt optimization", "agent skills", "behavioral evaluation", "rate distortion"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10"]
+research = ["pandas>=2.0"]
+
+[project.scripts]
+prompt-opt = "prompt_optimization.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+python_files = ["test*.py"]
+# -p no:randomly: this project declares no test-ordering dependency, but a
+# globally-installed pytest-randomly + thinc combination on some machines
+# raises "Seed must be between 0 and 2**32 - 1" during its reseed hook.
+addopts = "-p no:randomly"
+
+[tool.coverage.run]
+branch = true
+source = ["prompt_optimization"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true

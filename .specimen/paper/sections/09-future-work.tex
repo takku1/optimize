@@ -1,0 +1,42 @@
+The evaluation gap in Section 7 maps to concrete work, ordered by the leverage
+it would buy. Each item is a \emph{proposal}, not a built feature.
+
+\paragraph{1. Build the real-evaluator seam (highest leverage).}
+Add a minimal \texttt{Evaluator} protocol and a \texttt{prompt-opt plan
+--backend <adapter>} hook so a real held-out model (or a human-judged rubric)
+can be plugged into the pipeline's \emph{dispose} position. Then make the
+pipeline refuse to emit a ``selection'' as a claim unless a real run is present.
+This is the review's centerpiece: \emph{synthetic optimizer proposes; real
+held-out evaluator disposes}. Without the seam, the pipeline's own central rule
+is aspirational.
+
+\paragraph{2. Expose attribution through the CLI.}
+A \texttt{prompt-opt attribute} subcommand with a shipped example value function
+(and its limitations) would make the attribution layer executable by the same
+agents who run \texttt{scan}/\texttt{plan}, closing the gap that currently
+forces reading source.
+
+\paragraph{3. De-rank the display.}
+Stop sorting the scan table by \texttt{synAlign}; sort by a behavioral or
+score-based ordering, or leave rows in corpus order. This closes the gap between
+the thesis and the last place embedding similarity still outranks behavior.
+
+\paragraph{4. Pre-register before measuring.}
+Draft and date a protocol (task population, comparator, outcome measures,
+stopping rule, a commitment to report null and adverse results) \emph{before}
+collecting real-model data -- per the evidence-status discipline, to convert
+``we have no evidence yet'' into a checkable plan rather than a permanent hedge.
+
+\paragraph{5. Run two model families on held-out tasks.}
+Evaluate the surviving candidates on unseen tasks across at least two model
+families, report bootstrap intervals around each Pareto front point, and keep
+optimizer and evaluator disjoint (the OPRO scale-limits warning,
+\citet{zhang2024reoprolim}). Only then fit any activation probe.
+
+\paragraph{6. Housekeeping.}
+Fix the APE identifier in \texttt{docs/current/research-landscape.md}; add a
+committed lint/type-check step; consider a task-specific behavioral distortion
+measure to replace \texttt{1 - reliability}.
+
+None of items 1--3 requires new mathematics; all three are architectural, which
+is exactly where this project's next step lies.

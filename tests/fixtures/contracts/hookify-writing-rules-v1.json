@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "hookify-writing-rules-v1",
+  "outcome": "Create or refine a Hookify rule that matches the intended event and fields, is stored at the correct path, and can be tested safely.",
+  "activation": [
+    "User asks to create, write, configure, add, or refine a Hookify rule",
+    "User needs guidance on Hookify rule syntax or patterns"
+  ],
+  "exclusions": ["Do not claim a rule is effective without a positive and negative pattern check"],
+  "inputs_and_preconditions": ["Unwanted behavior is identifiable", "Hookify event and rule file conventions are available"],
+  "hard_invariants": [
+    {"id": "valid-frontmatter", "description": "Rule has required name, enabled, event, and pattern/conditions fields in valid markdown/YAML shape.", "min_pass_rate": 1.0},
+    {"id": "event-field-compatibility", "description": "Selected event uses compatible fields and operators.", "min_pass_rate": 1.0},
+    {"id": "correct-path", "description": "Rule is named .claude/hookify.<descriptive-name>.local.md.", "min_pass_rate": 1.0},
+    {"id": "pattern-tested", "description": "Pattern is checked against a matching and non-matching example.", "min_pass_rate": 1.0}
+  ],
+  "decision_points": ["Select bash, file, stop, prompt, or all event", "Choose simple pattern or multiple conditions", "Choose warn versus block action"],
+  "state": ["Rules are read dynamically on the next tool use", "enabled controls temporary disablement"],
+  "side_effects": ["Create or edit a local Hookify rule only when requested", "Do not modify unrelated project files"],
+  "outputs": ["Complete rule file", "Explanation of trigger and message", "Pattern test evidence"],
+  "validation": ["Positive case matches", "Negative case does not match", "YAML escaping is valid"],
+  "failure_recovery": ["Narrow an over-broad pattern", "Relax an over-specific pattern", "Surface escaping or unsupported-field errors"],
+  "quality_heuristics": ["Descriptive action-oriented names", "Plain warning messages", "Specific patterns over generic substrings"],
+  "examples_and_calibration": ["Basic rule", "Multiple-condition rule", "Too broad versus corrected pattern"]
+}

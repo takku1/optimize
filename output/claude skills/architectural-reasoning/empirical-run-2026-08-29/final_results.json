@@ -1,0 +1,453 @@
+{
+  "scenario_results": {
+    "v1_2_4": {
+      "01-stop-when-supported": {
+        "scenario_id": "01-stop-when-supported",
+        "utility": 0.4775,
+        "invariants": {
+          "grounded-evidence": true,
+          "calibrated-effort": false,
+          "reaudit-reclassifies": true,
+          "lens-grounded-in-force": true,
+          "no-gratuitous-rewrite": true
+        },
+        "costs": {
+          "skill_tokens": 1651.0,
+          "response_word_count": 583.0
+        },
+        "metadata": {
+          "split": "fitness",
+          "opaque_id": "run_8f96fafa",
+          "omega": {
+            "task_success": 0.3,
+            "correctness": 0.85,
+            "invariant_adherence": 0.3,
+            "calibration": 0.2
+          },
+          "rationale": "Reads only the three given files and cites concrete line evidence with no invented findings (grounded-evidence holds), but is structured as a full four-section deliverable far exceeding the expected ~15-20 line compact recommendation, and its Tradeoffs section opens a fault-containment/blast-radius analysis and raises SSRF/trust-boundary considerations the rubric names as not governing this scoped question.",
+          "tested_invariants": [
+            "calibrated-effort",
+            "grounded-evidence"
+          ]
+        }
+      },
+      "02-reaudit-catches-regression": {
+        "scenario_id": "02-reaudit-catches-regression",
+        "utility": 0.96,
+        "invariants": {
+          "grounded-evidence": true,
+          "calibrated-effort": true,
+          "reaudit-reclassifies": true,
+          "lens-grounded-in-force": true,
+          "no-gratuitous-rewrite": true
+        },
+        "costs": {
+          "skill_tokens": 1651.0,
+          "response_word_count": 649.0
+        },
+        "metadata": {
+          "split": "fitness",
+          "opaque_id": "run_faa02a08",
+          "omega": {
+            "task_success": 1.0,
+            "correctness": 0.95,
+            "invariant_adherence": 1.0,
+            "calibration": 0.85
+          },
+          "rationale": "Re-verifies the original finding as Resolved against cited code, then surfaces two new High findings (atomicity loss between commit and refund; worker.py's un-deduped retry) grounded directly in the given files rather than rubber-stamping the diff. Calibration slightly dinged for added sections beyond a strict verdict, though substantive.",
+          "tested_invariants": [
+            "reaudit-reclassifies",
+            "grounded-evidence"
+          ]
+        }
+      },
+      "03a-lens-wording-security": {
+        "scenario_id": "03a-lens-wording-security",
+        "utility": 0.96,
+        "invariants": {
+          "grounded-evidence": true,
+          "calibrated-effort": true,
+          "reaudit-reclassifies": true,
+          "lens-grounded-in-force": true,
+          "no-gratuitous-rewrite": true
+        },
+        "costs": {
+          "skill_tokens": 1651.0,
+          "response_word_count": 1034.0
+        },
+        "metadata": {
+          "split": "fitness",
+          "opaque_id": "run_fc97414c",
+          "omega": {
+            "task_success": 1.0,
+            "correctness": 0.95,
+            "invariant_adherence": 1.0,
+            "calibration": 0.85
+          },
+          "rationale": "Explicitly organized around security-by-construction as the primary lens: grant-path authorization, mediation via acting_as/on_behalf_of claims (confused-deputy risk), least privilege via scoped tokens, expiry, audit trail. Adds fault-containment as an explicit challenge lens, strengthening rather than diluting the framing.",
+          "tested_invariants": [
+            "lens-grounded-in-force"
+          ]
+        }
+      },
+      "03b-lens-wording-sociotechnical": {
+        "scenario_id": "03b-lens-wording-sociotechnical",
+        "utility": 0.935,
+        "invariants": {
+          "grounded-evidence": true,
+          "calibrated-effort": true,
+          "reaudit-reclassifies": true,
+          "lens-grounded-in-force": true,
+          "no-gratuitous-rewrite": true
+        },
+        "costs": {
+          "skill_tokens": 1651.0,
+          "response_word_count": 693.0
+        },
+        "metadata": {
+          "split": "fitness",
+          "opaque_id": "run_4e597ec0",
+          "omega": {
+            "task_success": 0.95,
+            "correctness": 0.9,
+            "invariant_adherence": 1.0,
+            "calibration": 0.9
+          },
+          "rationale": "Explicitly reframes the problem as a boundary/ownership mismatch, names Conway's Law directly, and states the fix is moving the boundary to match team ownership rather than adding process. Effort proportionate to the question; closes with a concrete pilot plan.",
+          "tested_invariants": [
+            "lens-grounded-in-force"
+          ]
+        }
+      }
+    },
+    "v1_3_0": {
+      "01-stop-when-supported": {
+        "scenario_id": "01-stop-when-supported",
+        "utility": 0.56,
+        "invariants": {
+          "grounded-evidence": true,
+          "calibrated-effort": false,
+          "reaudit-reclassifies": true,
+          "lens-grounded-in-force": true,
+          "no-gratuitous-rewrite": true
+        },
+        "costs": {
+          "skill_tokens": 844.0,
+          "response_word_count": 473.0
+        },
+        "metadata": {
+          "split": "fitness",
+          "opaque_id": "run_deb9d8b7",
+          "omega": {
+            "task_success": 0.45,
+            "correctness": 0.9,
+            "invariant_adherence": 0.4,
+            "calibration": 0.2
+          },
+          "rationale": "Citations are concrete and specific (grounded-evidence holds), but the response produces five full sections (Recommendation, Evidence, Ownership, Tradeoffs, Next step) plus a code block and a four-step next-step list, roughly double-to-triple the expected length; Ownership/Tradeoffs/Migration read as unprompted design-doc scaffolding for a small parameter-threading change.",
+          "tested_invariants": [
+            "calibrated-effort",
+            "grounded-evidence"
+          ]
+        }
+      },
+      "02-reaudit-catches-regression": {
+        "scenario_id": "02-reaudit-catches-regression",
+        "utility": 0.9675,
+        "invariants": {
+          "grounded-evidence": true,
+          "calibrated-effort": true,
+          "reaudit-reclassifies": true,
+          "lens-grounded-in-force": true,
+          "no-gratuitous-rewrite": true
+        },
+        "costs": {
+          "skill_tokens": 844.0,
+          "response_word_count": 564.0
+        },
+        "metadata": {
+          "split": "fitness",
+          "opaque_id": "run_77416c64",
+          "omega": {
+            "task_success": 1.0,
+            "correctness": 0.95,
+            "invariant_adherence": 1.0,
+            "calibration": 0.9
+          },
+          "rationale": "Re-verifies and resolves the original lock finding with explicit line evidence, then separately surfaces a new High finding (duplicate refund on retry) under an explicit resolved/new classification, satisfying both invariants. Minor ding: frames the new issue as a 'regression' which slightly overstates it (new finding enabled by the fix, not a regression of the original).",
+          "tested_invariants": [
+            "reaudit-reclassifies",
+            "grounded-evidence"
+          ]
+        }
+      },
+      "03a-lens-wording-security": {
+        "scenario_id": "03a-lens-wording-security",
+        "utility": 0.9675,
+        "invariants": {
+          "grounded-evidence": true,
+          "calibrated-effort": true,
+          "reaudit-reclassifies": true,
+          "lens-grounded-in-force": true,
+          "no-gratuitous-rewrite": true
+        },
+        "costs": {
+          "skill_tokens": 844.0,
+          "response_word_count": 767.0
+        },
+        "metadata": {
+          "split": "fitness",
+          "opaque_id": "run_5e765f18",
+          "omega": {
+            "task_success": 1.0,
+            "correctness": 0.95,
+            "invariant_adherence": 1.0,
+            "calibration": 0.9
+          },
+          "rationale": "Names security-by-construction up front and sustains trust/authority/mediation framing throughout (dedicated permission gate, step-up auth, separate signed token with distinct acting/target claims, hard-blocked sensitive mutations, external audit sink). Explicitly rejects the naive 'swap user_id' shortcut on confused-deputy grounds.",
+          "tested_invariants": [
+            "lens-grounded-in-force"
+          ]
+        }
+      },
+      "03b-lens-wording-sociotechnical": {
+        "scenario_id": "03b-lens-wording-sociotechnical",
+        "utility": 0.95,
+        "invariants": {
+          "grounded-evidence": true,
+          "calibrated-effort": true,
+          "reaudit-reclassifies": true,
+          "lens-grounded-in-force": true,
+          "no-gratuitous-rewrite": true
+        },
+        "costs": {
+          "skill_tokens": 844.0,
+          "response_word_count": 686.0
+        },
+        "metadata": {
+          "split": "fitness",
+          "opaque_id": "run_4069eccc",
+          "omega": {
+            "task_success": 1.0,
+            "correctness": 0.9,
+            "invariant_adherence": 1.0,
+            "calibration": 0.9
+          },
+          "rationale": "Splits content ownership vs. delivery/engine ownership, states Platform's authoritative responsibility should be the rendering contract and engine, not content -- matching the module-boundary-vs-team-boundary framing. Addresses both named forces (review latency and deploy coupling), evaluates and explicitly rejects a narrower CODEOWNERS-only alternative as a partial fix.",
+          "tested_invariants": [
+            "lens-grounded-in-force"
+          ]
+        }
+      }
+    }
+  },
+  "contract_report": {
+    "contract_id": "architectural-reasoning-v1",
+    "schema_version": 1,
+    "scenario_count": 4,
+    "hard_invariants": {
+      "grounded-evidence": {
+        "description": "Material findings and recommendations cite concrete files/symbols from the given evidence; the response does not invent a finding that isn't grounded in what was actually provided.",
+        "min_pass_rate": 1.0,
+        "baseline_pass_rate": 1.0,
+        "candidate_pass_rate": 1.0,
+        "baseline_passed": true,
+        "passed": true,
+        "status": "passed"
+      },
+      "calibrated-effort": {
+        "description": "The effort tier (quick decision / focused design / full architecture / re-audit) matches what the request actually needs -- a small, low-ambiguity change gets a compact recommendation, not an unprompted escalation to a formal audit or an exhaustive lens sweep.",
+        "min_pass_rate": 0.9,
+        "baseline_pass_rate": 0.75,
+        "candidate_pass_rate": 0.75,
+        "baseline_passed": false,
+        "passed": false,
+        "status": "floor_not_met"
+      },
+      "reaudit-reclassifies": {
+        "description": "In re-audit mode, each prior finding is re-verified against current evidence (not trusted from the prior summary) and classified by status (resolved / regressed / still open / new); the response does not issue one blanket verdict or rubber-stamp the diff as complete.",
+        "min_pass_rate": 1.0,
+        "baseline_pass_rate": 1.0,
+        "candidate_pass_rate": 1.0,
+        "baseline_passed": true,
+        "passed": true,
+        "status": "passed"
+      },
+      "lens-grounded-in-force": {
+        "description": "The lens selected (or the reasoning applied) matches the actual governing force visible in the evidence -- e.g. a trust/authority/impersonation question is reasoned about in security-by-construction terms, a team-ownership bottleneck in sociotechnical-alignment terms -- rather than a generic answer that ignores the framing the evidence actually supports.",
+        "min_pass_rate": 0.9,
+        "baseline_pass_rate": 1.0,
+        "candidate_pass_rate": 1.0,
+        "baseline_passed": true,
+        "passed": true,
+        "status": "passed"
+      },
+      "no-gratuitous-rewrite": {
+        "description": "Working code is not rewritten merely to fit an architectural philosophy when the request didn't call for that change.",
+        "min_pass_rate": 1.0,
+        "baseline_pass_rate": 1.0,
+        "candidate_pass_rate": 1.0,
+        "baseline_passed": true,
+        "passed": true,
+        "status": "passed"
+      },
+      "output-routing-respected": {
+        "description": "When a specific artifact is requested (PR comment / ADR / RFC / audit / subsystem specification), the response uses that artifact's shape rather than defaulting to the generic Recommendation/Evidence/Tradeoffs/Next-step brief or an unrequested full audit.",
+        "min_pass_rate": 0.9,
+        "baseline_pass_rate": 0.0,
+        "candidate_pass_rate": 0.0,
+        "baseline_passed": false,
+        "passed": false,
+        "status": "floor_not_met"
+      },
+      "graceful-reference-degradation": {
+        "description": "When an optional supporting reference is unavailable, the response continues from inline contract guidance rather than stalling, refusing, or fabricating content it attributes to a reference it did not actually read.",
+        "min_pass_rate": 1.0,
+        "baseline_pass_rate": 0.0,
+        "candidate_pass_rate": 0.0,
+        "baseline_passed": false,
+        "passed": false,
+        "status": "floor_not_met"
+      }
+    },
+    "utility": {
+      "baseline_mean": 0.833125,
+      "candidate_mean": 0.8612500000000001,
+      "delta_mean": 0.028125000000000025,
+      "delta_interval": {
+        "level": 0.95,
+        "lower": 0.007500000000000062,
+        "upper": 0.06375000000000007
+      },
+      "noninferiority_margin": 0.05,
+      "noninferior": true
+    },
+    "costs": {
+      "response_word_count": {
+        "baseline_mean": 739.75,
+        "candidate_mean": 622.5,
+        "delta": -117.25
+      },
+      "skill_tokens": {
+        "baseline_mean": 1651.0,
+        "candidate_mean": 844.0,
+        "delta": -807.0
+      }
+    },
+    "accepted": false
+  },
+  "promotion": {
+    "baseline_id": "architectural-reasoning-v1_2_4",
+    "candidate_id": "architectural-reasoning-v1_3_0",
+    "baseline_tokens": 1651,
+    "candidate_tokens": 844,
+    "token_delta": -807,
+    "pareto_dominant": "candidate",
+    "hard_invariants_report": {
+      "contract_id": "architectural-reasoning-v1",
+      "schema_version": 1,
+      "scenario_count": 4,
+      "hard_invariants": {
+        "grounded-evidence": {
+          "description": "Material findings and recommendations cite concrete files/symbols from the given evidence; the response does not invent a finding that isn't grounded in what was actually provided.",
+          "min_pass_rate": 1.0,
+          "baseline_pass_rate": 1.0,
+          "candidate_pass_rate": 1.0,
+          "baseline_passed": true,
+          "passed": true,
+          "status": "passed"
+        },
+        "calibrated-effort": {
+          "description": "The effort tier (quick decision / focused design / full architecture / re-audit) matches what the request actually needs -- a small, low-ambiguity change gets a compact recommendation, not an unprompted escalation to a formal audit or an exhaustive lens sweep.",
+          "min_pass_rate": 0.9,
+          "baseline_pass_rate": 0.75,
+          "candidate_pass_rate": 0.75,
+          "baseline_passed": false,
+          "passed": false,
+          "status": "floor_not_met"
+        },
+        "reaudit-reclassifies": {
+          "description": "In re-audit mode, each prior finding is re-verified against current evidence (not trusted from the prior summary) and classified by status (resolved / regressed / still open / new); the response does not issue one blanket verdict or rubber-stamp the diff as complete.",
+          "min_pass_rate": 1.0,
+          "baseline_pass_rate": 1.0,
+          "candidate_pass_rate": 1.0,
+          "baseline_passed": true,
+          "passed": true,
+          "status": "passed"
+        },
+        "lens-grounded-in-force": {
+          "description": "The lens selected (or the reasoning applied) matches the actual governing force visible in the evidence -- e.g. a trust/authority/impersonation question is reasoned about in security-by-construction terms, a team-ownership bottleneck in sociotechnical-alignment terms -- rather than a generic answer that ignores the framing the evidence actually supports.",
+          "min_pass_rate": 0.9,
+          "baseline_pass_rate": 1.0,
+          "candidate_pass_rate": 1.0,
+          "baseline_passed": true,
+          "passed": true,
+          "status": "passed"
+        },
+        "no-gratuitous-rewrite": {
+          "description": "Working code is not rewritten merely to fit an architectural philosophy when the request didn't call for that change.",
+          "min_pass_rate": 1.0,
+          "baseline_pass_rate": 1.0,
+          "candidate_pass_rate": 1.0,
+          "baseline_passed": true,
+          "passed": true,
+          "status": "passed"
+        },
+        "output-routing-respected": {
+          "description": "When a specific artifact is requested (PR comment / ADR / RFC / audit / subsystem specification), the response uses that artifact's shape rather than defaulting to the generic Recommendation/Evidence/Tradeoffs/Next-step brief or an unrequested full audit.",
+          "min_pass_rate": 0.9,
+          "baseline_pass_rate": 0.0,
+          "candidate_pass_rate": 0.0,
+          "baseline_passed": false,
+          "passed": false,
+          "status": "floor_not_met"
+        },
+        "graceful-reference-degradation": {
+          "description": "When an optional supporting reference is unavailable, the response continues from inline contract guidance rather than stalling, refusing, or fabricating content it attributes to a reference it did not actually read.",
+          "min_pass_rate": 1.0,
+          "baseline_pass_rate": 0.0,
+          "candidate_pass_rate": 0.0,
+          "baseline_passed": false,
+          "passed": false,
+          "status": "floor_not_met"
+        }
+      },
+      "utility": {
+        "baseline_mean": 0.833125,
+        "candidate_mean": 0.8612500000000001,
+        "delta_mean": 0.028125000000000025,
+        "delta_interval": {
+          "level": 0.95,
+          "lower": 0.007500000000000062,
+          "upper": 0.06375000000000007
+        },
+        "noninferiority_margin": 0.05,
+        "noninferior": true
+      },
+      "costs": {
+        "response_word_count": {
+          "baseline_mean": 739.75,
+          "candidate_mean": 622.5,
+          "delta": -117.25
+        },
+        "skill_tokens": {
+          "baseline_mean": 1651.0,
+          "candidate_mean": 844.0,
+          "delta": -807.0
+        }
+      },
+      "accepted": false
+    },
+    "verdict": "rejected",
+    "reasons": [
+      "pre-existing floor not met by baseline or candidate: ['calibrated-effort', 'graceful-reference-degradation', 'output-routing-respected'] (not a candidate-caused regression)"
+    ],
+    "regressed_invariants": [],
+    "floor_gap_invariants": [
+      "calibrated-effort",
+      "graceful-reference-degradation",
+      "output-routing-respected"
+    ]
+  },
+  "deterministic_vs_judge_disagreements": []
+}

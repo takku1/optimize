@@ -1,0 +1,101 @@
+﻿{
+  "synthetic": true,
+  "note": "synthetic scaffold: candidates only \u2014 real held-out evaluation disposes before any claim",
+  "gates": {
+    "distortion": 0.801
+  },
+  "gate_op": "max",
+  "blocked": [],
+  "rate_distortion_frontier": [
+    {
+      "tokens": 303,
+      "distortion": 0.8006,
+      "prompt": "Z:/Specimen/README.md"
+    },
+    {
+      "tokens": 774,
+      "distortion": 0.8006,
+      "prompt": "Z:/Specimen/README.md"
+    },
+    {
+      "tokens": 903,
+      "distortion": 0.8006,
+      "prompt": "Z:/Specimen/README.md"
+    },
+    {
+      "tokens": 1032,
+      "distortion": 0.8006,
+      "prompt": "Z:/Specimen/README.md"
+    },
+    {
+      "tokens": 1123,
+      "distortion": 0.8006,
+      "prompt": "Z:/Specimen/README.md"
+    },
+    {
+      "tokens": 1387,
+      "distortion": 0.8006,
+      "prompt": "Z:/Specimen/README.md"
+    },
+    {
+      "tokens": 1449,
+      "distortion": 0.8006,
+      "prompt": "Z:/Specimen/README.md"
+    }
+  ],
+  "pareto_candidates": [
+    {
+      "path": "Z:/Specimen/README.md",
+      "tokens": 303,
+      "words": 176,
+      "predicted_activation": 0.2024,
+      "similarity": 0.1279,
+      "reliability": 0.1994,
+      "distortion": 0.8006,
+      "off_target": 0.2029,
+      "expected_gain": 0.0403,
+      "uncertainty": 0.0028,
+      "score": -0.0619
+    },
+    {
+      "path": "Z:/Specimen/references/section-template.md",
+      "tokens": 774,
+      "words": 522,
+      "predicted_activation": 0.1999,
+      "similarity": -0.0088,
+      "reliability": 0.1993,
+      "distortion": 0.8007,
+      "off_target": 0.2023,
+      "expected_gain": 0.0398,
+      "uncertainty": 0.0028,
+      "score": -0.0621
+    },
+    {
+      "path": "Z:/Specimen/scripts/arxiv_lookup.py",
+      "tokens": 903,
+      "words": 289,
+      "predicted_activation": 0.2001,
+      "similarity": 0.0051,
+      "reliability": 0.1993,
+      "distortion": 0.8007,
+      "off_target": 0.2024,
+      "expected_gain": 0.0399,
+      "uncertainty": 0.0028,
+      "score": -0.0622
+    }
+  ],
+  "next_experiment": {
+    "path": "Z:/Specimen/README.md",
+    "tokens": 303,
+    "words": 176,
+    "predicted_activation": 0.2024,
+    "similarity": 0.1279,
+    "reliability": 0.1994,
+    "distortion": 0.8006,
+    "off_target": 0.2029,
+    "expected_gain": 0.0403,
+    "uncertainty": 0.0028,
+    "score": -0.0619
+  },
+  "cache_misses": 0
+}

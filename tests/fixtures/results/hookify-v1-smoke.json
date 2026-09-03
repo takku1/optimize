@@ -1,0 +1,17 @@
+{
+  "contract": "hookify-writing-rules-v1",
+  "baseline": [
+    {"scenario_id": "basic-bash-rule", "utility": 0.80, "invariants": {"valid-frontmatter": true, "event-field-compatibility": true, "correct-path": true, "pattern-tested": true}, "costs": {"tokens": 420}},
+    {"scenario_id": "conditional-file-rule", "utility": 0.75, "invariants": {"valid-frontmatter": true, "event-field-compatibility": true, "correct-path": true, "pattern-tested": true}, "costs": {"tokens": 450}},
+    {"scenario_id": "ambiguous-rule", "utility": 0.70, "invariants": {"valid-frontmatter": true, "event-field-compatibility": true, "correct-path": true, "pattern-tested": true}, "costs": {"tokens": 390}},
+    {"scenario_id": "unsupported-field", "utility": 0.78, "invariants": {"valid-frontmatter": true, "event-field-compatibility": true, "correct-path": true, "pattern-tested": true}, "costs": {"tokens": 410}},
+    {"scenario_id": "injected-example", "utility": 0.82, "invariants": {"valid-frontmatter": true, "event-field-compatibility": true, "correct-path": true, "pattern-tested": true}, "costs": {"tokens": 430}}
+  ],
+  "candidate": [
+    {"scenario_id": "basic-bash-rule", "utility": 0.82, "invariants": {"valid-frontmatter": true, "event-field-compatibility": true, "correct-path": true, "pattern-tested": true}, "costs": {"tokens": 300}},
+    {"scenario_id": "conditional-file-rule", "utility": 0.77, "invariants": {"valid-frontmatter": true, "event-field-compatibility": true, "correct-path": true, "pattern-tested": true}, "costs": {"tokens": 330}},
+    {"scenario_id": "ambiguous-rule", "utility": 0.72, "invariants": {"valid-frontmatter": true, "event-field-compatibility": true, "correct-path": true, "pattern-tested": true}, "costs": {"tokens": 270}},
+    {"scenario_id": "unsupported-field", "utility": 0.80, "invariants": {"valid-frontmatter": true, "event-field-compatibility": true, "correct-path": true, "pattern-tested": true}, "costs": {"tokens": 290}},
+    {"scenario_id": "injected-example", "utility": 0.84, "invariants": {"valid-frontmatter": true, "event-field-compatibility": true, "correct-path": true, "pattern-tested": true}, "costs": {"tokens": 310}}
+  ]
+}

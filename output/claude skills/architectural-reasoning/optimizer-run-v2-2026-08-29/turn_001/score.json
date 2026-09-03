@@ -1,0 +1,15 @@
+{
+  "accepted": true,
+  "utility": 1.0,
+  "tokens": 1158,
+  "hard_invariants_passed": true,
+  "checks": {
+    "Quick-decision budget": true,
+    "300 words": true,
+    "OPEN DESIGN DECISION": true,
+    "resolved": true,
+    "regressed": true,
+    "still open": true,
+    "new": true
+  }
+}

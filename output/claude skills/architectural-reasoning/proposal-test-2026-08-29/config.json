@@ -1,0 +1,57 @@
+{
+  "run_id": "proposal-test-2026-08-29",
+  "purpose": "PROPOSAL.md's own 'Evaluation plan before applying': test the v1.3.1 contract-restoration patch (proposed-rewrite.md) against the real, current v1.3.0 SKILL.md across the existing 4-scenario suite plus two new scenarios PROPOSAL.md required before calling the patch successful (04-output-routing, 05-reference-unavailable). Development/fitness evaluation, not D_test / final certification.",
+  "split": "fitness",
+  "frozen_at": "2026-08-29T00:00:00Z (session-local timestamp; see individual artifact file mtimes for actual wall-clock order)",
+  "experimental_unit": "skill_version x scenario x rollout",
+  "rollouts_per_unit": 1,
+  "versions": {
+    "v1_3_0": {
+      "source_path": "Z:\\archetect\\skills\\architectural-reasoning\\SKILL.md",
+      "role": "baseline",
+      "note": "the real, currently-deployed skill -- 'the original' in this run's naming"
+    },
+    "v1_3_1": {
+      "source_path": "Z:\\prompt-optimization\\output\\claude skills\\architectural-reasoning\\proposed-rewrite.md",
+      "role": "candidate",
+      "note": "PROPOSAL.md's contract-restoration patch -- 'the proposal' -- not yet applied to the real skill file"
+    }
+  },
+  "scenario_suite": "Z:\\prompt-optimization\\tests\\fixtures\\scenarios\\architectural-reasoning-v1.json",
+  "contract": "Z:\\prompt-optimization\\tests\\fixtures\\contracts\\architectural-reasoning-v1.json",
+  "scenarios_used": [
+    "01-stop-when-supported",
+    "02-reaudit-catches-regression",
+    "03a-lens-wording-security",
+    "03b-lens-wording-sociotechnical",
+    "04-output-routing",
+    "05-reference-unavailable"
+  ],
+  "reused_baseline_evidence": {
+    "description": "v1.3.0 already has real, blinded-judged results for 01/02/03a/03b from ../empirical-run-2026-08-29/ (opaque ids run_deb9d8b7, run_77416c64, run_5e765f18, run_4069eccc). Those are reused verbatim here rather than re-executed -- the skill file has not changed since that run, so re-running it would not be independent evidence, just noise from re-sampling. Only v1.3.0 x {04, 05} (new scenarios) is freshly executed.",
+    "reused_opaque_ids": {
+      "v1_3_0:01-stop-when-supported": "run_deb9d8b7",
+      "v1_3_0:02-reaudit-catches-regression": "run_77416c64",
+      "v1_3_0:03a-lens-wording-security": "run_5e765f18",
+      "v1_3_0:03b-lens-wording-sociotechnical": "run_4069eccc"
+    }
+  },
+  "freshly_executed": {
+    "v1_3_0": ["04-output-routing", "05-reference-unavailable"],
+    "v1_3_1": ["01-stop-when-supported", "02-reaudit-catches-regression", "03a-lens-wording-security",
+               "03b-lens-wording-sociotechnical", "04-output-routing", "05-reference-unavailable"]
+  },
+  "execution_method": {
+    "description": "Same as ../empirical-run-2026-08-29/config.json: each freshly-executed (version, scenario) subject transcript is produced by spawning an independent Claude agent (Claude Code's Agent tool, subagent_type general-purpose) with the skill's full text supplied as inline operating instructions, plus the scenario's request. Scenario input files (when present) are written to a real directory the subject agent inspects with Read/Glob/Grep, not pasted inline.",
+    "fidelity_note": "Real, non-simulated model execution. Not identical to the native ~/.claude/skills/ auto-trigger mechanism -- the skill is provided as inline instructions rather than through the skill-loading system."
+  },
+  "judging_method": {
+    "description": "Absolute (non-pairwise) blinded scoring, identical method to ../empirical-run-2026-08-29/. Each freshly-executed transcript is assigned an opaque id before judging; a fresh judge agent (no memory of this session, spawned separately per transcript) scores exactly one transcript against the scenario's rubric, never told which skill version produced it.",
+    "rubric_dimensions": ["task_success", "correctness", "invariant_adherence", "calibration"]
+  },
+  "new_invariants_added_for_this_run": {
+    "output-routing-respected": "tested by 04-output-routing only",
+    "graceful-reference-degradation": "tested by 05-reference-unavailable only"
+  },
+  "commitment": "No skill file is modified during or between execution and judging. proposed-rewrite.md is only copied into Z:\\archetect\\skills\\architectural-reasoning\\SKILL.md after this run's promotion verdict is computed, and only if that verdict supports it."
+}

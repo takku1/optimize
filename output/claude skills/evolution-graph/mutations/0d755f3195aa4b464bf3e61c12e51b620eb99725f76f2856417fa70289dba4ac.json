@@ -1,0 +1,22 @@
+{
+  "actual_effect": {
+    "tokens_delta": -807.0,
+    "utility_delta": 0.028125000000000025
+  },
+  "child_hash": "8753430b632a9d52cbf1d534b7e8a409ecda4b7b0ff3317754a95c60e5124f17",
+  "created_at": "2026-08-29T06:15:41.683278+00:00",
+  "mutation_description": "v1.2.4 -> v1.3.0: separated optimization machinery into a dedicated skill, made effort calibration explicit/operational, tightened evidence requirements, compressed lens table wording.",
+  "mutation_family": "human_reauthoring",
+  "mutation_id": "0d755f3195aa4b464bf3e61c12e51b620eb99725f76f2856417fa70289dba4ac",
+  "optimizer_version": "empirical-run-2026-08-29",
+  "parent_hash": "8a2753bb1941b60f75b1338c725f281d850e333d9bd73b5257b73f5da079564e",
+  "predicted_effect": {},
+  "provenance": {
+    "promotion_verdict": "rejected",
+    "reasons": [
+      "lost a hard invariant"
+    ],
+    "report": "output/claude skills/architectural-reasoning/empirical-run-2026-08-29/REPORT.md"
+  },
+  "rationale": ""
+}

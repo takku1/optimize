@@ -1,0 +1,38 @@
+Automatic prompt optimization has matured from token-level search
+\citep{shin2020autoprompt} to an active subfield of generate-and-search
+\citep{zhou2023ape,yang2023opro,fernando2023promptbreeder,guo2023evoprompt,pryzant2023protegi,khattab2023dspy,yuksekgonul2024textgrad},
+with scoring functions that range from task accuracy to optimizer-LLM judgment.
+A naive version of this loop has a quiet failure mode: the ranking step slowly
+becomes ``how geometrically close is this candidate to a hand-defined target
+embedding,'' and the whole enterprise quietly turns into a search for cosine
+neighbors of one vector. The present project was motivated by the observation
+that \emph{embedding similarity is not behavioral equivalence}
+\citep{kornblith2019similarity}: a candidate can sit near a target direction and
+be behaviorally inert, or sit far away and be behaviorally decisive. The design
+stance of \texttt{prompt-optimization} is therefore that \emph{behavioral
+performance must dominate embedding similarity}, and that any ordering signal
+from embeddings must be re-grounded on real held-out evaluation before it
+becomes a claim.
+
+This preprint documents the toolkit as a \emph{research scaffold} for developing
+and checking that ordering logic cheaply and reproducibly, before any expensive
+real-model experiment is run. It makes three contributions, in the honest-scope
+sense of \texttt{specimen}-style evaluation:
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{A vocabulary and selection discipline} -- named behavioral
+  attractors, basin probabilities, reliability and a deliberately-admitted-toy
+  distortion proxy, plus empirical distortion-rate and Pareto selection with
+  mandatory hard gates that no scalar score may override.
+  \item \textbf{A shipped architecture and one real worked example} -- three
+  subpackages (\texttt{metrics}, \texttt{attribution}, \texttt{context}), a
+  stdlib-only CLI (\texttt{prompt-opt scan} / \texttt{plan}), and a genuine
+  transcript of the tool being pointed at an independent skill repository.
+  \item \textbf{An honest evaluation status} -- a classification of exactly what
+  the shipped evidence licenses and what it does not, which doubles as a
+  concrete fix list for turning this scaffold into a measurement device.
+\end{enumerate}
+
+The evaluation-status section is the point of this paper. The rest of the paper
+is machinery; Section~\ref{sec:eval} is where the reader should look if they want
+to know what this toolkit can and cannot yet claim.

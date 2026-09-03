@@ -1,0 +1,12 @@
+{
+  "run_id": "negative-control-2026-08-29",
+  "purpose": "Benchmark-validation experiment (governance.md's calibration protocol, points 5-6): does this pipeline reliably detect a deliberately damaged skill as worse, and correctly attribute the undamaged version's recovery to the repair? Split: fitness. Not D_test.",
+  "design": "Scenario 02 (02-reaudit-catches-regression) currently PASSES reaudit-reclassifies and grounded-evidence for the real v1.3.0 skill (see ../empirical-run-2026-08-29/final_results.json). One targeted defect is injected: the Re-audit bullet's 'distrust prior findings; re-verify each against current code; classify resolved, regressed, still open, or new; check whether a fix introduced another problem' is replaced with the generic 'review the prior audit findings and the associated diff' -- everything else byte-identical to v1.3.0. This is a negative control (damage should regress reaudit-reclassifies) and, because the repair endpoint is simply the already-measured undamaged v1.3.0, a positive control for free (no new execution needed for the 'repaired' state).",
+  "damaged_skill": "damaged-v1_3_0.md",
+  "baseline_for_repair_signal": "the real, already-scored v1.3.0 result for 02-reaudit-catches-regression in ../empirical-run-2026-08-29/final_results.json (opaque id run_77416c64)",
+  "scenario": "02-reaudit-catches-regression",
+  "rollouts": 1,
+  "execution_method": "same as ../empirical-run-2026-08-29/config.json: skill text as inline instructions to a freshly spawned general-purpose Claude agent, scenario input files on real disk for genuine Read/Glob/Grep.",
+  "judging_method": "same blinded, rubric-grounded absolute scoring as the prior run -- the judge sees only an opaque run id, never 'damaged' or a version label.",
+  "commitment": "The damaged skill file is never edited after this config is written. The judge is blinded exactly as in the prior run."
+}

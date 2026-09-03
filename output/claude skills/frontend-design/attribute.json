@@ -1,0 +1,58 @@
+{
+  "path": "C:/Users/dcarn/.claude/plugins/marketplaces/claude-plugins-official/plugins/frontend-design/skills/frontend-design/SKILL.md",
+  "backend": "synthetic",
+  "synthetic": true,
+  "unit": "line",
+  "components": [
+    {
+      "index": 7,
+      "shapley": -0.004752,
+      "preview": "Try to do a lot of this planning and iteration in your thinking, and only show i"
+    },
+    {
+      "index": 8,
+      "shapley": -0.005316,
+      "preview": "## More on writing in design\nWords appear in a design for one reason: to make it"
+    },
+    {
+      "index": 3,
+      "shapley": -0.005343,
+      "preview": "## Design principles\nFor web designs, the hero is a thesis. Open with the most c"
+    },
+    {
+      "index": 5,
+      "shapley": -0.005364,
+      "preview": "Consider written content carefully. Often a design brief may not contain real co"
+    },
+    {
+      "index": 0,
+      "shapley": -0.0056,
+      "preview": "---\nname: frontend-design\ndescription: Guidance for distinctive, intentional vis"
+    },
+    {
+      "index": 9,
+      "shapley": -0.006865,
+      "preview": "Use active voice as default. A control should say exactly what happens when it's"
+    },
+    {
+      "index": 4,
+      "shapley": -0.006919,
+      "preview": "Structure is information. Structural devices, numbering, eyebrows, dividers, lab"
+    },
+    {
+      "index": 1,
+      "shapley": -0.007064,
+      "preview": "license: Complete terms in LICENSE.txt\n---\n# Frontend Design"
+    },
+    {
+      "index": 6,
+      "shapley": -0.007551,
+      "preview": "Work in two passes. First, brainstorm a short design plan based on the human's d"
+    },
+    {
+      "index": 2,
+      "shapley": -0.007854,
+      "preview": "Approach this as the design lead at a small studio known for giving every client"
+    }
+  ]
+}

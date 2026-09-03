@@ -1,0 +1,72 @@
+{
+  "id": "architectural-reasoning-compactness-v1.3.2",
+  "activation": {
+    "required_all": ["# Architectural Reasoning", "## Calibrate effort"]
+  },
+  "revision": {
+    "metadata": {
+      "version": "1.3.2",
+      "based_on": "architectural-reasoning 1.3.1"
+    },
+    "sections": [
+      {
+        "heading": "### Quick-decision completion contract",
+        "aliases": ["### Quick-decision budget"],
+        "after": "Requested depth and output format override these defaults.",
+        "content_file": "quick-decision-contract.md"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "id": "bounded_shape",
+      "kind": "contains_all",
+      "values": ["exactly four sections", "at most two bullets", "one claim per bullet"],
+      "scope": {"section": "### Quick-decision completion contract"},
+      "hard": true,
+      "weight": 2
+    },
+    {
+      "id": "hard_word_cap",
+      "kind": "regex",
+      "pattern": "(?:at or below|no more than|maximum of)\\s+300 words",
+      "scope": {"section": "### Quick-decision completion contract"},
+      "hard": true,
+      "weight": 2
+    },
+    {
+      "id": "presend_check",
+      "kind": "contains_all",
+      "values": ["Before sending", "word budget", "delete repetition"],
+      "scope": {"section": "### Quick-decision completion contract"},
+      "hard": true,
+      "weight": 2
+    },
+    {
+      "id": "stop_and_escape",
+      "kind": "contains_all",
+      "values": ["single smallest missing fact", "and stop", "compact contract unsafe", "requested format or depth overrides"],
+      "scope": {"section": "### Quick-decision completion contract"},
+      "hard": true,
+      "weight": 2
+    },
+    {
+      "id": "reaudit_contract",
+      "kind": "contains_all",
+      "values": ["resolved", "regressed", "still open", "new"],
+      "hard": true,
+      "weight": 1
+    },
+    {
+      "id": "open_decision_contract",
+      "kind": "contains",
+      "value": "OPEN DESIGN DECISION",
+      "hard": true,
+      "weight": 1
+    }
+  ],
+  "objective": {
+    "structural_weight": 0.2,
+    "behavioral_weight": 0.8
+  }
+}
