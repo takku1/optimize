@@ -1,0 +1,16 @@
+{
+  "actual_effect": {
+    "tokens_delta": 0,
+    "utility_delta": 1.798620426601838e-05
+  },
+  "child_hash": "fedb2ca8f61d391f1730a7bda61249874b9315d1895769fd54b8cb3b1db67bd0",
+  "created_at": "2026-09-03T14:42:11.388122+00:00",
+  "mutation_description": "",
+  "mutation_family": "structural_swap",
+  "mutation_id": "9a3e85c970457dae698ebee0d3ff1b461380a4e94e8aea4c584f8edf61485134",
+  "optimizer_version": "",
+  "parent_hash": "2c23c54e738086dc5c434124f029cfa14203726e7615d5aa9d3fc8e862c7b714",
+  "predicted_effect": {},
+  "provenance": {},
+  "rationale": ""
+}

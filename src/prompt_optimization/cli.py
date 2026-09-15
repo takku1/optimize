@@ -980,8 +980,8 @@ def build_parser() -> argparse.ArgumentParser:
         "search", help="run the synthetic branching-evolutionary BCSO search loop over one skill file"
     )
     p_search.add_argument("path", help="single skill/prompt file to search from")
-    p_search.add_argument("--baseline", choices=sorted(BASELINES), default="full_bcso",
-                          help="named baseline strategy (default: full_bcso)")
+    p_search.add_argument("--baseline", choices=sorted(BASELINES), default="focused",
+                          help="named baseline strategy (default: focused; use full_bcso for exhaustive search)")
     p_search.add_argument("--utility-min", type=_unit_float, default=0.5, help="qualification floor on fitness U")
     p_search.add_argument("--robustness-min", type=_unit_float, default=0.5, help="qualification floor on fitness R")
     p_search.add_argument("--delta-u", type=_fraction, default=0.02,
@@ -992,7 +992,7 @@ def build_parser() -> argparse.ArgumentParser:
                           help="consecutive checkpoints below --epsilon-hv required to freeze")
     p_search.add_argument("--checkpoint-every", type=_positive_int, default=2,
                           help="generations between Pareto-archive checkpoints")
-    p_search.add_argument("--max-archive-size", type=_nonnegative_int, default=40,
+    p_search.add_argument("--max-archive-size", type=_nonnegative_int, default=12,
                           help="cap the non-dominated archive to this many candidates (0 for unbounded)")
     p_search.add_argument("--run-dir", default=None,
                           help="write the runs/ generation lineage layout here")

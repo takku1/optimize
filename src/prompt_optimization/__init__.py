@@ -20,6 +20,9 @@ subpackages:
 
 __version__ = "0.1.0"
 
+from .benchmarks import ExternalBenchmark, load_external_benchmark, to_reference_run_manifest
+from .calibration import agreement_report, fleiss_kappa, icc_absolute_agreement
+
 from .metrics import (
     ACTIVATION_CHANGING,
     PRESERVING,
@@ -94,6 +97,8 @@ from .contracts import (
 
 __all__ = [
     "ACTIVATION_CHANGING",
+    "ExternalBenchmark",
+    "agreement_report",
     "PRESERVING",
     "Attractor",
     "CounterfactualCase",
@@ -140,6 +145,10 @@ __all__ = [
     "multi_head_attention",
     "load_comparison_input",
     "load_contract",
+    "load_external_benchmark",
+    "to_reference_run_manifest",
+    "fleiss_kappa",
+    "icc_absolute_agreement",
     "load_scenarios",
     "optimization_resistance",
     "pareto_frontier",

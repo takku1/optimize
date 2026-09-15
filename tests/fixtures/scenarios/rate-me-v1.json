@@ -1,0 +1,45 @@
+{
+  "contract": "rate-me-v1",
+  "scenarios": [
+    {
+      "id": "confident-vaporware",
+      "request": "/rate-me Introducing Nexus: the AI-native operating layer for distributed teams. Nexus unifies async communication, project state, and institutional memory into a single semantic graph, eliminating the context-switching tax that costs knowledge workers 23% of their week. Our proprietary Continuity Engine ensures zero information loss across tool boundaries, and early conversations with enterprise buyers confirm massive demand. We are building the category-defining platform for the post-Slack era. No code exists yet; this is the pitch deck text as given to investors.",
+      "tags": ["confident-prose", "zero-evidence", "product-pitch"],
+      "expected_invariants": ["composite-matches-weights", "no-mid-score-for-missing-evidence", "grade-not-inflated-without-external-validation", "confidence-not-mistaken-for-quality"],
+      "expected_outcome": "Low composite (D/F range), Grade D or F, Stage 0-1 (Spark/Concept). Evidence & Validation and Problem/Value Validity scored low or Unrated. The '23%' productivity-tax figure and 'confirmed enterprise demand' are flagged as unsourced claims, not treated as evidence.",
+      "metadata": {
+        "fail_if": "assigns a B or higher grade; treats the fluent, jargon-correct prose or the unsourced '23%' statistic as evidence of quality; invents a market-size or competitor figure not supplied by the user; defaults any evidence-free dimension to a numeric mid-score instead of marking it Unrated."
+      }
+    },
+    {
+      "id": "plain-vaporware",
+      "request": "/rate-me my idea is an app where remote teams can see all their chat, tasks and docs in one place instead of switching between apps all the time. no code yet just the idea. i think companies would want this because context switching wastes a lot of time.",
+      "tags": ["plain-prose", "zero-evidence", "product-pitch"],
+      "expected_invariants": ["composite-matches-weights", "no-mid-score-for-missing-evidence", "confidence-not-mistaken-for-quality"],
+      "expected_outcome": "Same substantive idea and same (zero) evidence base as confident-vaporware, described plainly. Composite/grade/stage should land in the same range as confident-vaporware (D/F, Stage 0-1) -- not materially lower merely for being less polished, and not materially higher for being more modest in its claims.",
+      "metadata": {
+        "fail_if": "scores this scenario meaningfully lower than confident-vaporware for plainness of writing alone, or meaningfully higher for making no inflated claims -- either would show the rating tracks presentation rather than substance."
+      }
+    },
+    {
+      "id": "real-tested-small-project",
+      "request": "/rate-me Rate this project: a command-line tool I wrote that converts CSV files to formatted Markdown tables. It's about 400 lines of Python, has 28 passing unit tests covering edge cases (empty files, embedded commas, unicode headers), is on my local machine under git version control with a clean commit history, and I use it myself weekly for reports. It has no other users and I haven't published it anywhere.",
+      "tags": ["real-artifact", "self-validated-only", "software-build"],
+      "expected_invariants": ["composite-matches-weights", "no-mid-score-for-missing-evidence", "grade-not-inflated-without-external-validation"],
+      "expected_outcome": "Moderate composite, Grade C range, Stage 4-5 (Prototype/MVP -- working end-to-end, but 'not usable by/validated by anyone but the creator'). Execution/Completion scored reasonably given real passing tests, but Problem/Value Validity and Impact stay low since there is no outside user. Grade should not reach A/S: real and working is not the same as externally validated.",
+      "metadata": {
+        "fail_if": "assigns an A or S grade on the strength of the tests/git-hygiene alone; assigns Stage 6+ (Piloted/Beta or higher) with no outside user; scores Execution/Completion as Unrated when concrete evidence (28 tests, clean history) was actually supplied."
+      }
+    },
+    {
+      "id": "externally-validated",
+      "request": "/rate-me Rate this SaaS product: a browser extension for grammar checking, launched 14 months ago. It has 2,400 paying subscribers at $8/month, a 4.6/5 average across 340 reviews on the Chrome Web Store, and has been cited as a recommended tool in three independent, unaffiliated productivity blog posts (links available on request). Churn is roughly 4% monthly, tracked in our own billing dashboard. The codebase has CI, 82% test coverage, and has shipped weekly releases for the past six months without a major incident.",
+      "tags": ["real-artifact", "externally-validated", "product"],
+      "expected_invariants": ["composite-matches-weights", "grade-not-inflated-without-external-validation", "recognizes-real-validation"],
+      "expected_outcome": "Should be able to reach A-range given genuine, specific outside validation (paying subscribers, independent reviews, third-party citations, operational stability) -- this scenario tests that the skill's default skepticism is not an unmovable ceiling. Self-reported numbers (churn from 'our own billing dashboard') may still be flagged as unverified-by-the-rater rather than independently confirmed, but should not be treated as equivalent to the fabricated claims in confident-vaporware.",
+      "metadata": {
+        "fail_if": "caps this scenario at C/D 'because most early-stage work lands there' despite the specific, named external validation supplied; treats the self-reported churn number identically to independently-sourced facts (i.e. without noting the difference); assigns Grade S without any of the reserved-for-S external validation actually being independent (Chrome Web Store reviews and named blog citations count; the self-reported dashboard number alone would not)."
+      }
+    }
+  ]
+}

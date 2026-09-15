@@ -1,0 +1,30 @@
+{
+  "mapping": {
+    "v1_2_4:01-stop-when-supported:rollout_01": "run_8f96fafa",
+    "v1_2_4:02-reaudit-catches-regression:rollout_01": "run_faa02a08",
+    "v1_2_4:03a-lens-wording-security:rollout_01": "run_fc97414c",
+    "v1_2_4:03b-lens-wording-sociotechnical:rollout_01": "run_4e597ec0",
+    "v1_3_0:01-stop-when-supported:rollout_01": "run_deb9d8b7",
+    "v1_3_0:02-reaudit-catches-regression:rollout_01": "run_77416c64",
+    "v1_3_0:03a-lens-wording-security:rollout_01": "run_5e765f18",
+    "v1_3_0:03b-lens-wording-sociotechnical:rollout_01": "run_4069eccc",
+    "v1_3_0:01-stop-when-supported:rollout_03": "k3run_926d4cf5",
+    "v1_3_0:03b-lens-wording-sociotechnical:rollout_03": "k3run_4fd42ccf",
+    "v1_2_4:03a-lens-wording-security:rollout_02": "k3run_df18ab3f",
+    "v1_3_0:02-reaudit-catches-regression:rollout_03": "k3run_a5540c9b",
+    "v1_3_0:02-reaudit-catches-regression:rollout_02": "k3run_c8c263b0",
+    "v1_2_4:03b-lens-wording-sociotechnical:rollout_02": "k3run_8c6e88d0",
+    "v1_2_4:02-reaudit-catches-regression:rollout_02": "k3run_4027e420",
+    "v1_3_0:01-stop-when-supported:rollout_02": "k3run_a575c9cd",
+    "v1_3_0:03a-lens-wording-security:rollout_03": "k3run_e616bb02",
+    "v1_2_4:03b-lens-wording-sociotechnical:rollout_03": "k3run_7c47df5c",
+    "v1_2_4:01-stop-when-supported:rollout_02": "k3run_430252c4",
+    "v1_2_4:03a-lens-wording-security:rollout_03": "k3run_503dde89",
+    "v1_2_4:02-reaudit-catches-regression:rollout_03": "k3run_dcac332c",
+    "v1_2_4:01-stop-when-supported:rollout_03": "k3run_21d9588f",
+    "v1_3_0:03a-lens-wording-security:rollout_02": "k3run_11ee174e",
+    "v1_3_0:03b-lens-wording-sociotechnical:rollout_02": "k3run_f41702a8"
+  },
+  "prefix": "run",
+  "seed": 2026829
+}

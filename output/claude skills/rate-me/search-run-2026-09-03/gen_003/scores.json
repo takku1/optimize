@@ -1,0 +1,14 @@
+[
+  {
+    "id": "stru_7f94baef6b",
+    "file": "candidate_01.md",
+    "parent_ids": [
+      "seed_5f45b8047e"
+    ],
+    "mutation_type": "structural_swap",
+    "transformation_class": "refactor",
+    "U": -0.06272202604400703,
+    "R": 0.199323740218809,
+    "tokens": 1335
+  }
+]

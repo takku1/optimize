@@ -1,6 +1,6 @@
 # BCSO-Bench card
 
-Last verified: 2026-08-29.
+Last verified: 2026-09-03.
 
 ## Purpose
 
@@ -90,6 +90,15 @@ Improve scenario resolution using graded or more discriminating invariants,
 demonstrate skill-attributable margin against no-skill and damaged-skill
 controls, independently calibrate the evaluator, and only then fund repeated
 rollouts or a broader multi-model study.
+
+## External benchmark reference
+
+`benchmarks/mas-promptbench-v1.json` registers a pinned, MIT-licensed
+MAS-PromptBench checkout at revision
+`1aade2745afd3e8a02d157c00fa9b0c88155aa8b`. It contributes task identity and
+split discipline, not results. The selected math, HotpotQA, and SWE cells are
+the first planned cross-family ablation targets. The upstream benchmark and
+its original datasets retain their own execution and license requirements.
 
 ## Version history
 

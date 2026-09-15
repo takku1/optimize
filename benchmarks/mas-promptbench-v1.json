@@ -1,0 +1,32 @@
+{
+  "id": "mas-promptbench-v1",
+  "source": {
+    "name": "MAS-PromptBench",
+    "url": "https://github.com/juyangbai/MAS-PromptBench",
+    "revision": "1aade2745afd3e8a02d157c00fa9b0c88155aa8b",
+    "license": "MIT",
+    "retrieved_at": "2026-09-03",
+    "paper": "https://arxiv.org/abs/2606.23664"
+  },
+  "purpose": "External reference for paired prompt-optimization and topology ablations",
+  "status": "REFERENCE_ONLY",
+  "evidence_tier": "EXTERNAL_REPRODUCIBLE_INPUT",
+  "known_limits": [
+    "Dataset content is loaded by upstream runners and is not vendored here",
+    "Original datasets retain their own licenses and contamination policies",
+    "No benchmark result is evidence until a complete run is independently reproduced",
+    "The upstream benchmark includes multi-agent conditions beyond this package's skill contract boundary"
+  ],
+  "registered_cells": [
+    {"dataset": "math", "task_family": "competition mathematics", "scorer": "upstream Hendrycks is_equiv", "evaluation_n": 100, "upstream_manifest": "benchmarks/math/math_eval_ids.json"},
+    {"dataset": "hotpotqa", "task_family": "multi-hop question answering", "scorer": "upstream exact match and token F1", "evaluation_n": 100, "upstream_manifest": "benchmarks/hotpotqa/hotpotqa_eval_ids.json"},
+    {"dataset": "swe", "task_family": "repository issue resolution", "scorer": "upstream FAIL_TO_PASS and PASS_TO_PASS", "evaluation_n": 30, "upstream_manifest": "benchmarks/swe/swe_eval_ids.json", "execution_risk": "requires sandboxed repository test execution"}
+  ],
+  "required_comparisons": ["no_skill", "original_prompt", "simple_rewrite", "focused_search", "full_bcso"],
+  "split_policy": {
+    "development": "newly authored or exposed scenarios only",
+    "calibration": "blinded external raters and frozen judge protocol",
+    "selection": "upstream train/validation IDs excluding registered evaluation IDs",
+    "test": "registered evaluation IDs evaluated once after search freeze"
+  }
+}

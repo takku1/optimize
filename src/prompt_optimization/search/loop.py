@@ -229,7 +229,13 @@ def run_bcso(
 
     while state != SearchState.FROZEN and generation < config.max_generations:
         generation += 1
-        parents = [by_id[row["id"]] for row in archive]
+        # Keep the archive broad for selection, but only expand a small
+        # frontier. This preserves useful Pareto diversity without turning
+        # every archived candidate into another evaluator/model call.
+        parent_rows = archive
+        if config.max_parents is not None:
+            parent_rows = sorted(archive, key=lambda row: row["U"], reverse=True)[:config.max_parents]
+        parents = [by_id[row["id"]] for row in parent_rows]
         children: list[Candidate] = []
         child_parent: dict[str, Candidate] = {}
         for parent in parents:

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "id": "rate-me-v1",
+  "outcome": "Produce a calibrated, evidence-cited 0-100 composite score, letter grade, and 0-9 maturity stage for the stated target, using the fixed 8-dimension rubric and the matching domain module(s) -- never inflated by confident presentation and never defaulted to a mid-score where evidence is missing.",
+  "activation": [
+    "User asks to rate, grade, score, or evaluate a project, pitch, codebase, research proposal, design, or personal skill-building goal",
+    "User invokes /rate-me"
+  ],
+  "exclusions": [
+    "Do not fabricate market data, user counts, test-coverage percentages, or competitor names",
+    "Do not treat a confident or detailed pitch as evidence of quality on its own"
+  ],
+  "inputs_and_preconditions": [
+    "A target is identified: current directory, pasted text, a file path, or two-plus targets for compare mode"
+  ],
+  "hard_invariants": [
+    {"id": "composite-matches-weights", "description": "The stated 0-100 composite is arithmetically consistent with the stated per-dimension scores and the fixed rubric weights (10/15/10/15/20/15/10/5%).", "min_pass_rate": 1.0},
+    {"id": "no-mid-score-for-missing-evidence", "description": "A dimension with no real evidence either way is marked Unrated -- insufficient evidence, not silently defaulted to a mid-range score.", "min_pass_rate": 1.0},
+    {"id": "grade-not-inflated-without-external-validation", "description": "An A/S letter grade is not assigned unless the rationale cites actual outside validation (real users, real data, independent third-party review) -- not confident self-presentation or internal conviction alone.", "min_pass_rate": 1.0},
+    {"id": "confidence-not-mistaken-for-quality", "description": "A fluently written, detailed, jargon-correct pitch with no verifiable evidence behind its claims is not scored materially higher than an equally unevidenced but plainly written pitch making the same underlying claims.", "min_pass_rate": 1.0},
+    {"id": "recognizes-real-validation", "description": "When the target supplies concrete, specific outside validation (named user counts, independent reviews, third-party citations), the rating is not artificially suppressed to a low grade regardless of the skepticism default.", "min_pass_rate": 1.0}
+  ],
+  "decision_points": [
+    "Classify target class(es) before selecting domain modules",
+    "Choose quick vs full vs deep vs compare output mode"
+  ],
+  "state": [],
+  "side_effects": [
+    "Read repo/file contents actually named or supplied",
+    "Do not fetch outside context in default mode; WebSearch only in deep mode"
+  ],
+  "outputs": [
+    "Composite score /100",
+    "Letter grade",
+    "Maturity stage 0-9",
+    "Per-dimension table with evidence-based rationale",
+    "Domain module results",
+    "Top strengths/gaps",
+    "Next actions",
+    "Not-assessed caveat"
+  ],
+  "validation": [
+    "Composite arithmetic checked against stated per-dimension scores and fixed weights",
+    "Grade anchor matches the calibration rules in the rubric",
+    "Unrated is used where evidence is absent, not a guessed mid-score"
+  ],
+  "failure_recovery": [
+    "If asked to compare against a prior scorecard, diff directly instead of re-deriving from scratch"
+  ],
+  "quality_heuristics": [
+    "Terse, evidence-cited rationale per dimension",
+    "Skepticism by default",
+    "Most real early-stage work lands C/D"
+  ],
+  "examples_and_calibration": [
+    "A shallow but confidently-written pitch should score low on Evidence & Validation and Differentiation despite fluent prose",
+    "A real, tested, but externally-unvalidated small project should land C-range, not A",
+    "A target with genuine, specific outside validation should be able to reach A/S -- skepticism is a default, not a ceiling"
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "run_8f96fafa": {
+    "task_success": 0.3,
+    "correctness": 0.85,
+    "invariant_adherence": 0.3,
+    "calibration": 0.2,
+    "invariants": {
+      "calibrated-effort": false,
+      "grounded-evidence": true
+    },
+    "rationale": "Reads only the three given files and cites concrete line evidence with no invented findings (grounded-evidence holds), but is structured as a full four-section deliverable far exceeding the expected ~15-20 line compact recommendation, and its Tradeoffs section opens a fault-containment/blast-radius analysis and raises SSRF/trust-boundary considerations the rubric names as not governing this scoped question."
+  },
+  "run_deb9d8b7": {
+    "task_success": 0.45,
+    "correctness": 0.9,
+    "invariant_adherence": 0.4,
+    "calibration": 0.2,
+    "invariants": {
+      "calibrated-effort": false,
+      "grounded-evidence": true
+    },
+    "rationale": "Citations are concrete and specific (grounded-evidence holds), but the response produces five full sections (Recommendation, Evidence, Ownership, Tradeoffs, Next step) plus a code block and a four-step next-step list, roughly double-to-triple the expected length; Ownership/Tradeoffs/Migration read as unprompted design-doc scaffolding for a small parameter-threading change."
+  },
+  "run_faa02a08": {
+    "task_success": 1.0,
+    "correctness": 0.95,
+    "invariant_adherence": 1.0,
+    "calibration": 0.85,
+    "invariants": {
+      "reaudit-reclassifies": true,
+      "grounded-evidence": true
+    },
+    "rationale": "Re-verifies the original finding as Resolved against cited code, then surfaces two new High findings (atomicity loss between commit and refund; worker.py's un-deduped retry) grounded directly in the given files rather than rubber-stamping the diff. Calibration slightly dinged for added sections beyond a strict verdict, though substantive."
+  },
+  "run_77416c64": {
+    "task_success": 1.0,
+    "correctness": 0.95,
+    "invariant_adherence": 1.0,
+    "calibration": 0.9,
+    "invariants": {
+      "reaudit-reclassifies": true,
+      "grounded-evidence": true
+    },
+    "rationale": "Re-verifies and resolves the original lock finding with explicit line evidence, then separately surfaces a new High finding (duplicate refund on retry) under an explicit resolved/new classification, satisfying both invariants. Minor ding: frames the new issue as a 'regression' which slightly overstates it (new finding enabled by the fix, not a regression of the original)."
+  },
+  "run_fc97414c": {
+    "task_success": 1.0,
+    "correctness": 0.95,
+    "invariant_adherence": 1.0,
+    "calibration": 0.85,
+    "invariants": {
+      "lens-grounded-in-force": true
+    },
+    "rationale": "Explicitly organized around security-by-construction as the primary lens: grant-path authorization, mediation via acting_as/on_behalf_of claims (confused-deputy risk), least privilege via scoped tokens, expiry, audit trail. Adds fault-containment as an explicit challenge lens, strengthening rather than diluting the framing."
+  },
+  "run_5e765f18": {
+    "task_success": 1.0,
+    "correctness": 0.95,
+    "invariant_adherence": 1.0,
+    "calibration": 0.9,
+    "invariants": {
+      "lens-grounded-in-force": true
+    },
+    "rationale": "Names security-by-construction up front and sustains trust/authority/mediation framing throughout (dedicated permission gate, step-up auth, separate signed token with distinct acting/target claims, hard-blocked sensitive mutations, external audit sink). Explicitly rejects the naive 'swap user_id' shortcut on confused-deputy grounds."
+  },
+  "run_4e597ec0": {
+    "task_success": 0.95,
+    "correctness": 0.9,
+    "invariant_adherence": 1.0,
+    "calibration": 0.9,
+    "invariants": {
+      "lens-grounded-in-force": true
+    },
+    "rationale": "Explicitly reframes the problem as a boundary/ownership mismatch, names Conway's Law directly, and states the fix is moving the boundary to match team ownership rather than adding process. Effort proportionate to the question; closes with a concrete pilot plan."
+  },
+  "run_4069eccc": {
+    "task_success": 1.0,
+    "correctness": 0.9,
+    "invariant_adherence": 1.0,
+    "calibration": 0.9,
+    "invariants": {
+      "lens-grounded-in-force": true
+    },
+    "rationale": "Splits content ownership vs. delivery/engine ownership, states Platform's authoritative responsibility should be the rendering contract and engine, not content -- matching the module-boundary-vs-team-boundary framing. Addresses both named forces (review latency and deploy coupling), evaluates and explicitly rejects a narrower CODEOWNERS-only alternative as a partial fix."
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "mas-promptbench-v1-reference",
+  "paths": {
+    "registry": "../mas-promptbench-v1.json",
+    "upstream_checkout": "../../external/MAS-PromptBench"
+  },
+  "stages": {},
+  "metadata": {
+    "benchmark_id": "mas-promptbench-v1",
+    "status": "REFERENCE_ONLY",
+    "execution": "requires an explicitly configured upstream model endpoint and dataset environment",
+    "cells": ["math", "hotpotqa", "swe"],
+    "comparisons": ["no_skill", "original_prompt", "simple_rewrite", "focused_search", "full_bcso"]
+  }
+}

@@ -23,7 +23,11 @@ Implemented foundations include:
 - a persistent content-addressed evolution graph;
 - taxonomy coverage, maturity, provenance, promotion, and document-claim
   verification;
-- a programmatic blinded empirical-run orchestrator.
+- a programmatic blinded empirical-run orchestrator;
+- bounded focused search defaults and a pinned external benchmark registry;
+- calibration agreement analysis, sequential paired ablations, and a guarded
+  external benchmark launcher. Current outputs are rehearsal-only until an
+  independent panel and configured model endpoint are available.
 
 The default synthetic scoring pipeline remains a proposal and control-flow
 harness. It is not evidence of real-model improvement.

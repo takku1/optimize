@@ -17,6 +17,7 @@ from .iterative import IterativeConfig, IterativeResult, internal_propose, optim
 from .transforms import Transformation, describe_transformation
 from .semantic import LexicalVariant, lexical_variants, operationalize
 from .hierarchical import HierarchicalConfig, HierarchicalResult, MUTATION_LEVELS, search_hierarchically
+from .ablation import DEFAULT_ABLATIONS, run_ablation
 
 __all__ = [
     "ALL_MUTATIONS",
@@ -55,4 +56,6 @@ __all__ = [
     "HierarchicalResult",
     "MUTATION_LEVELS",
     "search_hierarchically",
+    "DEFAULT_ABLATIONS",
+    "run_ablation",
 ]

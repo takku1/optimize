@@ -41,7 +41,7 @@ Run candidate search while preserving its lineage:
 
 ```bash
 prompt-opt search SKILL.md \
-  --baseline full_bcso \
+  --baseline focused \
   --run-dir runs/example \
   --graph-dir evolution-graph
 ```

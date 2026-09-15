@@ -1,0 +1,31 @@
+{
+  "baseline": "full_bcso",
+  "state": "released",
+  "generations": 25,
+  "checkpoints": 14,
+  "hv_history": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "selected_id": "stru_e708e63858",
+  "selected_lineage": [
+    "stru_a2ba642502"
+  ],
+  "selected_tokens": 1335,
+  "selected_utility": -0.0626253304096632,
+  "g_final": -0.0626253304096632,
+  "archive_size": 2,
+  "synthetic": true
+}

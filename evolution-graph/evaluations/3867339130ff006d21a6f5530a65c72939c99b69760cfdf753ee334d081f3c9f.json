@@ -1,0 +1,19 @@
+{
+  "benchmark_version": "",
+  "capability_contract_hash": "",
+  "created_at": "2026-09-03T14:42:10.846277+00:00",
+  "evaluation_id": "3867339130ff006d21a6f5530a65c72939c99b69760cfdf753ee334d081f3c9f",
+  "evaluator_name": "synthetic",
+  "metric_results": {
+    "R": 0.19932329865097612,
+    "U": -0.06278575322314223,
+    "tokens": 1335
+  },
+  "model_name": "unknown",
+  "provenance": {},
+  "raw_output_hash": "",
+  "rollout_id": "rollout_01",
+  "scenario_id": "search:full_bcso",
+  "skill_hash": "2ecd46ebecf7ec534a091e400fa2033d273fecfe6def01877d251da9eb1b710a",
+  "trainability": "DEVELOPMENT_ONLY"
+}

@@ -1,0 +1,30 @@
+## Recommendation
+
+Don't fix this by adding review capacity or relaxing rigor — fix it by relocating the boundary. Right now the *technical* boundary (one service, one deploy pipeline, one review queue) doesn't match the *actual* ownership split. Platform has a real, non-negotiable stake in the delivery mechanics — queuing, rate limits, provider integration, compliance footers, injection safety. Platform has no real stake in what a specific feature's template says or how it's laid out — that's domain knowledge the feature teams have and Platform doesn't. Every small template change is being routed through a human gate that exists to protect invariants the change doesn't actually touch. That mismatch is what's generating the back-and-forth, not a lack of reviewers.
+
+The fix: split "delivery" from "content" as separately owned responsibilities, each with its own authority and its own release path.
+
+- **Platform keeps**: the delivery contract (schema, allowed template directives/placeholders, compliance-required elements, rate limiting, provider adapters, the rendering engine itself and its safety properties), expressed as a versioned, testable contract rather than as a human reading every diff.
+- **Feature teams get**: ownership of their own template content within that contract, on their own release cadence, gated by automated contract tests instead of a Platform PR review.
+
+Concretely: move each team's templates into a path/package they own (CODEOWNERS = that team), validate every change in CI against the contract (schema validation, required-field checks, a sandboxed/non-Turing-complete template language so content can't do anything unsafe, golden-render snapshot tests), and decouple template publishing from the notifications service's own deploy — templates become versioned config/data the service loads, not code that requires rebuilding and redeploying the service binary. Platform's manual review is replaced by an automated gate on the properties Platform actually cares about; Platform stops being in the loop for changes that don't touch those properties.
+
+## Evidence
+
+Given facts: two teams, recurring *small* changes, each currently forced through PR review + a Platform-owned deploy, and Platform naming the review queue as the bottleneck. That combination — high change frequency, low change complexity, concentrated on one team's queue — is the signature of a misplaced ownership boundary, not insufficient headcount. Adding reviewers scales linearly with team count and change frequency; fixing the boundary scales with neither.
+
+No repo access was available for this request, so this reasoning is based on the stated forces (team boundaries, change frequency, coupling of content changes to Platform's deploy) rather than the actual template mechanism. The recommendation below is contract-shaped specifically so it holds regardless of whether templates today are Handlebars-style strings, JSX, or something else — but the concrete migration steps assume templates are currently *data/markup*, not arbitrary code. That assumption should be checked before committing to the plan (see Next step).
+
+## Tradeoffs
+
+Sacrificed: centralized consistency. Platform loses fine-grained control over the visual/textual result of every notification — a team could ship a template that's on-brand-broken or confusing, and Platform won't catch it in review. Mitigate with automated checks (schema, snapshot diffs, size/complexity limits) rather than restoring human review, or the bottleneck returns.
+
+New failure mode: a malformed or unsafe template reaches production without a human ever reading it. Mitigate with a CI gate that's a hard blocker (not advisory), staged/canary rollout of template changes, and a safe-fallback render path so a bad template degrades gracefully instead of breaking delivery.
+
+New coupling risk: if the "content is pure data" assumption is wrong — if teams actually need conditional logic, external calls, or other real behavior in templates — a sandboxed template language won't be expressive enough, and teams will pressure Platform to either loosen the sandbox (reopening the safety problem the boundary was meant to solve) or grant a real plugin/extension point with code review of a different kind. That's a signal the boundary needs revisiting, not a reason to abandon it preemptively.
+
+## Next step
+
+Before building the contract system: pull a sample of the last ~15-20 template PRs from both teams and classify each as (a) pure content/copy change, (b) layout/variable change within existing structure, or (c) a change that needed new logic, new data fields, or touched a compliance-relevant element (unsubscribe link, legal footer, etc.). If the overwhelming majority are (a)/(b), the contract-and-delegate approach above is well-supported and low-risk. If a large share are (c), that's evidence the current boundary is closer to correct than it looks, and the actual fix is narrower: give Platform a faster/lighter review lane for the (a)/(b) cases (e.g., a scoped CODEOWNERS fast-path with 1-click approval) while keeping full review for (c), rather than a full ownership handoff.
+
+**OPEN DESIGN DECISION**: how templates are exchanged between teams and the service — options include (1) each team's templates live in their own repo/package, published and versioned independently, consumed by the service at load time; (2) templates stay in the notifications service repo but in team-owned, CODEOWNERS-scoped paths with a separate, lighter-weight deploy/publish path than the service's own release; (3) templates move to a config/data store (e.g., a template registry service) teams write to directly, with the notifications service as a pure consumer. The right choice depends on deploy tooling already in use, how the service currently loads templates (compiled-in vs. runtime-fetched), and latency/availability requirements for template updates — none of which were available for this request. Resolve by inspecting how templates are loaded today before choosing a mechanism.

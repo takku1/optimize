@@ -94,8 +94,10 @@ separable activation pattern.
 
 ## Hybrid search
 
-Use a population to preserve multiple semantic families and bounded local tree
-search to explore edits around promising candidates:
+Use a small population to preserve a few semantic families and bounded local
+tree search to explore edits around promising candidates. The beam is a
+frontier, not a request to launch one agent per branch; candidate generation
+and scoring stay in-process and are capped by an evaluation budget:
 
 ```text
 population archive

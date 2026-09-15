@@ -29,6 +29,15 @@ data and protocols, not to the main documentation filenames.
 
 ## Research background
 
+- [`calibration-protocol.md`](calibration-protocol.md) — preregistered rater
+  agreement and validity gates.
+
+- [`cohesive-workflow.md`](cohesive-workflow.md) — unified contract-to-promotion
+  workflow and external benchmark boundary.
+- [`calibration-protocol.md`](calibration-protocol.md) — preregistered rater
+  agreement and validity gates.
+- [`external-run.md`](external-run.md) — pinned external benchmark execution.
+
 - [`research-landscape.md`](research-landscape.md)
 - [`architectural-reasoning-weakness-fix.md`](architectural-reasoning-weakness-fix.md) — outcome-grounded repair of the compactness proxy failure
 - [`evolution-graph-research.md`](evolution-graph-research.md)

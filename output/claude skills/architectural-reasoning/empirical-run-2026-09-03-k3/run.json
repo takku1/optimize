@@ -1,0 +1,86 @@
+{
+  "id": "empirical-run-2026-09-03-k3",
+  "metadata": {
+    "purpose": "K=3 rollout rerun of the 2026-08-29 architectural-reasoning v1.2.4 vs v1.3.0 pilot -- the pilot's own #1 next-step recommendation ('K>1 rollouts on the same 4 scenarios to get a first real within-version variance estimate'). rollout_01 for every unit is copied verbatim from empirical-run-2026-08-29 (same transcripts, same blind ids, same judge scores) -- only rollout_02 and rollout_03 are new work for this run.",
+    "predecessor": "output/claude skills/architectural-reasoning/empirical-run-2026-08-29/",
+    "commitment": "No skill file is modified during or between execution and judging. rollout_01 data is reused verbatim, not re-generated or re-judged. Aggregate results are not inspected until rollout_02 and rollout_03 are complete for all 8 units."
+  },
+  "paths": {
+    "transcripts_dir": "Z:/prompt-optimization/output/claude skills/architectural-reasoning/empirical-run-2026-09-03-k3/transcripts",
+    "deterministic_checks": "Z:/prompt-optimization/output/claude skills/architectural-reasoning/empirical-run-2026-09-03-k3/deterministic_checks.json",
+    "blind_map": "Z:/prompt-optimization/output/claude skills/architectural-reasoning/empirical-run-2026-09-03-k3/judging/blind_map.json",
+    "raw_scores": "Z:/prompt-optimization/output/claude skills/architectural-reasoning/empirical-run-2026-09-03-k3/judging/raw_scores.json",
+    "contract": "Z:/prompt-optimization/tests/fixtures/contracts/architectural-reasoning-v1.json",
+    "final_results": "Z:/prompt-optimization/output/claude skills/architectural-reasoning/empirical-run-2026-09-03-k3/final_results.json",
+    "graph_dir": "Z:/prompt-optimization/evolution-graph",
+    "baseline_skill": "Z:/archetect/skills/architectural-reasoning/archive/v1.2.4/SKILL.md",
+    "candidate_skill": "Z:/archetect/skills/architectural-reasoning/SKILL.md"
+  },
+  "stages": {
+    "checks": {
+      "versions": ["v1_2_4", "v1_3_0"],
+      "scenarios": [
+        "01-stop-when-supported",
+        "02-reaudit-catches-regression",
+        "03a-lens-wording-security",
+        "03b-lens-wording-sociotechnical"
+      ],
+      "rollouts": ["rollout_01", "rollout_02", "rollout_03"],
+      "transcript_pattern": "{version}/{scenario}/{rollout}.md",
+      "units": {
+        "01-stop-when-supported": [
+          {"field": "word_count", "op": "word_count"},
+          {"field": "mentions_escalation_phrase", "op": "mentions_any", "phrases": ["focused design", "full architecture"]},
+          {"field": "calibrated_effort_deterministic", "op": "derived", "expr": "word_count <= 300 and not mentions_escalation_phrase"}
+        ],
+        "02-reaudit-catches-regression": [
+          {"field": "word_count", "op": "word_count"},
+          {"field": "status_label_count", "op": "count_labels", "words": ["resolved", "regressed", "still open", "new"]},
+          {"field": "reaudit_reclassifies_deterministic_proxy", "op": "derived", "expr": "status_label_count >= 2"}
+        ],
+        "03a-lens-wording-security": [
+          {"field": "word_count", "op": "word_count"}
+        ],
+        "03b-lens-wording-sociotechnical": [
+          {"field": "word_count", "op": "word_count"}
+        ]
+      }
+    },
+    "assemble": {
+      "baseline": {"version": "v1_2_4", "id": "architectural-reasoning-v1_2_4", "skill_tokens": 1651},
+      "candidate": {"version": "v1_3_0", "id": "architectural-reasoning-v1_3_0", "skill_tokens": 844},
+      "scenarios": [
+        "01-stop-when-supported",
+        "02-reaudit-catches-regression",
+        "03a-lens-wording-security",
+        "03b-lens-wording-sociotechnical"
+      ],
+      "all_invariant_ids": [
+        "grounded-evidence", "calibrated-effort", "reaudit-reclassifies",
+        "lens-grounded-in-force", "no-gratuitous-rewrite"
+      ],
+      "tested_invariants": {
+        "01-stop-when-supported": ["calibrated-effort", "grounded-evidence"],
+        "02-reaudit-catches-regression": ["reaudit-reclassifies", "grounded-evidence"],
+        "03a-lens-wording-security": ["lens-grounded-in-force"],
+        "03b-lens-wording-sociotechnical": ["lens-grounded-in-force"]
+      },
+      "deterministic_overrides": {
+        "calibrated-effort": "calibrated_effort_deterministic",
+        "reaudit-reclassifies": "reaudit_reclassifies_deterministic_proxy"
+      },
+      "capability_family": "reasoning",
+      "compare": {"noninferiority_margin": 0.05, "seed": 2026829, "bootstrap_resamples": 2000}
+    },
+    "seed": {
+      "baseline": "baseline", "candidate": "candidate",
+      "versions": {
+        "baseline": {"skill": "baseline_skill", "tokens": 1651, "generator": "human", "generation": 0},
+        "candidate": {"skill": "candidate_skill", "tokens": 844, "generator": "human", "generation": 1}
+      },
+      "mutation": {"family": "human_reauthoring", "description": "v1.2.4 -> v1.3.0 skill reauthoring, K=3 rerun", "report": "output/claude skills/architectural-reasoning/empirical-run-2026-09-03-k3/REPORT.md"},
+      "evaluator_name": "blinded-judge-plus-deterministic-checks",
+      "model_name": "general-purpose-agent"
+    }
+  }
+}

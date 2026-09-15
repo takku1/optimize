@@ -22,6 +22,7 @@ dist/
 # Local tool state/caches (machine-local, regenerable, not project evidence)
 .claude-flow/
 .deepeval/
+external/
 
 # Editors and operating systems
 .idea/

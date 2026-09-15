@@ -23,12 +23,15 @@ class BaselineConfig:
     directed_mutation: bool = True
     allowed_mutations: tuple[str, ...] = ALL_MUTATIONS
     max_generations: int = 1
+    max_parents: int | None = None
 
     def __post_init__(self) -> None:
         if not self.name.strip():
             raise ValueError("name must not be empty")
         if self.max_generations < 0:
             raise ValueError("max_generations must be non-negative")
+        if self.max_parents is not None and self.max_parents < 1:
+            raise ValueError("max_parents must be positive or None")
         if self.use_mutation and not self.allowed_mutations:
             raise ValueError("allowed_mutations must not be empty when use_mutation is True")
 
@@ -38,6 +41,10 @@ BASELINES: dict[str, BaselineConfig] = {
     "original": BaselineConfig("original", use_mutation=False, use_pareto_filter=False, max_generations=0),
     "simple_rewrite": BaselineConfig(
         "simple_rewrite", use_mutation=True, use_pareto_filter=False, directed_mutation=False, max_generations=1,
+    ),
+    "focused": BaselineConfig(
+        "focused", use_mutation=True, use_pareto_filter=True, directed_mutation=True,
+        max_generations=6, max_parents=2,
     ),
     "compression_only": BaselineConfig(
         "compression_only", use_mutation=True, use_pareto_filter=True, directed_mutation=False,

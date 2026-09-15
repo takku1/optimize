@@ -15,7 +15,8 @@ ScoreFn = Callable[[str], Score]
 @dataclass(frozen=True)
 class HierarchicalConfig:
     max_depth: int = len(MUTATION_LEVELS)
-    beam_width: int = 3
+    beam_width: int = 2
+    max_evaluations: int = 24
     expansion_threshold: float = 0.05
     robustness_weight: float = 0.0
     density_weight: float = 0.0
@@ -26,6 +27,8 @@ class HierarchicalConfig:
             raise ValueError("max_depth must be within the mutation level range")
         if self.beam_width < 1 or self.expansion_threshold < 0:
             raise ValueError("beam_width must be positive and threshold non-negative")
+        if self.max_evaluations < 1:
+            raise ValueError("max_evaluations must be positive")
         if min(self.robustness_weight, self.density_weight, self.cost_weight) < 0:
             raise ValueError("objective weights must be non-negative")
 
@@ -74,16 +77,24 @@ def search_hierarchically(
     frontier: list[tuple[str, dict[str, Any]]] = [(current_text, current_score)]
     radius = 1
     explored: list[dict[str, Any]] = []
+    score_cache: dict[str, dict[str, Any]] = {seed_text: current_score}
+    evaluations = 1
     for depth in range(cfg.max_depth):
         level = MUTATION_LEVELS[depth]
         candidates: list[tuple[str, dict[str, Any], float]] = []
         for parent_text, parent_score in frontier:
           for branch in range(cfg.beam_width):
+            if evaluations >= cfg.max_evaluations:
+                break
             mutated = mutate(parent_text, level, branch)
             candidate_text = reconcile(mutated, level, depth)
             if not candidate_text.strip():
                 raise ValueError(f"empty candidate at level {level}")
-            candidate_score = dict(score(candidate_text))
+            candidate_score = score_cache.get(candidate_text)
+            if candidate_score is None:
+                candidate_score = dict(score(candidate_text))
+                score_cache[candidate_text] = candidate_score
+                evaluations += 1
             accepted = _better(candidate_score, parent_score, objective_config)
             impact = abs(_utility(candidate_score) - _utility(parent_score))
             explored.append({"depth": depth, "level": level, "branch": branch,
@@ -91,6 +102,10 @@ def search_hierarchically(
                              "score": candidate_score})
             if accepted:
                 candidates.append((candidate_text, candidate_score, impact))
+          if evaluations >= cfg.max_evaluations:
+              break
+        if evaluations >= cfg.max_evaluations and not candidates:
+            break
         if candidates:
             candidates.sort(key=lambda item: _objective(item[1], cfg), reverse=True)
             frontier = [(text, candidate_score) for text, candidate_score, _ in candidates[:cfg.beam_width]]

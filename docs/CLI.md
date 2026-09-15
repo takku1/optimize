@@ -23,7 +23,7 @@ equivalent. Run `prompt-opt COMMAND --help` for every option.
 prompt-opt scan --json src
 prompt-opt plan docs --gate distortion=0.25
 prompt-opt attribute README.md --unit paragraph
-prompt-opt search SKILL.md --baseline full_bcso --run-dir runs/example
+prompt-opt search SKILL.md --baseline focused --run-dir runs/example
 prompt-opt compare --contract contract.json --results results.json --json
 prompt-opt promote --baseline old.md --candidate new.md --contract contract.json --results results.json
 prompt-opt graph evolution-graph stats
@@ -62,6 +62,16 @@ Callback contracts:
 - score: `score(text) -> mapping` containing at least `utility` and `tokens`
 - executor: `execute(skill_text, scenario, rollout) -> str`
 
+Calibration and local paired-search rehearsal are also available as scripts:
+
+```bash
+python scripts/analyze_calibration.py data/calibration/ratings.jsonl --json-out report.json
+python scripts/run_paired_ablation.py SKILL.md --baseline no_skill --baseline focused
+```
+
+These scripts label synthetic or non-independent inputs as rehearsal evidence;
+they do not promote a candidate.
+
 ## Evaluator backends
 
 `scan`, `plan`, `attribute`, `search`, and `promote` share three backends:
@@ -73,3 +83,8 @@ Callback contracts:
 
 The package intentionally ships without a vendor-specific network adapter.
 External model or human judgments enter through the rubric/callable seams.
+
+`search` defaults to the bounded `focused` strategy: six generations, a
+two-candidate parent frontier, and a 12-member archive. This is intended for
+normal prompt/skill iteration. `full_bcso` remains available when an exhaustive
+benchmark search is specifically wanted.

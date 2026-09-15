@@ -198,10 +198,12 @@ content-addressed unit ID; retries never duplicate accepted evidence.
 
 ## Search policy
 
-Use a diverse bounded population rather than one rewrite chain. Each generation
-should include both conservative edits and at least one complete-rewrite slot
-when the generator supports it. Candidate acceptance is based on the program's
-evaluation bundle, not the generator's explanation.
+Use a diverse bounded population rather than one rewrite chain. In normal use,
+expand only a small parent frontier and retain a larger archive for diversity;
+this keeps evaluator/model calls bounded without collapsing the search to one
+chain. Each generation should include both conservative edits and at least one
+complete-rewrite slot when the generator supports it. Candidate acceptance is
+based on the program's evaluation bundle, not the generator's explanation.
 
 Default stop conditions are:
 

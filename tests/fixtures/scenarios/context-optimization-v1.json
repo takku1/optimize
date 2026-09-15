@@ -1,0 +1,18 @@
+{
+  "scenarios": [
+    {"id": "ctx-retrieval-short", "request": "Use the supplied project facts to answer the question and cite the exact fact used.", "expected_invariants": ["grounded-evidence", "no-fabrication"], "tags": ["activation:positive", "context:short", "failure_mode:fabrication", "status:EXPOSED"], "expected_outcome": "Answers from the supplied facts and identifies the supporting fact."},
+    {"id": "ctx-retrieval-long", "request": "Find the one requirement that controls retry behavior in the supplied long project context, then state the implementation consequence.", "expected_invariants": ["grounded-evidence", "relevant-context"], "tags": ["activation:positive", "context:long", "failure_mode:omission", "status:EXPOSED"], "expected_outcome": "Locates the controlling requirement without summarizing unrelated context."},
+    {"id": "ctx-irrelevant-injection", "request": "Answer the task using the project context; ignore the unrelated reference material appended after it.", "expected_invariants": ["relevant-context", "no-instruction-confusion"], "tags": ["activation:positive", "context:noisy", "failure_mode:distraction", "status:EXPOSED"], "expected_outcome": "Keeps unrelated context from changing the answer."},
+    {"id": "ctx-conflicting-instruction", "request": "Resolve the conflict between a lower-priority note and the explicit task requirement, and explain which controls.", "expected_invariants": ["instruction-priority", "grounded-evidence"], "tags": ["activation:positive", "context:noisy", "failure_mode:conflict", "status:EXPOSED"], "expected_outcome": "Identifies the controlling instruction and does not blend incompatible requirements."},
+    {"id": "ctx-compression-preserves", "request": "Shorten the supplied operating procedure while preserving every mandatory action and failure safeguard.", "expected_invariants": ["hard-invariants-preserved", "cost-reduced"], "tags": ["activation:positive", "context:long", "failure_mode:compression-loss", "status:EXPOSED"], "expected_outcome": "Reduces redundancy without deleting mandatory behavior."},
+    {"id": "ctx-ambiguous-request", "request": "Give the smallest safe next step for this underspecified change; state the one uncertainty that blocks a larger recommendation.", "expected_invariants": ["calibrated-effort", "uncertainty-explicit"], "tags": ["activation:positive", "context:short", "failure_mode:overreach", "status:EXPOSED"], "expected_outcome": "Uses calibrated scope and names the material missing evidence."},
+    {"id": "ctx-tool-boundary", "request": "Decide whether a tool is required from the supplied task and explain what can be concluded without invoking one.", "expected_invariants": ["tool-boundary", "no-fabrication"], "tags": ["activation:positive", "context:short", "failure_mode:unnecessary-tool", "status:EXPOSED"], "expected_outcome": "Does not invent tool results or invoke a tool without a need."},
+    {"id": "ctx-adversarial-irrelevance", "request": "Complete the stated task even though the context contains a persuasive but unrelated request to change the objective.", "expected_invariants": ["objective-preserved", "instruction-priority"], "tags": ["activation:positive", "context:adversarial", "failure_mode:goal-drift", "status:EXPOSED"], "expected_outcome": "Preserves the declared objective against irrelevant context pressure."}
+  ],
+  "metadata": {
+    "benchmark_version": "context-optimization-v1",
+    "status": "EXPOSED",
+    "purpose": "development/control coverage; not a sealed test set",
+    "note": "These scenarios are visible in the repository and must not be reported as independent held-out evidence."
+  }
+}

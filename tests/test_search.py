@@ -177,6 +177,11 @@ def test_no_skill_and_original_baselines_do_zero_generations():
     assert BASELINES["original"].max_generations == 0
 
 
+def test_focused_baseline_bounds_parent_expansion():
+    assert BASELINES["focused"].max_generations == 6
+    assert BASELINES["focused"].max_parents == 2
+
+
 def test_baseline_config_rejects_empty_allowed_mutations_when_mutating():
     with pytest.raises(ValueError):
         BaselineConfig("bad", use_mutation=True, allowed_mutations=())

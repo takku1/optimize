@@ -1,0 +1,26 @@
+[
+  {
+    "id": "stru_d97950a567",
+    "file": "candidate_01.md",
+    "parent_ids": [
+      "stru_d06e1b19e1"
+    ],
+    "mutation_type": "structural_swap",
+    "transformation_class": "refactor",
+    "U": -0.0626647836723519,
+    "R": 0.19932414258264108,
+    "tokens": 1335
+  },
+  {
+    "id": "stru_fdd8386e2d",
+    "file": "candidate_02.md",
+    "parent_ids": [
+      "stru_b9517c5490"
+    ],
+    "mutation_type": "structural_swap",
+    "transformation_class": "refactor",
+    "U": -0.06266276545174597,
+    "R": 0.19932415018340088,
+    "tokens": 1335
+  }
+]

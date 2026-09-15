@@ -17,3 +17,19 @@ def test_hierarchical_search_reconciles_and_records_levels():
     assert "better" in result.selected_text
     assert result.explored[0]["level"] == "token"
     assert result.selected_score["hard_invariants_passed"] is True
+
+
+def test_hierarchical_search_respects_evaluation_budget():
+    calls = []
+
+    def score(text):
+        calls.append(text)
+        return {"utility": 0.0, "tokens": len(text.split()), "hard_invariants_passed": True}
+
+    result = search_hierarchically(
+        "seed", score, lambda text, level, branch: f"{text} {level} {branch}",
+        lambda text, level, depth: text,
+        config=HierarchicalConfig(max_depth=6, beam_width=3, max_evaluations=5),
+    )
+    assert len(calls) <= 5
+    assert result.selected_text

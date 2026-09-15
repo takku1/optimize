@@ -1,0 +1,14 @@
+[
+  {
+    "id": "stru_a2ba642502",
+    "file": "candidate_01.md",
+    "parent_ids": [
+      "stru_80cbf4008f"
+    ],
+    "mutation_type": "structural_swap",
+    "transformation_class": "refactor",
+    "U": -0.06262648730338147,
+    "R": 0.19932441463588044,
+    "tokens": 1335
+  }
+]
