@@ -1,7 +1,7 @@
 """Second-order interaction and deletion effects between prompt components."""
 from __future__ import annotations
 
-from collections.abc import Callable, Hashable
+from collections.abc import Callable
 from typing import Any
 
 

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
+from functools import lru_cache
 from typing import TYPE_CHECKING
 
 import numpy as np
@@ -60,6 +61,7 @@ def _stable_hash(s: str) -> int:
     return h
 
 
+@lru_cache(maxsize=8192)
 def _token_embedding(token: str, d_model: int) -> np.ndarray:
     """Dense content fingerprint for a token.
 
@@ -74,7 +76,9 @@ def _token_embedding(token: str, d_model: int) -> np.ndarray:
         h = _stable_hash(f"{d}:{token}")
         vec[d] = 1.0 if (h & 1) else -1.0
     norm = np.linalg.norm(vec)
-    return vec / norm if norm > 0 else vec
+    vec = vec / norm if norm > 0 else vec
+    vec.setflags(write=False)
+    return vec
 
 
 def default_sequence(text: str, d_model: int = 16, seed: int = 0) -> TokenSequence:

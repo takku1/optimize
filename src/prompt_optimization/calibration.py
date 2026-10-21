@@ -7,7 +7,6 @@ uses Fleiss' kappa for a fully crossed panel.
 """
 from __future__ import annotations
 
-from collections import Counter
 from typing import Any, Mapping, Sequence
 
 import numpy as np
